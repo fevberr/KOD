@@ -1,17 +1,16 @@
 import shutil
 
-def get_banner_width():
+def w1():
     try:
-        terminal_width = shutil.get_terminal_size().columns
-        return min(terminal_width, 80)
+        return min(shutil.get_terminal_size().columns, 80)
     except:
         return 80
 
-def show_banner():
-    width = get_banner_width()
+def b1():
+    w = w1()
     
-    if width >= 80:
-        banner = r"""
+    if w >= 80:
+        b2 = r"""
      ⢀⣤⡀⣀⣀⡀⠀⠀⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
     ⣾⣿⣿⣿⣿⣷⣿⣷⣷⣶⣿⣿⣷⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
     ⠈⠻⢿⠉⠉⠉⠙⠛⢻⣽⣿⣿⣿⣿⣶⡦⣀⣤⢀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -23,8 +22,8 @@ def show_banner():
     ⠀⠀⠀⠀⠀⠀⠀⠀⠛⠛⠛⣿⣿⣭⣷⣶⠤
     ────────────────────────────────────
 """
-    elif width >= 60:
-        banner = r"""
+    elif w >= 60:
+        b2 = r"""
      ⢀⣤⡀⣀⣀⡀⠀⠀⠀⠀⡀⠀⠀⠀⠀
     ⣾⣿⣿⣿⣿⣷⣿⣷⣷⣶⣿⣿⣷⣄⠀⠀
     ⠈⠻⢿⠉⠉⠉⠙⠛⢻⣽⣿⣿⣿⣿⣶⡦
@@ -33,7 +32,7 @@ def show_banner():
     ────────────────────────
 """
     else:
-        banner = r"""
+        b2 = r"""
      ⢀⣤⡀⣀⣀⡀
     ⣾⣿⣿⣿⣿⣷⣿⣷⣷⣶
     ⠈⠻⢿⠉⠉⠉⠙⠛⢻⣽
@@ -41,8 +40,8 @@ def show_banner():
     ────────────────
 """
     
-    print(banner)
+    print(b2)
     
-    if width < 40:
+    if w < 40:
         print("23 KOD")
         print("────────────────")
