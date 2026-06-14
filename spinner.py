@@ -8,7 +8,7 @@ class spinner:
         self._stop = False
         self._chars = ['/', '-', '\\', '|']
         
-    def s1(self):
+    def _spin(self):
         i = 0
         while not self._stop:
             sys.stdout.write(f"\r{self.message} {self._chars[i % len(self._chars)]}")
@@ -18,7 +18,7 @@ class spinner:
         sys.stdout.write("\r" + " " * (len(self.message) + 2) + "\r")
         
     def __enter__(self):
-        self._thread = threading.Thread(target=self.s1)
+        self._thread = threading.Thread(target=self._spin)
         self._thread.start()
         return self
         
