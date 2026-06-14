@@ -1,5 +1,4 @@
 import shutil
-import os
 
 def get_banner_width():
     try:
