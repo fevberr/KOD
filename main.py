@@ -1,17 +1,17 @@
-from menu import menu
-from display.banner import show_banner
-from display.panels import draw_panel
-from config import host, port, device, system, ping
+from menu import m1
+from display.banner import b1
+from display.panels import p1
+from config import h1, p2, d1, s1, p3
 import os
 
-def run():
+def r1():
     os.system('cls' if os.name == 'nt' else 'clear')
-    show_banner()
+    b1()
     
-    info = f"host:      {host}\nPort:        {port}\nPing:     {ping}\ndevice:   {device}\nsystem:    {system}"
-    draw_panel("23 KOD", info, "READY")
+    i1 = f"host:      {h1}\nPort:        {p2}\nPing:     {p3}\ndevice:   {d1}\nsystem:    {s1}"
+    p1("23 KOD", i1, "READY")
     
-    menu()
+    m1()
 
 if __name__ == "__main__":
-    run()
+    r1()
