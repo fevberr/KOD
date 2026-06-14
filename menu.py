@@ -12,27 +12,24 @@ def get_modules():
                 modules.append(file)
     return modules
 
-def show_menu():
-    modules = get_modules()
-    print("\n* menu\n|")
-    for i, mod in enumerate(modules, 1):
-        print(f"| > {i}  | {mod}")
-    print("|\n|- 0  Exit")
-    print("------------------------")
-    return modules
-
-def clear_and_redraw():
-    os.system('cls' if os.name == 'nt' else 'clear')
-    from display.banner import show_banner
-    from display.panels import draw_panel
-    from config import host, port, device, system, ping
-    show_banner()
-    info = f"host:      {host}\nPort:        {port}\nPing:     {ping}\ndevice:   {device}\nsystem:    {system}"
-    draw_panel("23 KOD", info, "READY")
-
 def menu():
     while True:
-        modules = show_menu()
+        os.system('cls' if os.name == 'nt' else 'clear')
+        
+        from display.banner import show_banner
+        from display.panels import draw_panel
+        from config import host, port, device, system, ping
+        show_banner()
+        info = f"host:      {host}\nPort:        {port}\nPing:     {ping}\ndevice:   {device}\nsystem:    {system}"
+        draw_panel("23 KOD", info, "READY")
+        
+        modules = get_modules()
+        print("\n* menu\n|")
+        for i, mod in enumerate(modules, 1):
+            print(f"| > {i}  | {mod}")
+        print("|\n|- 0  Exit")
+        print("------------------------")
+        
         choice = input("Select option > ").strip()
         
         if choice == "0":
@@ -42,7 +39,6 @@ def menu():
         if not choice.isdigit():
             print("Invalid option")
             input("\nPress Enter to continue...")
-            clear_and_redraw()
             continue
         
         idx = int(choice) - 1
@@ -53,8 +49,6 @@ def menu():
                 load_module(f"modules/{module_name}")
             print(f"\nModule {module_name} finished.")
             input("Press Enter to continue...")
-            clear_and_redraw()
         else:
             print("Invalid option")
             input("\nPress Enter to continue...")
-            clear_and_redraw()
