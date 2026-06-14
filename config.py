@@ -3,64 +3,64 @@ import socket
 import subprocess
 import os
 
-def get_system():
+def s1():
     return f"{platform.system()} {platform.release()}"
 
-def get_device():
+def d1():
     try:
         if platform.system() == "Linux":
             if os.path.exists("/system/build.prop"):
-                result = subprocess.run(["getprop", "ro.product.model"], capture_output=True, text=True)
-                if result.stdout.strip():
-                    return result.stdout.strip()
-            result = subprocess.run(["hostname"], capture_output=True, text=True)
-            return result.stdout.strip()
+                r1 = subprocess.run(["getprop", "ro.product.model"], capture_output=True, text=True)
+                if r1.stdout.strip():
+                    return r1.stdout.strip()
+            r1 = subprocess.run(["hostname"], capture_output=True, text=True)
+            return r1.stdout.strip()
         elif platform.system() == "Windows":
             return platform.node()
         elif platform.system() == "Darwin":
-            result = subprocess.run(["scutil", "--get", "ComputerName"], capture_output=True, text=True)
-            return result.stdout.strip() if result.stdout else platform.node()
+            r1 = subprocess.run(["scutil", "--get", "ComputerName"], capture_output=True, text=True)
+            return r1.stdout.strip() if r1.stdout else platform.node()
     except:
         pass
     return platform.node()
 
-def get_host():
+def h1():
     try:
-        hostname = socket.gethostname()
-        local_ip = socket.gethostbyname(hostname)
-        return f"http://{local_ip}:{get_port()}/"
+        h2 = socket.gethostname()
+        l1 = socket.gethostbyname(h2)
+        return f"http://{l1}:{p2()}/"
     except:
         return "http://localhost:8080/"
 
-def get_port():
+def p2():
     return 8080
 
-def get_ping():
+def p3():
     try:
         if platform.system() == "Windows":
-            result = subprocess.run(["ping", "-n", "1", "8.8.8.8"], capture_output=True, text=True)
+            r1 = subprocess.run(["ping", "-n", "1", "8.8.8.8"], capture_output=True, text=True)
         else:
-            result = subprocess.run(["ping", "-c", "1", "8.8.8.8"], capture_output=True, text=True)
+            r1 = subprocess.run(["ping", "-c", "1", "8.8.8.8"], capture_output=True, text=True)
         
-        for line in result.stdout.split('\n'):
-            if "time=" in line:
-                time_str = line.split('time=')[1].split()[0].replace('ms', '')
-                return int(float(time_str))
+        for l2 in r1.stdout.split('\n'):
+            if "time=" in l2:
+                t1 = l2.split('time=')[1].split()[0].replace('ms', '')
+                return int(float(t1))
     except:
         pass
     return 108
 
-host = get_host()
-port = get_port()
-device = get_device()
-system = get_system()
-ping = get_ping()
+h1 = h1()
+p2 = p2()
+d1 = d1()
+s1 = s1()
+p3 = p3()
 
-def get_config():
+def c1():
     return {
-        "host": host,
-        "port": port,
-        "device": device,
-        "system": system,
-        "ping": ping
+        "host": h1,
+        "port": p2,
+        "device": d1,
+        "system": s1,
+        "ping": p3
     }
