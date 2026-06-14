@@ -3,10 +3,10 @@ import socket
 import subprocess
 import os
 
-def c1():
+def get_system():
     return f"{platform.system()} {platform.release()}"
 
-def c2():
+def get_device():
     try:
         if platform.system() == "Linux":
             if os.path.exists("/system/build.prop"):
@@ -24,18 +24,18 @@ def c2():
         pass
     return platform.node()
 
-def c3():
+def get_host():
     try:
         hostname = socket.gethostname()
         local_ip = socket.gethostbyname(hostname)
-        return f"http://{local_ip}:{c4()}/"
+        return f"http://{local_ip}:{get_port()}/"
     except:
         return "http://localhost:8080/"
 
-def c4():
+def get_port():
     return 8080
 
-def c5():
+def get_ping():
     try:
         if platform.system() == "Windows":
             result = subprocess.run(["ping", "-n", "1", "8.8.8.8"], capture_output=True, text=True)
@@ -50,13 +50,13 @@ def c5():
         pass
     return 108
 
-host = c3()
-port = c4()
-device = c2()
-system = c1()
-ping = c5()
+host = get_host()
+port = get_port()
+device = get_device()
+system = get_system()
+ping = get_ping()
 
-def c6():
+def get_config():
     return {
         "host": host,
         "port": port,
