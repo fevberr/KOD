@@ -3,6 +3,12 @@ import socket
 import subprocess
 import os
 
+TABS = {
+    "tools": ["Port Scanner Module.py"],
+    "example": ["a.py", "b.py", "c.py"],
+    "coming": [],
+}
+
 def s1():
     return f"{platform.system()} {platform.release()}"
 
@@ -50,17 +56,31 @@ def p3():
         pass
     return 108
 
-h1 = h1()
-p2 = p2()
-d1 = d1()
-s1 = s1()
-p3 = p3()
+def g1():
+    return TABS
+
+def g2(t1):
+    return TABS.get(t1, [])
+
+def a1(t1, m1):
+    TABS[t1] = m1
+
+def r1(t1):
+    if t1 in TABS:
+        del TABS[t1]
+
+host = h1()
+port = p2()
+device = d1()
+system = s1()
+ping = p3()
 
 def c1():
     return {
-        "host": h1,
-        "port": p2,
-        "device": d1,
-        "system": s1,
-        "ping": p3
+        "host": host,
+        "port": port,
+        "device": device,
+        "system": system,
+        "ping": ping,
+        "tabs": TABS
     }
