@@ -123,14 +123,10 @@ def m1():
             if os.path.exists(m6):
                 f1(m5)
                 l1(m6)
-                print(f"\nModule {m5} finished.")
             else:
                 print(f"\nModule {m5} not found!")
-            try:
+                print(f"Path: {m6}")
                 input("Press Enter to continue...")
-            except KeyboardInterrupt:
-                print("\nExiting...")
-                break
         else:
             if c2:
                 print("Invalid option")
