@@ -7,10 +7,8 @@ import os
 def r1():
     os.system('clear')
     b1()
-    
     i1 = f"host:      {host}\nPort:        {port}\nPing:     {ping}\ndevice:   {device}\nsystem:    {system}"
     p1("23 KOD", i1, "READY")
-    
     m1()
 
 if __name__ == "__main__":
