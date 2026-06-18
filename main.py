@@ -5,7 +5,7 @@ from config import host, port, device, system, ping
 import os
 
 def r1():
-    os.system('clear')
+    os.system('cls' if os.name == 'nt' else 'clear')
     b1()
     i1 = f"host:      {host}\nPort:        {port}\nPing:     {ping}\ndevice:   {device}\nsystem:    {system}"
     p1("23 KOD", i1, "READY")
