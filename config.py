@@ -4,7 +4,7 @@ import subprocess
 import os
 
 TABS = {
-    "tools": ["Port Scanner Module.py"],
+    "Recon Tab": ["Port Scanner.py"],
     "example": ["a.py", "b.py", "c.py"],
     "coming": [],
 }
