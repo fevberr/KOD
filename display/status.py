@@ -1,4 +1,4 @@
-_s1 = "NOT READY"
+_s1 = "added one file lmao"
 
 def s1(s2):
     global _s1
