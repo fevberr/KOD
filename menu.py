@@ -2,46 +2,42 @@ from utils.loader import l1
 from loader import f1
 import os
 import sys
+import time
+from config import g1, g2
 
 I1 = 5
 
-def g1():
+def m2():
     m1 = []
-    if os.path.exists("modules"):
-        for f in os.listdir("modules"):
-            if f.endswith((".py", ".lua")) and f != "__init__.py":
-                m1.append(f)
+    t1 = g1()
+    for t2, m3 in t1.items():
+        for m4 in m3:
+            if m4 not in m1:
+                m1.append(m4)
     return sorted(m1)
+
+def n1():
+    t1 = g1()
+    return list(t1.keys())
+
+def o1(p4):
+    t1 = g1()
+    n2 = list(t1.keys())
+    if p4 < len(n2):
+        return t1[n2[p4]]
+    return []
 
 def s2(m1, q1):
     if not q1:
         return m1
     return [x for x in m1 if q1.lower() in x.lower()]
 
-def d2(m1, p4, t1):
-    s3 = p4 * I1
-    e1 = s3 + I1
-    p5 = m1[s3:e1]
-    
-    print("\n* menu\n|")
-    if not p5:
-        print("|   No modules found")
-    else:
-        for i, mod in enumerate(p5, 1):
-            print(f"| > {s3 + i}  | {mod}")
-    
-    print(f"|\n|- 0  Exit")
-    print(f"|- s  Search")
-    print(f"|- n  Next page | p  Previous page ({p4 + 1}/{t1})")
-    print("------------------------")
-    return p5
-
 def m1():
     p4 = 0
     q1 = ""
     
     while True:
-        os.system('cls' if os.name == 'nt' else 'clear')
+        os.system('clear')
         
         from display.banner import b1
         from display.panels import p1
@@ -50,55 +46,95 @@ def m1():
         i1 = f"host:      {h1}\nPort:        {p2}\nPing:     {p3}\ndevice:   {d1}\nsystem:    {s1}"
         p1("23 KOD", i1, "READY")
         
-        a1 = g1()
-        f2 = s2(a1, q1)
-        t1 = max(1, (len(f2) + I1 - 1) // I1)
+        n2 = n1()
+        t1 = max(1, len(n2))
         
         if p4 >= t1:
             p4 = t1 - 1
         if p4 < 0:
             p4 = 0
         
-        if q1:
-            print(f"\n[Search: {q1}] ({len(f2)} results)")
+        c2 = o1(p4)
         
-        p5 = d2(f2, p4, t1)
+        tab_display = []
+        for i, name in enumerate(n2):
+            if i == p4:
+                tab_display.append(f"[{name}]")
+            else:
+                tab_display.append(f" {name} ")
         
-        c1 = input("Select option > ").strip().lower()
+        tab_line = ' '.join(tab_display)
+        print(f"\n* menu | {tab_line}")
+        print("|")
+        if not c2:
+            print("|   (coming soon...)")
+        else:
+            for i, m5 in enumerate(c2, 1):
+                print(f"| > {i}  | {m5}")
+        
+        print(f"|\n|- 0  Exit")
+        print(f"|- s  Search")
+        print(f"|- t1, t2, t3... to switch tabs")
+        print("------------------------")
+        
+        sys.stdout.flush()
+        try:
+            c1 = input("Select option > ").strip().lower()
+        except KeyboardInterrupt:
+            print("\nExiting...")
+            break
         
         if c1 == "0":
             print("Exiting...")
             break
-        
-        if c1 == "n":
-            if p4 < t1 - 1:
-                p4 += 1
-            continue
-        
-        if c1 == "p":
-            if p4 > 0:
-                p4 -= 1
-            continue
         
         if c1 == "s":
             q1 = input("Enter search term: ").strip()
             p4 = 0
             continue
         
+        if c1.startswith('t') and len(c1) > 1:
+            try:
+                t2 = int(c1[1:])
+                if 1 <= t2 <= t1:
+                    p4 = t2 - 1
+                    print(f"\nSwitched to tab: {n2[p4]}")
+                    time.sleep(0.5)
+                    continue
+                else:
+                    print(f"Tab {t2} doesn't exist (1-{t1})")
+                    time.sleep(1)
+                    continue
+            except:
+                print("Invalid tab number")
+                time.sleep(1)
+                continue
+        
         if not c1.isdigit():
             print("Invalid option")
-            input("\nPress Enter to continue...")
+            time.sleep(1)
             continue
         
         i2 = int(c1) - 1
-        g2 = p4 * I1 + i2
+        c2 = o1(p4)
         
-        if 0 <= g2 < len(f2):
-            n1 = f2[g2]
-            f1(n1)
-            l1(f"modules/{n1}")
-            print(f"\nModule {n1} finished.")
-            input("Press Enter to continue...")
+        if c2 and 0 <= i2 < len(c2):
+            m5 = c2[i2]
+            m6 = f"modules/{m5}"
+            if os.path.exists(m6):
+                f1(m5)
+                l1(m6)
+                print(f"\nModule {m5} finished.")
+            else:
+                print(f"\nModule {m5} not found!")
+            try:
+                input("Press Enter to continue...")
+            except KeyboardInterrupt:
+                print("\nExiting...")
+                break
         else:
-            print("Invalid option")
-            input("\nPress Enter to continue...")
+            if c2:
+                print("Invalid option")
+            else:
+                print("This tab has no modules yet")
+            time.sleep(1)
