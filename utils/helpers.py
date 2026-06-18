@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 
 def c1():
-    os.system('cls' if os.name == 'nt' else 'clear')
+    os.system('clear')
 
 def r1(p1):
     try:
