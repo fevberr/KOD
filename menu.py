@@ -37,7 +37,7 @@ def m1():
     q1 = ""
     
     while True:
-        os.system('clear')
+        os.system('cls' if os.name == 'nt' else 'clear')
         
         from display.banner import b1
         from display.panels import p1
