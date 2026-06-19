@@ -14,6 +14,6 @@ def f1(n1):
         sys.stdout.flush()
         time.sleep(0.05)
     
-    print(f"\n|- Loaded - by fevber <33 {n1}")
+    print(f"\n|- Loaded - by fevber <3 {n1}")
     print("------------------------------\n")
     time.sleep(0.3)
