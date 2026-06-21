@@ -1,12 +1,154 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Page</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>23 KOD · enterprise toolkit</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon" />
 </head>
 <body>
+    <div class="container" id="a1">
+        <header class="header" id="a2">
+            <div class="header-brand">
+                <div class="logo">
+                    <i class="fas fa-terminal"></i>
+                </div>
+                <div class="divider"></div>
+                <h1>23 <span class="accent">KOD</span> <span class="badge-text">toolkit</span></h1>
+            </div>
+            <div class="header-right">
+                <div class="badge-status">
+                    <span class="dot"></span>
+                    <span class="ver" id="a3">v1.0.0</span>
+                    <span class="tag">stable</span>
+                </div>
+            </div>
+        </header>
 
-<h1>Welcome</h1>
-<p>This is a simple HTML page.</p>
+        <nav class="nav-tabs" id="a4">
+            <button class="nav-tab active" data-tab="home"><i class="fas fa-home"></i> Home</button>
+            <button class="nav-tab" data-tab="why"><i class="fas fa-star"></i> Why Choose Us</button>
+            <button class="nav-tab" data-tab="faq"><i class="fas fa-question-circle"></i> FAQ</button>
+            <button class="nav-tab" data-tab="discord">
+                <i class="fab fa-discord"></i> Discord
+                <span class="badge-dot"></span>
+            </button>
+        </nav>
 
+        <section class="tab-content active" id="b1">
+            <div class="banner" id="b2">
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    loading banner...
+                </div>
+            </div>
+
+            <div class="stats" id="b3">
+                <div class="stat">
+                    <i class="fas fa-cubes"></i>
+                    <span class="label">modules</span>
+                    <span class="num loading" id="b4">—</span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-folder-open"></i>
+                    <span class="label">tabs</span>
+                    <span class="num loading" id="b5">—</span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-desktop"></i>
+                    <span class="label">os support</span>
+                    <span class="num">4</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-list-ul"></i> tabs &amp; modules</h3>
+                    <span class="count-badge" id="b6">0 modules</span>
+                </div>
+                <div id="b7">
+                    <div class="loading" style="color:#2a3b55; display:flex; align-items:center; gap:0.6rem; font-size:0.8rem;">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        loading tabs...
+                    </div>
+                </div>
+                <div class="coming-soon">
+                    <i class="fas fa-clock"></i>
+                    + coming soon tab for future modules
+                </div>
+            </div>
+        </section>
+
+        <section class="tab-content" id="c1">
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-star"></i> why choose 23 KOD?</h3>
+                </div>
+                <div class="benefits-grid" id="c2"></div>
+            </div>
+        </section>
+
+        <section class="tab-content" id="d1">
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-question-circle"></i> frequently asked questions</h3>
+                    <span class="count-badge" id="d2">0 questions</span>
+                </div>
+                <div class="faq-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="d3" placeholder="Search questions..." />
+                </div>
+                <div id="d4"></div>
+                <div class="faq-no-results" id="d5">
+                    <i class="fas fa-search" style="color:#3a4b65; margin-right:0.5rem;"></i>
+                    No questions match your search.
+                </div>
+            </div>
+        </section>
+
+        <section class="tab-content" id="e1">
+            <div class="discord-wrapper">
+                <div class="discord-main">
+                    <div class="icon"><i class="fab fa-discord"></i></div>
+                    <h3>join the community</h3>
+                    <p>Connect with developers, get support, and stay updated on 23 KOD releases.</p>
+                    <a href="https://discord.gg/your-invite-link" target="_blank" class="btn-discord">
+                        <i class="fab fa-discord"></i> Join Discord
+                    </a>
+                    <p style="margin-top: 1.2rem; font-size: 0.7rem; color: #2a3b55;">
+                        <i class="fas fa-shield-alt"></i> verified server
+                    </p>
+                </div>
+                <div class="discord-stats" id="e2"></div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="links">
+                <a href="https://github.com/fevberr/KOD" target="_blank"><i class="fab fa-github"></i> github</a>
+                <a href="https://github.com/fevberr/KOD/issues" target="_blank"><i class="fas fa-bug"></i> issues</a>
+                <span><i class="fas fa-lock"></i> mit license</span>
+            </div>
+            <div class="made">
+                <i class="fas fa-heart"></i>
+                <span>made by <a href="https://github.com/fevberr" target="_blank">fevberr</a></span>
+            </div>
+            <a href="https://github.com/fevberr/KOD/archive/refs/heads/main.zip" class="btn" download>
+                <i class="fas fa-download"></i> download .zip
+            </a>
+        </footer>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/tabs.js"></script>
+    <script src="js/faq.js"></script>
+    <script src="js/stats.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
