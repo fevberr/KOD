@@ -73,6 +73,7 @@ def m1():
         
         print(f"|\n|- 0  Exit")
         print(f"|- s  Search")
+        print(f"|- i  Install packages")
         print(f"|- t1, t2, t3... to switch tabs")
         print("------------------------")
         
@@ -90,6 +91,11 @@ def m1():
         if c1 == "s":
             q1 = input("Enter search term: ").strip()
             p4 = 0
+            continue
+        
+        if c1 == "i":
+            from installer import a11
+            a11()
             continue
         
         if c1.startswith('t') and len(c1) > 1:
@@ -121,9 +127,9 @@ def m1():
             m5 = c2[i2]
             m6 = f"modules/{m5}"
             if os.path.exists(m6):
-                from module_ui import show_module, run_module, load_module
+                from module_ui import a1, a2, a3
                 
-                module = load_module(m6)
+                module = a3(m6)
                 module_options = {}
                 current_options = {}
                 
@@ -134,11 +140,11 @@ def m1():
                             current_options[key] = value['default']
                 
                 while True:
-                    choice = show_module(m5[:-3], module_options, current_options)
+                    choice = a1(m5[:-3], module_options, current_options)
                     
                     if choice == "1":
                         print("\n[+] Running...")
-                        result = run_module(m6, current_options if current_options else None)
+                        result = a2(m6, current_options if current_options else None)
                         print(result)
                         input("\nPress Enter...")
                         
