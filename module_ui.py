@@ -1,33 +1,29 @@
 from config import host, port, device, system, ping
-from display.banner import b1
-from display.panels import p1
 import os
-import time
+import sys
 import importlib.util
 
-def a3(module_path):
+def a1(module_path):
     spec = importlib.util.spec_from_file_location("module", module_path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
 
-def a1(module_name, options=None, current_options=None):
+def a2(module_name, options=None, current_options=None):
     os.system('cls' if os.name == 'nt' else 'clear')
-    b1()
-    i1 = f"host:      {host}\nPort:        {port}\nPing:     {ping}ms\ndevice:   {device}\nsystem:    {system}"
-    p1(f"23 KOD :: [{module_name}]", i1, "READY")
+    print(f"+--- 23 KOD :: [{module_name}]")
+    print(f"| host:      {host}")
+    print(f"| Port:        {port}")
+    print(f"| Ping:     {ping}")
+    print(f"| device:   {device}")
+    print(f"| system:    {system}")
+    print("|- Status: READY")
+    print("------------------------------")
     
     if current_options:
-        print("\n[+] Current Options:")
+        print("\n[+] Current:")
         for key, value in current_options.items():
             print(f"    {key}   = {value}")
-    
-    if options:
-        print("\n[+] Available Options:")
-        for key, value in options.items():
-            default = value.get('default', '')
-            desc = value.get('description', '')
-            print(f"    {key}   = {default}  ({desc})")
     
     print("\n[+] Menu:")
     print("    (1) Run")
@@ -38,9 +34,9 @@ def a1(module_name, options=None, current_options=None):
     print("\n------------------------------")
     return input("Select > ").strip()
 
-def a2(module_path, options=None):
+def a3(module_path, options=None):
     try:
-        module = a3(module_path)
+        module = a1(module_path)
         if hasattr(module, 'run'):
             if options:
                 return module.run(options)
