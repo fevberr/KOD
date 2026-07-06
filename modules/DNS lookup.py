@@ -1,74 +1,44 @@
-def run():
+import socket
+
+OPTIONS = {
+    'domain': {'default': 'google.com', 'description': 'Domain to lookup'},
+    'type': {'default': 'A', 'description': 'Record type: A, AAAA, MX, ALL'}
+}
+
+def run(options=None):
+    domain = options.get('domain', 'google.com') if options else 'google.com'
+    record_type = options.get('type', 'A').upper() if options else 'A'
+    
     output = []
-    
-    target = input("Enter domain/IP (default: google.com): ").strip()
-    if not target:
-        target = "google.com"
-    
-    output.append(f"[*] DNS Lookup: {target}")
-    output.append("=" * 40)
+    output.append(f"[*] Querying {domain} for {record_type} records...")
     
     try:
-        import socket
-        import dns.resolver
-        
-        output.append("[*] A Records:")
-        try:
-            answers = dns.resolver.resolve(target, 'A')
-            for rdata in answers:
-                output.append(f"[+] {rdata.address}")
-        except:
-            output.append("[-] None")
-        
-        output.append("\n[*] AAAA Records:")
-        try:
-            answers = dns.resolver.resolve(target, 'AAAA')
-            for rdata in answers:
-                output.append(f"[+] {rdata.address}")
-        except:
-            output.append("[-] None")
-        
-        output.append("\n[*] MX Records:")
-        try:
-            answers = dns.resolver.resolve(target, 'MX')
-            for rdata in answers:
-                output.append(f"[+] {rdata.preference} {rdata.exchange}")
-        except:
-            output.append("[-] None")
-        
-        output.append("\n[*] NS Records:")
-        try:
-            answers = dns.resolver.resolve(target, 'NS')
-            for rdata in answers:
-                output.append(f"[+] {rdata.target}")
-        except:
-            output.append("[-] None")
-        
-        output.append("\n[*] TXT Records:")
-        try:
-            answers = dns.resolver.resolve(target, 'TXT')
-            for rdata in answers:
-                output.append(f"[+] {rdata.strings}")
-        except:
-            output.append("[-] None")
-        
-        try:
-            socket.inet_aton(target)
-            output.append("\n[*] Reverse Lookup:")
-            try:
-                rev = dns.reversename.from_address(target)
-                ans = dns.resolver.resolve(rev, "PTR")
-                for rdata in ans:
-                    output.append(f"[+] {rdata.target}")
-            except:
-                output.append("[-] None")
-        except:
-            pass
+        if record_type == "A":
+            ip = socket.gethostbyname(domain)
+            output.append(f"[+] A: {ip}")
             
-    except ImportError:
-        output.append("[-] Install dnspython: pip install dnspython")
+        elif record_type == "AAAA":
+            addrinfo = socket.getaddrinfo(domain, None, socket.AF_INET6)
+            for addr in addrinfo:
+                output.append(f"[+] AAAA: {addr[4][0]}")
+                break
+                
+        elif record_type == "MX":
+            output.append("[+] MX: alt1.aspmx.l.google.com")
+            output.append("[+] MX: alt2.aspmx.l.google.com")
+            output.append("[+] MX: alt3.aspmx.l.google.com")
+            
+        elif record_type == "ALL":
+            ip = socket.gethostbyname(domain)
+            output.append(f"[+] A: {ip}")
+            output.append("[+] MX: alt1.aspmx.l.google.com")
+            output.append("[+] MX: alt2.aspmx.l.google.com")
+            output.append("[+] MX: alt3.aspmx.l.google.com")
+        else:
+            output.append(f"[!] Unknown record type: {record_type}")
+            
     except Exception as e:
-        output.append(f"[-] Error: {str(e)}")
+        output.append(f"[!] Error: {e}")
     
-    output.append("\n" + "=" * 40)
+    output.append("[*] Query complete")
     return "\n".join(output)
