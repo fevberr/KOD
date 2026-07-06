@@ -121,15 +121,28 @@ def m1():
             m5 = c2[i2]
             m6 = f"modules/{m5}"
             if os.path.exists(m6):
-                f1(m5)
-                l1(m6)
+                from module_ui import show_module, run_module
+                while True:
+                    choice = show_module(m5[:-3])
+                    if choice == "1":
+                        print("\n[+] Running...")
+                        result = run_module(m6)
+                        print(result)
+                        input("\nPress Enter...")
+                    elif choice == "2":
+                        break
+                    elif choice == "0":
+                        print("Exiting...")
+                        exit(0)
+                    else:
+                        print("Invalid")
+                        time.sleep(1)
             else:
                 print(f"\nModule {m5} not found!")
-                print(f"Path: {m6}")
-                input("Press Enter to continue...")
+                input("Press Enter...")
         else:
             if c2:
                 print("Invalid option")
             else:
-                print("This tab has no modules yet")
+                print("No modules")
             time.sleep(1)
