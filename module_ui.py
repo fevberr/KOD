@@ -5,13 +5,13 @@ import os
 import time
 import importlib.util
 
-def load_module(module_path):
+def a3(module_path):
     spec = importlib.util.spec_from_file_location("module", module_path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
 
-def show_module(module_name, options=None, current_options=None):
+def a1(module_name, options=None, current_options=None):
     os.system('cls' if os.name == 'nt' else 'clear')
     b1()
     i1 = f"host:      {host}\nPort:        {port}\nPing:     {ping}ms\ndevice:   {device}\nsystem:    {system}"
@@ -38,9 +38,9 @@ def show_module(module_name, options=None, current_options=None):
     print("\n------------------------------")
     return input("Select > ").strip()
 
-def run_module(module_path, options=None):
+def a2(module_path, options=None):
     try:
-        module = load_module(module_path)
+        module = a3(module_path)
         if hasattr(module, 'run'):
             if options:
                 return module.run(options)
