@@ -121,16 +121,45 @@ def m1():
             m5 = c2[i2]
             m6 = f"modules/{m5}"
             if os.path.exists(m6):
-                from module_ui import show_module, run_module
+                from module_ui import show_module, run_module, load_module
+                
+                module = load_module(m6)
+                module_options = {}
+                current_options = {}
+                
+                if hasattr(module, 'OPTIONS'):
+                    module_options = module.OPTIONS
+                    for key, value in module_options.items():
+                        if 'default' in value:
+                            current_options[key] = value['default']
+                
                 while True:
-                    choice = show_module(m5[:-3])
+                    choice = show_module(m5[:-3], module_options, current_options)
+                    
                     if choice == "1":
                         print("\n[+] Running...")
-                        result = run_module(m6)
+                        result = run_module(m6, current_options if current_options else None)
                         print(result)
                         input("\nPress Enter...")
-                    elif choice == "2":
+                        
+                    elif choice == "2" and module_options:
+                        print("\n[+] Available Options:")
+                        for key, value in module_options.items():
+                            print(f"    {key}   = {current_options.get(key, value.get('default', ''))}")
+                        
+                        opt_name = input("\nOption name: ").strip()
+                        if opt_name in module_options:
+                            opt_value = input(f"Option value: ").strip()
+                            current_options[opt_name] = opt_value
+                            print(f"[+] {opt_name} set to {opt_value}")
+                            time.sleep(1)
+                        else:
+                            print(f"[!] Invalid option: {opt_name}")
+                            time.sleep(1)
+                            
+                    elif choice == "3":
                         break
+                        
                     elif choice == "0":
                         print("Exiting...")
                         exit(0)
