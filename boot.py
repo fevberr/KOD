@@ -1,6 +1,4 @@
-import os
-import sys
-import time
+import os                                             import sys                                            import time
 import json
 import urllib.request
 import urllib.error
@@ -27,7 +25,7 @@ def b2():
 def b3():
     print("|  Fetching files from GitHub...")
     time.sleep(0.2)
-    
+
     try:
         url = "https://api.github.com/repos/fevberr/KOD/contents"
         req = urllib.request.Request(url)
@@ -43,7 +41,7 @@ def b3():
             return b3_zip()
     except Exception as e:
         print(f"|  API error: {str(e)[:40]}")
-    
+
     return b3_zip()
 
 def b3_zip():
@@ -53,18 +51,18 @@ def b3_zip():
         req = urllib.request.Request(zip_url)
         req.add_header('User-Agent', 'Mozilla/5.0')
         r = urllib.request.urlopen(req, timeout=30)
-        
+
         temp_zip = tempfile.mktemp(suffix='.zip')
         with open(temp_zip, 'wb') as f:
             f.write(r.read())
-        
+
         print("|  Extracting ZIP...")
         extract_dir = tempfile.mkdtemp()
         with zipfile.ZipFile(temp_zip, 'r') as zip_ref:
             zip_ref.extractall(extract_dir)
-        
+
         os.remove(temp_zip)
-        
+
         items = os.listdir(extract_dir)
         repo_dir = None
         for item in items:
@@ -72,12 +70,12 @@ def b3_zip():
             if os.path.isdir(full_path) and ('KOD' in item or 'main' in item):
                 repo_dir = full_path
                 break
-        
+
         if not repo_dir:
             repo_dir = extract_dir
-        
+
         print(f"|  Found repo at: {repo_dir}")
-        
+
         files = []
         for root, dirs, filenames in os.walk(repo_dir):
             for filename in filenames:
@@ -97,9 +95,9 @@ def b3_zip():
                     })
                 except:
                     pass
-        
+
         print(f"|  Found {len(files)} files in ZIP")
-        
+
         print("|  Copying files...")
         for file in files:
             src = os.path.join(repo_dir, file['path'])
@@ -110,11 +108,11 @@ def b3_zip():
                 print(f"|  [COPY] {dst}")
             except Exception as e:
                 print(f"|  [FAIL] {dst}: {str(e)[:30]}")
-        
+
         shutil.rmtree(extract_dir)
         print(f"|  Downloaded {len(files)} files via ZIP")
         return files
-        
+
     except Exception as e:
         print(f"|  ZIP error: {str(e)[:50]}")
         return None
@@ -124,20 +122,20 @@ def b4():
     if not files:
         print("|  No files from GitHub, using local")
         return
-    
+
     github_files = {}
     total = up_to_date = changed = new_files = deleted = 0
     changed_list, new_list, deleted_list = [], [], []
-    
+
     print("|")
     print("|  Scanning files...")
     print("|")
-    
+
     def sync_file(path, sha, download_url):
         nonlocal total, up_to_date, changed, new_files
         total += 1
         github_files[path] = sha
-        
+
         if os.path.exists(path):
             try:
                 with open(path, 'rb') as f:
@@ -157,7 +155,7 @@ def b4():
             new_files += 1
             new_list.append(path)
             print(f"|  [NEW] {path}")
-    
+
     for item in files:
         if item.get('type') == 'file':
             sync_file(item.get('path'), item.get('sha'), item.get('download_url'))
@@ -175,11 +173,11 @@ def b4():
                         sync_file(s.get('path'), s.get('sha'), s.get('download_url'))
             except:
                 pass
-    
+
     print("|")
     print("|  Checking for deleted files...")
     print("|")
-    
+
     for root, dirs, files_local in os.walk("."):
         for f in files_local:
             if ".git" in root or "__pycache__" in root or f == "boot.py":
@@ -194,7 +192,7 @@ def b4():
                     print(f"|  [REMOVED] {path}")
                 except:
                     print(f"|  [FAILED] {path}")
-    
+
     for root, dirs, files_local in os.walk(".", topdown=False):
         for d in dirs:
             dir_path = os.path.join(root, d)
@@ -206,7 +204,7 @@ def b4():
                     print(f"|  [REMOVED DIR] {dir_path}")
             except:
                 pass
-    
+
     print("|")
     print("|  " + "-" * 40)
     print(f"|  Total files: {total}")
@@ -236,7 +234,7 @@ def b4():
         if len(deleted_list) > 10:
             print(f"|    ... and {len(deleted_list)-10} more")
     print("|  " + "-" * 40)
-    
+
     if changed == 0 and new_files == 0 and deleted == 0:
         print("|  Everything is up to date!")
 
@@ -256,9 +254,9 @@ def b5():
     print("|- Join our Discord for updates?")
     print("|  [OK] [NO]")
     print("|")
-    
+
     choice = input("|- Select > ").strip().lower()
-    
+
     if choice == "ok":
         print("|")
         print("|- Thanks :D")
@@ -270,7 +268,7 @@ def b5():
     else:
         print("|")
         print("|- Invalid choice")
-    
+
     print("|")
     print("|- 23 KOD Framework loaded")
     print("------------------------------")
@@ -282,4 +280,3 @@ def b12():
     b5()
 
 if __name__ == "__main__":
-    b12()
