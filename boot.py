@@ -1,4 +1,6 @@
-import os                                             import sys                                            import time
+import os
+import sys
+import time
 import json
 import urllib.request
 import urllib.error
@@ -15,7 +17,7 @@ def banner():
 ------------------------------""")
 
 def b1():
-    os.system('clear')
+    os.system('clear' if os.name == 'posix' else 'cls')
     banner()
 
 def b2():
@@ -39,6 +41,10 @@ def b3():
         if e.code == 403:
             print("|  API rate limited, downloading ZIP...")
             return b3_zip()
+        else:
+            print(f"|  HTTP Error {e.code}: {str(e.reason)}")
+    except urllib.error.URLError as e:
+        print(f"|  URL Error: {str(e.reason)}")
     except Exception as e:
         print(f"|  API error: {str(e)[:40]}")
 
@@ -46,6 +52,9 @@ def b3():
 
 def b3_zip():
     print("|  Downloading repository as ZIP...")
+    temp_zip = None
+    extract_dir = None
+    
     try:
         zip_url = "https://github.com/fevberr/KOD/archive/refs/heads/main.zip"
         req = urllib.request.Request(zip_url)
@@ -61,7 +70,9 @@ def b3_zip():
         with zipfile.ZipFile(temp_zip, 'r') as zip_ref:
             zip_ref.extractall(extract_dir)
 
-        os.remove(temp_zip)
+        if temp_zip and os.path.exists(temp_zip):
+            os.remove(temp_zip)
+            temp_zip = None
 
         items = os.listdir(extract_dir)
         repo_dir = None
@@ -78,11 +89,18 @@ def b3_zip():
 
         files = []
         for root, dirs, filenames in os.walk(repo_dir):
+            dirs[:] = [d for d in dirs if not d.startswith('.') and d != '__pycache__']
+            
             for filename in filenames:
+                if filename.startswith('.'):
+                    continue
+                    
                 full_path = os.path.join(root, filename)
                 rel_path = os.path.relpath(full_path, repo_dir)
+                
                 if rel_path == '.' or rel_path.startswith('.'):
                     continue
+                    
                 try:
                     with open(full_path, 'rb') as f:
                         sha = hashlib.sha1(f.read()).hexdigest()
@@ -93,8 +111,9 @@ def b3_zip():
                         'sha': sha,
                         'download_url': None
                     })
-                except:
-                    pass
+                except Exception as e:
+                    print(f"|  [WARN] Could not read {filename}: {str(e)[:30]}")
+                    continue
 
         print(f"|  Found {len(files)} files in ZIP")
 
@@ -103,19 +122,36 @@ def b3_zip():
             src = os.path.join(repo_dir, file['path'])
             dst = file['path']
             try:
-                os.makedirs(os.path.dirname(dst), exist_ok=True)
+                dst_dir = os.path.dirname(dst)
+                if dst_dir:
+                    os.makedirs(dst_dir, exist_ok=True)
                 shutil.copy2(src, dst)
                 print(f"|  [COPY] {dst}")
             except Exception as e:
                 print(f"|  [FAIL] {dst}: {str(e)[:30]}")
 
-        shutil.rmtree(extract_dir)
         print(f"|  Downloaded {len(files)} files via ZIP")
         return files
 
+    except urllib.error.URLError as e:
+        print(f"|  ZIP download error: {str(e.reason)}")
+    except zipfile.BadZipFile as e:
+        print(f"|  Bad ZIP file: {str(e)}")
     except Exception as e:
         print(f"|  ZIP error: {str(e)[:50]}")
-        return None
+    finally:
+        if temp_zip and os.path.exists(temp_zip):
+            try:
+                os.remove(temp_zip)
+            except:
+                pass
+        if extract_dir and os.path.exists(extract_dir):
+            try:
+                shutil.rmtree(extract_dir)
+            except:
+                pass
+
+    return None
 
 def b4():
     files = b3()
@@ -147,10 +183,10 @@ def b4():
                     changed += 1
                     changed_list.append(path)
                     print(f"|  [CHANGED] {path}")
-            except:
+            except Exception as e:
                 changed += 1
                 changed_list.append(path)
-                print(f"|  [ERROR] {path}")
+                print(f"|  [ERROR] {path}: {str(e)[:20]}")
         else:
             new_files += 1
             new_list.append(path)
@@ -171,18 +207,24 @@ def b4():
                 for s in sub:
                     if s.get('type') == 'file':
                         sync_file(s.get('path'), s.get('sha'), s.get('download_url'))
-            except:
-                pass
+            except Exception as e:
+                print(f"|  [WARN] Could not process folder {folder}: {str(e)[:30]}")
 
     print("|")
     print("|  Checking for deleted files...")
     print("|")
 
     for root, dirs, files_local in os.walk("."):
+        if ".git" in root or "__pycache__" in root:
+            continue
+            
         for f in files_local:
-            if ".git" in root or "__pycache__" in root or f == "boot.py":
+            if f == "boot.py" or f.startswith('.'):
                 continue
-            path = os.path.join(root, f).lstrip("./")
+                
+            path = os.path.join(root, f)
+            path = path.lstrip("./")
+            
             if path not in github_files:
                 deleted += 1
                 deleted_list.append(path)
@@ -190,8 +232,8 @@ def b4():
                 try:
                     os.remove(path)
                     print(f"|  [REMOVED] {path}")
-                except:
-                    print(f"|  [FAILED] {path}")
+                except Exception as e:
+                    print(f"|  [FAILED] {path}: {str(e)[:20]}")
 
     for root, dirs, files_local in os.walk(".", topdown=False):
         for d in dirs:
@@ -202,13 +244,14 @@ def b4():
                 if not os.listdir(dir_path):
                     os.rmdir(dir_path)
                     print(f"|  [REMOVED DIR] {dir_path}")
-            except:
+            except Exception:
                 pass
 
     print("|")
     print("|  " + "-" * 40)
     print(f"|  Total files: {total}")
     print(f"|  Up to date: {up_to_date}")
+    
     if changed > 0:
         print(f"|  Changed: {changed}")
         print("|")
@@ -217,6 +260,7 @@ def b4():
             print(f"|    - {f}")
         if len(changed_list) > 10:
             print(f"|    ... and {len(changed_list)-10} more")
+            
     if new_files > 0:
         print(f"|  New: {new_files}")
         print("|")
@@ -225,6 +269,7 @@ def b4():
             print(f"|    - {f}")
         if len(new_list) > 10:
             print(f"|    ... and {len(new_list)-10} more")
+            
     if deleted > 0:
         print(f"|  Deleted: {deleted}")
         print("|")
@@ -233,6 +278,7 @@ def b4():
             print(f"|    - {f}")
         if len(deleted_list) > 10:
             print(f"|    ... and {len(deleted_list)-10} more")
+            
     print("|  " + "-" * 40)
 
     if changed == 0 and new_files == 0 and deleted == 0:
@@ -243,12 +289,13 @@ def b5():
     print("|- Sync complete")
     print("|")
     version = "1.3.4"
-    if os.path.exists("data/version.txt"):
-        try:
+    try:
+        if os.path.exists("data/version.txt"):
             with open("data/version.txt", "r") as f:
                 version = f.read().strip()
-        except:
-            pass
+    except Exception:
+        pass
+    
     print(f"|- Version: {version}")
     print("|")
     print("|- Join our Discord for updates?")
@@ -257,17 +304,18 @@ def b5():
 
     choice = input("|- Select > ").strip().lower()
 
-    if choice == "ok":
+    if choice in ["ok", "yes", "y"]:
         print("|")
         print("|- Thanks :D")
         print("|  https://discord.gg/xrvgQD9s9b")
-    elif choice == "no":
+    elif choice in ["no", "n"]:
         print("|")
         print("|- idc have the invite :D")
         print("|  https://discord.gg/xrvgQD9s9b")
     else:
         print("|")
         print("|- Invalid choice")
+        print("|  https://discord.gg/xrvgQD9s9b")
 
     print("|")
     print("|- 23 KOD Framework loaded")
@@ -280,3 +328,4 @@ def b12():
     b5()
 
 if __name__ == "__main__":
+    b12()
