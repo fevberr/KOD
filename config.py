@@ -4,7 +4,7 @@ import subprocess
 import os
 
 TABS = {
-    "Recon Tab": ["DNS lookup.py", "Port Scanner.py", "Whois Lookup.py"],
+    "Recon Tab": ["DNS lookup.py", "Port Scanner.py", "Subdomain enumeration.py", "Whois Lookup.py"],
     "example": ["a.py", "b.py", "c.py"],
     "coming": [],
 }
