@@ -1,359 +1,583 @@
-BSD 3-Clause License
-
-Copyright (c) 2026 StrataLogic Solutions Inc.
+Copyright (c) 2024-2026, fevber
 All rights reserved.
 
-StrataLogic Solutions Inc.
-https://www.stratalogic.io
-support@stratalogic.io
-sales@stratalogic.io
-legal@stratalogic.io
-+1 (800) 555-0199
+1. Acceptance of Terms
+By downloading, installing, copying, using, modifying, distributing, sublicensing, selling, or otherwise interacting with this software in any capacity, whether directly or indirectly, you acknowledge that you have read, understand, and agree to be legally bound by all terms and conditions set forth in this license. If you do not agree to these terms in their entirety, you are expressly and strictly prohibited from using this software in any way, shape, or form.
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
+2. Grant of Rights – What You CAN Do
+Subject to your full and ongoing compliance with all conditions, restrictions, and obligations set forth in this license, fevber hereby grants you a limited, non-exclusive, non-transferable, revocable, worldwide, royalty-free (except as provided in Section 21) license to:
 
-1. Redistributions of source code must retain the above copyright notice,
-   this list of conditions, the following disclaimer, and all other
-   notices and attributions that are required by this license or by any
-   third-party software that may be included with or distributed alongside
-   this software. Such retained notices must appear in a location that is
-   reasonably calculated to be viewed by the recipient, including but not
-   limited to the file headers, the about screen, the documentation, and
-   any other location where such notices are customarily displayed.
+(a) Use – Use the software for any lawful purpose, including personal, academic, commercial, non-commercial, governmental, educational, research, or any other purpose not expressly prohibited herein;
 
-2. Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions, the following disclaimer, and all other notices
-   and attributions that are required by this license or by any third-party
-   software that may be included with or distributed alongside this software
-   in the documentation and/or other materials provided with the distribution,
-   as well as in the user interface, the about screen, the startup splash
-   screen, the settings menu, the help menu, the credits section, the footer
-   of any web-based interface, and any other location where such notices are
-   customarily displayed to end users of the software.
+(b) Copy – Make copies of the software, in whole or in part, in any medium or format;
 
-3. Neither the name of StrataLogic Solutions Inc., nor the names of its
-   contributors, employees, contractors, subsidiaries, affiliates, parent
-   organizations, partners, sponsors, licensors, licensees, distributors,
-   resellers, or any other associated entities may be used to endorse or
-   promote products derived from this software without specific prior
-   written permission from StrataLogic Solutions Inc. Such permission
-   must be obtained in writing from the Legal Department at the address
-   provided above and must be renewed annually or as otherwise specified
-   in the written permission agreement.
+(c) Modify – Modify, adapt, translate, transform, enhance, improve, refactor, optimize, or create derivative works based on the software;
 
-4. Any product, service, application, platform, website, mobile application,
-   desktop application, cloud service, software-as-a-service offering,
-   platform-as-a-service offering, infrastructure-as-a-service offering,
-   or any other product or service that utilizes this software, whether
-   in whole or in part, whether in original form or in modified form,
-   whether as a standalone product or as a component of a larger product,
-   must include the following acknowledgment in a clearly visible and
-   legible manner in its user interface, documentation, promotional
-   materials, packaging, website, about screen, credits section, and any
-   other media where acknowledgments are customarily made:
+(d) Merge – Combine, integrate, incorporate, or embed the software with other software projects, libraries, frameworks, systems, or applications;
 
-   "This product includes software developed by StrataLogic Solutions Inc.
-   For more information, visit https://www.stratalogic.io"
+(e) Publish – Publish, display, exhibit, or make the software publicly available;
 
-   This acknowledgment must be displayed in a font size that is no smaller
-   than the smallest font size used elsewhere in the user interface for
-   informational text, and must be displayed in a color that provides
-   sufficient contrast with the background to ensure readability. For
-   mobile applications, this acknowledgment must appear in the application's
-   settings screen, about screen, or legal screen. For web applications,
-   this acknowledgment must appear in the footer of every page, on the
-   about page, and in the terms of service. For desktop applications, this
-   acknowledgment must appear in the about box, the help menu, and the
-   license agreement presented during installation.
+(f) Distribute – Distribute, share, transmit, transfer, or otherwise make available copies of the software (whether in source code, compiled binary, executable, object code, or any other form) to third parties;
 
-5. Redistributions of any form, whether source or binary, whether original
-   or modified, whether complete or partial, must not remove, obscure,
-   alter, minimize, hide, shrink, crop, distort, degrade, or otherwise
-   diminish the visibility or readability of StrataLogic Solutions Inc.
-   branding, trademarks, service marks, trade names, logos, icons, design
-   elements, color schemes, or any other proprietary indicia without the
-   express prior written consent of StrataLogic Solutions Inc. Any
-   permitted use of StrataLogic Solutions Inc. branding must comply with
-   the StrataLogic Solutions Inc. Branding and Trademark Usage Guidelines,
-   which are available upon request from legal@stratalogic.io and which
-   may be updated from time to time without notice.
+(g) Sublicense – Grant sublicenses to others under your own separate terms and conditions, provided that such sublicenses are consistent with the terms of this license and do not grant any rights greater than those granted herein;
 
-6. Any derivative works, modifications, enhancements, extensions, patches,
-   plugins, modules, components, libraries, frameworks, or adaptations of
-   this software must clearly and conspicuously indicate that they have
-   been modified from the original StrataLogic Solutions Inc. software.
-   Such indication must include the following notice in the source code,
-   in the user interface, in the documentation, and in any other materials
-   provided with the derivative work:
+(h) Sell – Sell, commercialize, monetize, resell, or offer copies of the software (whether original or modified) for any fee, compensation, or consideration, subject to Section 21;
 
-   "This product includes software developed by StrataLogic Solutions Inc.
-   that has been modified by [YOUR COMPANY NAME]. The original software
-   is available at https://www.stratalogic.io"
+(i) Keep Modifications Private – You are under NO OBLIGATION whatsoever to share, disclose, publish, contribute back, or otherwise make available any modifications, improvements, enhancements, derivative works, or customizations you create. You may keep all such changes entirely proprietary, confidential, and trade-secret protected.
 
-   The modification notice must be displayed in a location that is
-   reasonably calculated to be viewed by recipients, and must be displayed
-   using a font and format that is at least as prominent as any other
-   notices displayed in connection with the software.
+3. Scope of License
+This license applies to all materials, files, and resources included in, distributed with, or otherwise provided as part of this software package, including but not limited to:
 
-7. Redistributors must not make any representations, warranties, guarantees,
-   promises, or assurances regarding the software that are inconsistent
-   with the express disclaimers and limitations set forth in this license.
-   Redistributors must not represent themselves as being affiliated with,
-   endorsed by, sponsored by, or otherwise connected to StrataLogic
-   Solutions Inc. unless expressly authorized in writing by StrataLogic
-   Solutions Inc. Any unauthorized use of the StrataLogic Solutions Inc.
-   name or marks may result in immediate termination of this license and
-   may subject the unauthorized user to civil and criminal penalties
-   under applicable law.
+Source code files (all languages and formats)
 
-8. Any use of the StrataLogic Solutions Inc. name, logo, trademarks,
-   service marks, trade names, or any other proprietary indicia must
-   comply with the StrataLogic Solutions Inc. Trademark Usage Guidelines
-   and must not create any confusion as to the source or origin of the
-   products or services with which such indicia are used. All goodwill
-   arising from the use of StrataLogic Solutions Inc. trademarks shall
-   inure solely to the benefit of StrataLogic Solutions Inc.
+Binary, compiled, executable, and object code files
 
-9. This license does not grant any rights to use StrataLogic Solutions Inc.
-   patents, copyrights, trade secrets, or any other intellectual property
-   rights except as expressly granted herein. Any rights not expressly
-   granted by this license are reserved exclusively by StrataLogic
-   Solutions Inc. and its licensors.
+Documentation, manuals, guides, and help files
 
-10. No provision of this license shall be construed to require StrataLogic
-    Solutions Inc. to provide any support, maintenance, updates, upgrades,
-    bug fixes, patches, enhancements, or any other services in connection
-    with the software. Any such services, if provided, are provided at the
-    sole discretion of StrataLogic Solutions Inc. and may be subject to
-    separate terms and fees.
+Configuration files, scripts, and build files
 
-11. This license shall be governed by and construed in accordance with the
-    laws of the State of California, without giving effect to any choice
-    of law or conflict of law provisions. Any legal action or proceeding
-    arising out of or relating to this license or the software shall be
-    brought exclusively in the federal or state courts located in San
-    Francisco County, California, and each party hereby consents to the
-    personal jurisdiction and venue of such courts.
+Dependencies, libraries, and third-party components (to the extent permitted by their respective licenses)
 
-12. If any provision of this license is held to be unenforceable or invalid
-    under applicable law, such provision shall be interpreted to accomplish
-    the objectives of such provision to the greatest extent possible under
-    applicable law, and the remaining provisions of this license shall
-    continue in full force and effect. The invalidity or unenforceability
-    of any provision shall not affect the validity or enforceability of
-    any other provision.
+Assets, media, images, icons, graphics, audio, video, and design elements
 
-13. The failure of StrataLogic Solutions Inc. to enforce any right or
-    provision of this license shall not constitute a waiver of such right
-    or provision, nor shall it prevent StrataLogic Solutions Inc. from
-    enforcing such right or provision at any subsequent time. No waiver
-    of any term of this license shall be effective unless it is in writing
-    and signed by an authorized representative of StrataLogic Solutions Inc.
+Application programming interfaces (APIs), schemas, and data structures
 
-14. This license constitutes the entire agreement between the parties with
-    respect to the subject matter hereof and supersedes all prior or
-    contemporaneous communications and proposals, whether oral or written,
-    between the parties with respect to such subject matter. No amendment
-    or modification of this license shall be effective unless it is in
-    writing and signed by both parties.
+Any other files, resources, components, or materials provided
 
-15. The section headings used in this license are for convenience only and
-    shall not affect the interpretation of any provisions hereof. The use
-    of the singular shall include the plural and vice versa, and the use
-    of the masculine shall include the feminine and neuter and vice versa,
-    as the context may require.
+No exceptions are made. All use in any capacity, whether direct or indirect, is subject to this license. This license applies to all versions, releases, updates, patches, and derivatives of the software.
 
-16. The software is not designed, manufactured, or intended for use in
-    hazardous environments requiring fail-safe performance, such as in the
-    operation of nuclear facilities, aircraft navigation or communication
-    systems, air traffic control, direct life support machines, weapon
-    systems, or any other application in which the failure of the software
-    could lead directly or indirectly to death, personal injury, severe
-    physical or property damage, or environmental harm. Any such use is
-    strictly prohibited and is undertaken at the user's sole risk.
+4. Conditions – What You MUST Do
+4.1 Attribution Requirement
+When distributing the software (whether in source code, binary, executable, or any other form), you MUST retain, reproduce, and include the following prominently in the documentation, user interface, about screen, and/or materials provided with the distribution:
 
-17. The software may include or incorporate third-party software, libraries,
-    or components that are subject to their own licenses and disclaimers.
-    It is the responsibility of the user to review and comply with all
-    applicable third-party licenses. StrataLogic Solutions Inc. makes no
-    representations or warranties regarding any third-party software that
-    may be included with or distributed alongside this software.
+The original copyright notice: Copyright (c) 2024-2026, fevber
 
-18. The software may be subject to export control laws and regulations of
-    the United States and other countries. The user agrees to comply with
-    all applicable export control laws and regulations, including but not
-    limited to the U.S. Export Administration Regulations and the sanctions
-    programs administered by the U.S. Department of the Treasury Office of
-    Foreign Assets Control. The user shall not export, re-export, transfer,
-    or otherwise make available the software to any person, entity, or
-    jurisdiction that is prohibited by applicable law.
+The full, unmodified text of this license
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE,
-NON-INFRINGEMENT, TITLE, QUIET ENJOYMENT, DATA ACCURACY, SYSTEM INTEGRATION,
-RELIABILITY, SECURITY, PERFORMANCE, ERROR-FREE OPERATION, UNINTERRUPTED
-OPERATION, COMPATIBILITY WITH OTHER SOFTWARE OR HARDWARE, COMPLIANCE WITH
-REGULATIONS, ADEQUACY FOR ANY PARTICULAR PURPOSE, AND FREEDOM FROM COMPUTER
-VIRUSES, WORMS, TROJAN HORSES, MALWARE, SPYWARE, ADWARE, OR ANY OTHER
-HARMFUL OR MALICIOUS CODE ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED
-BY APPLICABLE LAW. IN NO EVENT SHALL STRATALOGIC SOLUTIONS INC., ITS
-SUBSIDIARIES, AFFILIATES, CONTRIBUTORS, LICENSORS, DISTRIBUTORS, SUPPLIERS,
-PARTNERS, OR ANY OTHER RELATED ENTITIES BE LIABLE FOR ANY DIRECT, INDIRECT,
-INCIDENTAL, SPECIAL, EXEMPLARY, PUNITIVE, OR CONSEQUENTIAL DAMAGES,
-INCLUDING BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, INFORMATION, PROFITS, REVENUE, BUSINESS OPPORTUNITIES,
-GOODWILL, OR REPUTATION; BUSINESS INTERRUPTION; SYSTEM FAILURE; COMPUTER
-DAMAGE; LOSS OF PRIVACY; BREACH OF SECURITY; UNAUTHORIZED ACCESS TO SYSTEMS;
-LOSS OF CONTRACTUAL OR OTHER BUSINESS RELATIONSHIPS; FAILURE TO REALIZE
-EXPECTED SAVINGS OR BENEFITS; OR ANY OTHER COMMERCIAL DAMAGES OR LOSSES,
-HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-LIABILITY, TORT (INCLUDING NEGLIGENCE OR OTHERWISE), BREACH OF WARRANTY,
-BREACH OF DUTY, MISREPRESENTATION, FRAUD, OR ANY OTHER LEGAL THEORY,
-ARISING IN ANY WAY OUT OF THE USE OF OR INABILITY TO USE THIS SOFTWARE,
-EVEN IF STRATALOGIC SOLUTIONS INC. OR ANY OTHER RELEVANT PARTY HAS BEEN
-ADVISED OF THE POSSIBILITY OF SUCH DAMAGES, AND NOTWITHSTANDING THE FAILURE
-OF ESSENTIAL PURPOSE OF ANY REMEDY. THE TOTAL LIABILITY OF STRATALOGIC
-SOLUTIONS INC. AND ITS RELATED ENTITIES ARISING OUT OF OR RELATING TO THIS
-LICENSE OR THE SOFTWARE SHALL NOT EXCEED THE AMOUNT PAID BY THE USER FOR
-THE SOFTWARE, OR ONE HUNDRED DOLLARS ($100.00) IF THE USER OBTAINED THE
-SOFTWARE WITHOUT PAYMENT.
+All disclaimers, liability limitations, and warranty exclusions
 
----
+4.2 No Removal or Obscuring of Notices
+You may NOT remove, alter, obscure, hide, deface, replace, circumvent, or modify any:
 
-COMMERCIAL LICENSING
+Copyright notices (including but not limited to © symbols);
 
-The terms set forth above apply to non-commercial use, open-source projects,
-academic research, and evaluation purposes. For enterprises, organizations,
-government agencies, and commercial entities requiring additional rights,
-protections, services, or flexibility, StrataLogic Solutions Inc. offers a
-range of commercial licensing options designed to meet the specific needs
-of businesses of all sizes.
+License notices or legal notices;
 
-COMMERCIAL LICENSE FEATURES AND BENEFITS
+Trademarks, service marks, logos, or branding;
 
-Enterprise Support: Priority technical support with guaranteed response
-times, dedicated account management, and direct access to engineering
-teams for critical issue resolution. Support includes telephone support,
-email support, ticketing system access, and a dedicated support portal.
+Attribution text, credit lines, or acknowledgments;
 
-Legal Indemnification: Comprehensive indemnification against intellectual
-property infringement claims, copyright claims, patent claims, trade secret
-claims, and other third-party legal actions arising from the use of the
-software. Indemnification includes defense costs, settlement coverage, and
-judgment coverage up to agreed limits.
+Any other identifying information indicating fevber as the original creator and rights holder.
 
-Liability Protection: Negotiated limitations on liability that provide
-protection against catastrophic financial exposure, with liability caps
-tailored to the specific needs, risk profile, and business context of the
-enterprise customer.
+This prohibition applies to all distributions, derivative works, and any other materials incorporating or derived from the software.
 
-White-Label Distribution: Complete rights to remove StrataLogic Solutions Inc.
-branding, acknowledgment requirements, attribution obligations, and any
-other identifying marks from the software, allowing for seamless integration
-into your own branded products, services, and offerings without any external
-attribution or reference to StrataLogic Solutions Inc.
+4.3 Documentation of Derivative Works
+If you distribute any modified, adapted, or derivative version of the software, you MUST:
 
-Custom Development: Priority access to StrataLogic Solutions Inc. engineering
-resources for the development of custom features, integrations, optimizations,
-extensions, plugins, modules, and modifications specifically tailored to
-your business requirements, with guaranteed delivery timelines and dedicated
-project management.
+(a) Clearly and conspicuously document which specific portions are derived from this software, distinguishing original code from your modifications;
 
-Extended Warranty: Commercial warranties that go beyond the standard "AS IS"
-disclaimer, including performance guarantees, availability commitments,
-defect correction obligations, security assurance, and compliance guarantees,
-with service level agreements and financial remedies for non-performance.
+(b) Not misrepresent, falsely describe, or misleadingly characterize the work as being solely your own creation;
 
-Source Code Escrow: Deposit of complete and up-to-date source code with a
-neutral third-party escrow agent, ensuring continued access and maintenance
-capabilities in the event of bankruptcy, acquisition, discontinuation of
-product, or any other unforeseen circumstances affecting StrataLogic
-Solutions Inc.
+(c) Make it evident that modifications have been made, including what those modifications are, when they were made, and by whom;
 
-Audit Rights: Full rights to audit the software for security compliance,
-performance benchmarking, vulnerability assessment, code quality analysis,
-regulatory adherence, and any other technical or compliance-related reviews,
-with access to internal testing reports and security assessments.
+(d) Not imply, suggest, or represent in any way that fevber endorses, supports, sponsors, approves, or is affiliated with your derivative work;
 
-Patent Protection: Express patent grants covering the use of any StrataLogic
-Solutions Inc. patents, patent applications, or patent rights that may be
-implicated by the software, providing additional protection against patent
-litigation and freedom to operate.
+(e) Include a prominent notice stating: "This product includes software developed by fevber and is distributed under the fevber Software License Agreement."
 
-Flexible Licensing Models: Licensing options including per-developer,
-per-seat, per-application, per-server, per-CPU core, per-user, per-site,
-enterprise-wide, and unlimited global licenses, with volume discounts and
-custom pricing available for large-scale deployments.
+5. Restrictions – What You CANNOT Do
+You are expressly and strictly PROHIBITED from:
 
-Long-Term Support: Extended maintenance and security update commitments
-with guaranteed support periods of up to ten years for enterprise customers,
-including backported security fixes and critical patches.
+(a) Legal Compliance – Using this software in any way that violates any applicable local, state, national, or international laws, regulations, treaties, directives, ordinances, or executive orders, including but not limited to export control laws, economic sanctions, data protection laws (including GDPR, CCPA, PIPEDA), privacy laws, anti-terrorism laws, anti-money laundering laws, corruption laws, or human rights laws;
 
-Training and Certification: Comprehensive training programs for development
-and operations teams, including on-site workshops, virtual training sessions,
-webinars, documentation access, and certification programs.
+(b) Unlawful or Harmful Use – Using this software to commit, support, facilitate, promote, incite, or encourage any illegal activity, fraud, deception, harassment, abuse, discrimination, hate speech, violence, terrorism, human trafficking, or other harmful actions against any person, group, community, or entity;
 
-Integration Assistance: Dedicated assistance with integrating the software
-into existing infrastructure, including compatibility testing, migration
-planning, deployment optimization, performance tuning, and troubleshooting.
+(c) Malicious Distribution – Intentionally distributing malicious software, malware, viruses, worms, trojans, ransomware, spyware, adware, rootkits, keyloggers, backdoors, logic bombs, time bombs, or any other harmful, destructive, deceptive, or unwanted code or content under the guise of this software;
 
-Regulatory Compliance: Support for compliance with industry regulations
-including GDPR, CCPA, HIPAA, SOC 2, ISO 27001, PCI DSS, FedRAMP, NIST,
-and other applicable standards, with necessary documentation and
-certifications.
+(d) False Endorsement – Falsely representing, implying, suggesting, or claiming that fevber endorses, supports, sponsors, approves, guarantees, recommends, is affiliated with, or is responsible for your product, service, organization, project, or activities;
 
-Audit Defense: Assistance with responding to third-party audits, including
-audit support, documentation preparation, and expert testimony if required.
+(e) Unauthorized Name Use – Using the name "fevber" or any variation thereof (including "Fevber," "FEVBER," "fevber," or any confusingly similar, phonetic, or translated names) as the name of your product, service, project, company, domain name, username, or brand without express prior written permission from fevber, which may be withheld in fevber's sole and absolute discretion;
 
-SLA Guarantees: Service Level Agreements with guaranteed uptime, performance
-metrics, response times, and financial credits for failures to meet
-commitments.
+(f) Removing Attribution – Removing, obscuring, or otherwise failing to provide attribution to fevber in any derivative work, distribution, or publication;
 
-Multi-Version Support: Support for multiple versions of the software
-simultaneously, allowing organizations to maintain legacy deployments
-while transitioning to newer versions.
+(g) Discriminatory or Harmful Applications – Using this software in any product, service, system, or application that:
 
-Regular Updates: Scheduled updates, feature releases, performance
-improvements, and security patches delivered on a predictable and
-coordinated schedule.
+Discriminates against, harms, injures, violates the rights of, or denies opportunities to any person, group, community, or protected class based on race, color, religion, sex, gender identity, sexual orientation, national origin, age, disability, genetic information, marital status, or any other characteristic protected by applicable law;
 
-Customization: Tailored modifications to the software to meet specific
-business requirements, including custom features, integrations, reporting
-capabilities, and user interface enhancements.
+Infringes upon the intellectual property, privacy, publicity, moral, or other rights of any third party;
 
-For commercial licensing inquiries, custom quotes, and enterprise agreements:
+Is used for surveillance, tracking, monitoring, or profiling without proper notice, consent, or legal authorization;
 
-Enterprise Sales Team: sales@stratalogic.io
-Commercial Licensing: commercial@stratalogic.io
-Phone: +1 (800) 555-0199
-Website: https://www.stratalogic.io/enterprise
-Schedule a Consultation: https://www.stratalogic.io/contact/sales
+Is used for weaponry, weapons systems, ballistic systems, missile systems, or military combat applications (see Section 22);
 
-For original equipment manufacturer (OEM), value-added reseller (VAR),
-systems integrator (SI), and strategic partnership inquiries:
+Is used in critical infrastructure systems where failure, malfunction, or security breach could result in loss of life, serious injury, severe property damage, environmental catastrophe, or substantial economic disruption;
 
-Partnerships: partners@stratalogic.io
-Phone: +1 (800) 555-0199
+(h) Claiming Ownership – Claiming ownership, exclusive rights, or exclusive intellectual property rights over the original code, architecture, or algorithms contained in this software. You may claim rights only over your own modifications;
 
-For government, military, and public sector inquiries:
+(i) Incompatible Distribution – Distributing this software under any terms that are more restrictive than, inconsistent with, or incompatible with the terms set forth in this license;
 
-Government: gov@stratalogic.io
-Phone: +1 (800) 555-0199
+(j) Patent Assertion – Asserting any patent claims against fevber, contributors, affiliates, or any users of this software based on the software, its use, or its implementation;
 
-For educational, academic, and research institution inquiries:
+(k) Encouraging Breach – Encouraging, assisting, inducing, or enabling any third party to violate any term of this license.
 
-Education: academic@stratalogic.io
-Phone: +1 (800) 555-0199
+6. No AI Training – PROHIBITION ON MACHINE LEARNING USE
+6.1 Express Prohibition
+NOTWITHSTANDING ANY OTHER PROVISION IN THIS LICENSE, YOU ARE EXPRESSLY AND UNEQUIVOCALLY PROHIBITED FROM USING, COPYING, MODIFYING, DISTRIBUTING, OR OTHERWISE PROCESSING THIS SOFTWARE, INCLUDING ANY SOURCE CODE, BINARY CODE, DOCUMENTATION, DATA, OR OTHER MATERIALS CONTAINED HEREIN, FOR THE FOLLOWING PURPOSES:
 
-StrataLogic Solutions Inc.
-101 Innovation Drive, Suite 400
-San Francisco, California 94105
-United States of America
+(a) Training – Training, fine-tuning, pre-training, post-training, retraining, or otherwise developing any artificial intelligence, machine learning, deep learning, neural network, large language model (LLM), generative AI, natural language processing (NLP) system, computer vision system, recommendation system, or any other algorithmic, statistical, or computational model (collectively, "AI Systems");
 
-Mailing Address: P.O. Box 7704, San Francisco, CA 94120
+(b) Data Extraction – Extracting, scraping, harvesting, collecting, or otherwise obtaining data, patterns, insights, structures, logic, or outputs from this software for the purpose of developing, improving, or validating any AI System;
 
-All rights not expressly granted in this license are reserved by
-StrataLogic Solutions Inc. and its licensors. For questions about
-this license, please contact legal@stratalogic.io.
+(c) Knowledge Distillation – Using the software as a source of knowledge, information, reasoning, or training data for any AI System, whether through distillation, transfer learning, zero-shot learning, few-shot learning, or any other technique;
+
+(d) Benchmarking – Using the software as a benchmark, test set, validation set, or reference point for evaluating, measuring, or comparing the performance of any AI System;
+
+(e) Synthetic Data Generation – Using the software to generate, produce, or create any synthetic data, training data, test data, or other content used to train, validate, or evaluate any AI System;
+
+(f) Prompt Engineering – Using the software to develop, refine, or optimize prompts, instructions, or inputs for any AI System;
+
+(g) Reinforcement Learning – Using the software as an environment, simulator, evaluator, or reward function in any reinforcement learning or other training process.
+
+6.2 Scope of Prohibition
+This prohibition applies to:
+
+All uses, whether commercial, non-commercial, academic, governmental, or otherwise;
+
+All AI Systems, whether proprietary, open-source, commercial, internal, research, or experimental;
+
+All forms of the software, including source code, binary code, documentation, outputs, logs, metrics, performance data, and any other materials;
+
+All derivative works, modifications, and extensions of the software.
+
+6.3 Intellectual Property Basis
+The prohibition in this Section 6 is based on fevber's rights under copyright law, database rights, trade secret rights, and applicable intellectual property laws. The software and its constituent elements constitute valuable intellectual property, and the creation of derivative works in the form of AI Systems that are trained, developed, or improved using this software constitutes an unauthorized derivative use and infringement of fevber's exclusive rights.
+
+6.4 Enforcement
+Any use of this software for AI training, machine learning, or related purposes in violation of this Section 6 shall constitute:
+
+(a) A material breach of this license, resulting in immediate termination of all rights granted herein (see Section 10);
+
+(b) Infringement of fevber's intellectual property rights;
+
+(c) A violation of the terms of use applicable to the software.
+
+fevber reserves the right to pursue all available legal remedies, including but not limited to injunctive relief, actual damages, statutory damages, and attorney fees, against any party that violates this prohibition.
+
+7. Disclaimer of Warranties
+THIS SOFTWARE IS PROVIDED BY FEVBER "AS IS," "WHERE IS," "WITH ALL FAULTS," AND WITH ALL DEFECTS, BUGS, ERRORS, AND OMISSIONS, WITHOUT ANY WARRANTY WHATSOEVER.
+
+FEVBER MAKES NO WARRANTIES, REPRESENTATIONS, GUARANTEES, PROMISES, ASSURANCES, OR UNDERTAKINGS OF ANY KIND, WHETHER EXPRESS OR IMPLIED, ARISING BY LAW, STATUTE, CUSTOM, TRADE USAGE, COURSE OF DEALING, COURSE OF PERFORMANCE, OR OTHERWISE, INCLUDING BUT NOT LIMITED TO:
+
+(a) The implied warranties of MERCHANTABILITY – that the software will be fit for sale, trade, or commercial use;
+
+(b) The implied warranties of FITNESS FOR A PARTICULAR PURPOSE – that the software will meet your specific needs, requirements, specifications, or expectations, whether known to fevber or not;
+
+(c) The implied warranties of NON-INFRINGEMENT – that the software does not violate any third-party intellectual property rights, including patents, copyrights, trade secrets, or other proprietary rights;
+
+(d) The implied warranties of TITLE – that you have clear and unencumbered rights to use the software;
+
+(e) The implied warranties of QUIET ENJOYMENT – that your use will be undisturbed, uninterrupted, or free from claims, demands, or challenges by any party;
+
+(f) The implied warranties of ACCURACY – that the software's outputs, calculations, predictions, analyses, or results are correct, complete, reliable, valid, or suitable for any purpose;
+
+(g) The implied warranties of SECURITY – that the software is free from vulnerabilities, exploits, backdoors, unauthorized access points, security flaws, or data breaches;
+
+(h) The implied warranties of COMPATIBILITY – that the software will function, integrate, communicate, or operate correctly with your hardware, operating systems, browsers, databases, networks, other software, or any other systems;
+
+(i) The implied warranties of AVAILABILITY – that the software will be available, accessible, accessible, operational, or responsive at any time, without interruption, degradation, or failure;
+
+(j) The implied warranties of PERFORMANCE – that the software will operate at a certain speed, efficiency, throughput, latency, scalability, reliability, or quality;
+
+(k) The implied warranties of ERROR-FREE OPERATION – that the software will operate without errors, bugs, crashes, data corruption, or other failures;
+
+(l) Any other warranties, guarantees, or representations, whether statutory, common law, or otherwise.
+
+7.1 No Warranty from Oral Statements
+NO ORAL OR WRITTEN INFORMATION, COMMUNICATION, REPRESENTATION, OR ADVICE GIVEN BY FEVBER, ANY AUTHORIZED REPRESENTATIVE, OR ANY CONTRIBUTOR SHALL CREATE ANY WARRANTY OR MODIFY THE TERMS OF THIS DISCLAIMER.
+
+7.2 User Assumption of Risk
+YOU ASSUME ALL RISKS, LIABILITIES, AND RESPONSIBILITIES ASSOCIATED WITH THE USE, OPERATION, MODIFICATION, DISTRIBUTION, AND DEPLOYMENT OF THIS SOFTWARE, INCLUDING BUT NOT LIMITED TO:
+
+Data loss, corruption, or breach;
+
+System or infrastructure failure;
+
+Security vulnerabilities or unauthorized access;
+
+Financial loss, business interruption, or lost revenue;
+
+Legal or regulatory non-compliance;
+
+Any other damages, losses, or harm.
+
+8. Limitation of Liability
+8.1 General Limitation
+IN NO EVENT SHALL FEVBER, NOR ANY CONTRIBUTORS, NOR ANY AFFILIATES, PARENTS, SUBSIDIARIES, OFFICERS, DIRECTORS, EMPLOYEES, AGENTS, REPRESENTATIVES, ASSIGNS, OR ANYONE ELSE INVOLVED IN THE CREATION, DEVELOPMENT, PRODUCTION, PUBLICATION, OR DISTRIBUTION OF THIS SOFTWARE (COLLECTIVELY, "FEVBER PARTIES") BE LIABLE FOR:
+
+(a) ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, PUNITIVE, OR CONSEQUENTIAL DAMAGES, HOWEVER ARISING AND UNDER ANY THEORY OF LIABILITY;
+
+(b) LOSS OF PROFITS, REVENUE, SALES, BUSINESS, GOODWILL, ANTICIPATED SAVINGS, OR OTHER INTANGIBLE LOSSES;
+
+(c) LOSS OF DATA, INFORMATION, CONTENT, OR OTHER DIGITAL ASSETS, INCLUDING CORRUPTION, DESTRUCTION, OR UNAUTHORIZED ACCESS;
+
+(d) BUSINESS INTERRUPTION, SYSTEM FAILURE, OPERATIONAL DISRUPTION, OR DOWNTIME;
+
+(e) PERSONAL INJURY, BODILY HARM, DEATH, PROPERTY DAMAGE, FINANCIAL LOSS, OR REPUTATIONAL HARM;
+
+(f) COSTS OF PROCUREMENT OF SUBSTITUTE GOODS, SERVICES, OR TECHNOLOGY;
+
+(g) ANY OTHER DAMAGES OR LOSSES WHATSOEVER ARISING FROM OR RELATING TO:
+
+The use, inability to use, misuse, or unavailability of the software;
+
+The modification, adaptation, transformation, distribution, sublicensing, or sale of the software;
+
+Any actions taken or not taken based on the software's operation, outputs, or results;
+
+Any performance of the software, whether expected, actual, or represented;
+
+Any bugs, errors, defects, vulnerabilities, or failures in the software;
+
+Any unauthorized access to, alteration of, theft of, or destruction of data, systems, or infrastructure;
+
+Any third-party claims or actions arising from or relating to the software.
+
+8.2 Multiple Theories of Liability
+THIS LIMITATION SHALL APPLY REGARDLESS OF THE LEGAL THEORY UPON WHICH ANY CLAIM IS BASED, WHETHER IN CONTRACT, TORT (INCLUDING NEGLIGENCE, GROSS NEGLIGENCE, OR STRICT LIABILITY), BREACH OF WARRANTY, STATUTORY LIABILITY, MISREPRESENTATION, FRAUD, PRODUCT LIABILITY, OR ANY OTHER THEORY, WHETHER FORESEEABLE OR NOT.
+
+8.3 Knowledge of Potential Damages
+THIS LIMITATION SHALL APPLY EVEN IF FEVBER HAS BEEN ADVISED, NOTIFIED, WARNED, OR OTHERWISE INFORMED OF THE POSSIBILITY OF SUCH DAMAGES, AND EVEN IF A REMEDY SET FORTH HEREIN IS FOUND TO HAVE FAILED OF ITS ESSENTIAL PURPOSE.
+
+8.4 Maximum Liability
+IN JURISDICTIONS THAT DO NOT ALLOW THE EXCLUSION OR LIMITATION OF LIABILITY FOR CERTAIN DAMAGES, FEVBER'S TOTAL, AGGREGATE, AND CUMULATIVE LIABILITY FOR ALL CLAIMS, LOSSES, AND DAMAGES ARISING FROM OR RELATING TO THIS LICENSE OR THE SOFTWARE SHALL BE LIMITED TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, AND IN NO EVENT SHALL EXCEED THE GREATER OF:
+
+(a) THE AMOUNT OF FEES ACTUALLY PAID BY YOU TO FEVBER UNDER SECTION 21 (IF ANY) DURING THE TWELVE (12) MONTHS PRECEDING THE CLAIM;
+
+(b) ONE UNITED STATES DOLLAR ($1.00 USD) OR THE EQUIVALENT IN YOUR LOCAL CURRENCY.
+
+8.5 Essential Basis
+YOU ACKNOWLEDGE AND AGREE THAT THE DISCLAIMERS, EXCLUSIONS, AND LIMITATIONS SET FORTH IN SECTIONS 6, 7, AND 8 ARE AN ESSENTIAL BASIS OF THIS LICENSE AND THAT FEVBER WOULD NOT HAVE GRANTED THE RIGHTS SET FORTH HEREIN WITHOUT SUCH DISCLAIMERS, EXCLUSIONS, AND LIMITATIONS.
+
+9. Indemnification
+9.1 Indemnification Obligation
+You agree to indemnify, defend, protect, save harmless, and hold harmless fevber and the fevber Parties from and against any and all claims, demands, actions, suits, proceedings, investigations, arbitrations, mediations, judgments, awards, damages, losses, liabilities, penalties, fines, costs, and expenses (including reasonable legal fees, attorney fees, expert fees, court costs, and investigation costs) arising from or relating to:
+
+(a) Your use, operation, deployment, or exploitation of the software;
+
+(b) Your modification, adaptation, transformation, distribution, sublicensing, or sale of the software;
+
+(c) Your breach or violation of any term, condition, or obligation of this license;
+
+(d) Your violation of any applicable law, regulation, treaty, directive, ordinance, or executive order;
+
+(e) Your violation or infringement of any third-party rights, including intellectual property, privacy, publicity, confidentiality, contractual, or other rights;
+
+(f) Any claim that your derivative work, combined work, or distribution infringes upon, misappropriates, or violates any third-party rights;
+
+(g) Any claim arising from or relating to any product, service, system, or application that incorporates or is derived from this software;
+
+(h) Any negligent or wrongful act or omission by you or your employees, agents, contractors, licensees, or sublicensees.
+
+9.2 Control of Defense
+fevber reserves the right, at its own expense, to assume the exclusive defense and control of any matter subject to indemnification by you, in which event you shall cooperate fully with fevber in asserting any available defenses and shall not settle or compromise any such matter without fevber's prior written consent.
+
+9.3 Survival
+The indemnification obligations set forth in this Section 9 shall survive any termination or expiration of this license and any distribution, sublicense, or transfer of the software.
+
+10. Intellectual Property Rights
+10.1 Ownership
+All rights, title, and interest in and to the software, including all intellectual property rights (including but not limited to copyrights, trademarks, service marks, trade names, trade dress, patents, patent applications, industrial designs, trade secrets, know-how, algorithms, data structures, architecture, and any other proprietary rights), whether registered or unregistered, are and shall remain the exclusive property of fevber. The software is protected by copyright laws, international copyright treaties, and other intellectual property laws.
+
+10.2 Limited License
+This license grants you a limited, non-exclusive, non-transferable, non-assignable, revocable, royalty-free (except as provided in Section 21) license to use the software as set forth herein. This license is a license, not a sale, and does NOT:
+
+(a) Transfer any ownership rights, title, or interest in or to the software to you;
+
+(b) Grant you any right, title, or interest in or to any trademarks, service marks, trade names, logos, or branding of fevber;
+
+(c) Grant you any right to use the software except as expressly stated herein.
+
+10.3 Reservation of Rights
+Any rights not expressly granted herein are reserved exclusively and entirely by fevber. You may not infer, imply, or assume any additional rights or licenses beyond those explicitly stated in this license.
+
+10.4 Non-Challenge
+You agree not to challenge, contest, dispute, or attack, directly or indirectly, fevber's ownership of or rights in the software, nor shall you assist, encourage, or enable any third party in doing so.
+
+10.5 No Implied Licenses
+Nothing in this license shall be construed as granting you any license or right to use any intellectual property of fevber other than as expressly set forth herein, whether by implication, estoppel, or otherwise.
+
+11. Termination
+11.1 Automatic Termination
+This license and all rights granted hereunder shall terminate automatically, immediately, and without notice, with no further action required by fevber, upon any breach of any term, condition, or obligation of this license by you.
+
+11.2 Termination for Convenience
+fevber reserves the right to terminate this license for convenience at any time, with or without cause, by providing written notice to you. Upon such termination, all rights granted to you hereunder cease immediately.
+
+11.3 Obligations Upon Termination
+Upon termination of this license for any reason, you MUST immediately:
+
+(a) Cease all use, deployment, operation, and exploitation of the software;
+
+(b) Cease all modification, adaptation, and distribution of the software;
+
+(c) Cease all distribution, sublicensing, and sale of the software and derivative works;
+
+(d) Destroy, delete, and permanently erase all copies of the software in your possession, custody, or control, including any derivative works and any installations;
+
+(e) Remove the software from all systems, servers, devices, and infrastructure under your control;
+
+(f) Cease all advertising, promotion, and marketing activities relating to the software;
+
+(g) Provide written certification of compliance with these obligations to fevber within fifteen (15) days of termination, upon fevber's request.
+
+11.4 Survival
+Termination shall not affect:
+
+(a) Any liability or obligations you incurred prior to termination;
+
+(b) Any indemnification obligations under Section 9;
+
+(c) Any rights or remedies of fevber arising from or relating to this license or the software;
+
+(d) Sections 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, and 23, which shall survive termination.
+
+11.5 No Right to Refund
+You acknowledge and agree that fevber is under no obligation to provide any refund, reimbursement, or compensation upon termination of this license, regardless of the reason for termination.
+
+12. Governing Law and Jurisdiction
+12.1 Governing Law
+This license shall be governed by, construed, interpreted, and enforced in accordance with the laws of [Your Jurisdiction], without giving effect to any choice of law or conflict of law principles, rules, or provisions (whether of [Your Jurisdiction] or any other jurisdiction) that would cause the application of the laws of any other jurisdiction.
+
+12.2 Jurisdiction and Venue
+Any dispute, claim, controversy, action, suit, or proceeding arising out of, relating to, or in connection with this license or the use of this software (including any contract, tort, or statutory claim) shall be subject to the exclusive jurisdiction of the courts located in [Your City/Region]. You hereby consent to and irrevocably submit to the personal jurisdiction of such courts and waive any objection to venue or convenience.
+
+12.3 International Conventions
+The United Nations Convention on Contracts for the International Sale of Goods (CISG) shall not apply to this license. The Uniform Computer Information Transactions Act (UCITA) shall not apply to this license.
+
+13. Entire Agreement
+This license, including all sections, subsections, and exhibits, constitutes the entire, complete, final, and exclusive agreement between you and fevber regarding the software and supersedes all prior or contemporaneous communications, understandings, representations, warranties, agreements, and negotiations, whether written or oral, relating to the subject matter hereof. No other terms, conditions, or provisions, whether printed or otherwise, shall be binding on fevber.
+
+14. Severability
+If any provision, clause, sentence, or phrase of this license is found to be invalid, illegal, void, voidable, contrary to public policy, or unenforceable by a court of competent jurisdiction:
+
+(a) That provision shall be enforced to the maximum extent permissible under applicable law, with the invalid portion reformed, to the extent possible, to reflect the original intent and purpose of fevber;
+
+(b) The remainder of this license shall continue in full force and effect, unaltered and unimpaired;
+
+(c) The invalid provision shall be deemed severable from the remainder of this license.
+
+15. No Waiver
+No failure, delay, or omission by fevber in exercising any right, power, privilege, or remedy under this license shall constitute a waiver thereof. No single or partial exercise of any right, power, privilege, or remedy shall preclude any other or further exercise thereof or the exercise of any other right, power, privilege, or remedy. The rights and remedies provided in this license are cumulative and not exclusive of any rights or remedies provided by law.
+
+16. Assignment and Transfer
+16.1 No Assignment by You
+You may not assign, sublicense (except as expressly permitted), transfer, delegate, convey, or otherwise dispose of this license or any rights, obligations, or interests hereunder, whether by operation of law, merger, acquisition, sale of assets, change of control, or otherwise, without the express prior written consent of fevber, which may be withheld in fevber's sole and absolute discretion.
+
+16.2 Assignment by fevber
+fevber may assign, transfer, sublicense, or delegate this license and any rights or obligations hereunder, in whole or in part, at any time and without notice to you.
+
+16.3 Void Assignment
+Any attempted assignment, sublicense, transfer, or delegation without fevber's consent shall be void, null, and of no force or effect.
+
+17. Third-Party Beneficiaries
+This license is for the exclusive benefit of fevber and you. There are no third-party beneficiaries to this license, and no other person, entity, or organization shall have any right to enforce, interpret, or rely upon any term of this license.
+
+18. Export Control
+18.1 Compliance with Export Laws
+You agree to comply with all applicable export control, trade sanction, embargo, and economic restrictions laws, regulations, directives, and rules, including but not limited to:
+
+The Export Administration Regulations (EAR) of the United States;
+
+The sanctions and embargo programs administered by the Office of Foreign Assets Control (OFAC) of the United States;
+
+The EU Dual-Use Regulation (Regulation (EU) 2021/821) of the European Union;
+
+Any other applicable export control, import control, or trade sanctions laws.
+
+18.2 Prohibited Export
+You shall not export, re-export, transfer, transmit, or otherwise make available the software, directly or indirectly, to:
+
+(a) Any country subject to U.S. or EU embargo or trade restrictions, including but not limited to Cuba, Iran, North Korea, Syria, Russia, Belarus, and the Crimea region of Ukraine;
+
+(b) Any person, entity, or organization on any denied party list, including but not limited to the U.S. Denied Persons List, Entity List, Unverified List, or Specially Designated Nationals (SDN) List;
+
+(c) Any person, entity, or organization that is or has been involved in weapons of mass destruction, missile technology, or nuclear activities;
+
+(d) Any person, entity, or organization that is or has been subject to any sanctions or trade restrictions.
+
+19. Amendments and Updates
+19.1 Right to Amend
+fevber reserves the exclusive, unilateral right to amend, update, modify, replace, or revoke this license at any time, in its sole discretion, with or without notice.
+
+19.2 Acceptance of Changes
+Continued use, distribution, modification, or other interaction with the software following any such changes shall constitute your full, complete, and unconditional acceptance of the new, amended, or revised terms.
+
+19.3 Obligation to Review
+It is your sole and exclusive responsibility to review this license periodically for any changes. fevber may, but is not obligated to, provide notice of changes through the software, website, or other means. You are deemed to have received notice of any changes upon their publication.
+
+19.4 Material Changes
+Material changes to this license, if any, will be communicated via reasonable means, but it remains your obligation to stay informed and updated.
+
+20. No Government Endorsement
+Any use, deployment, or distribution by or on behalf of any federal, state, local, or foreign government, government agency, government contractor, military, armed forces, or similar entity does not constitute, imply, or suggest any endorsement by fevber. You shall not represent, suggest, or imply that fevber is affiliated with, endorsed by, acting on behalf of, or subject to any government entity, nor shall you use any government insignia, emblem, or seal in connection with the software.
+
+21. Commercial Use Fees
+21.1 General Fee Provision
+Notwithstanding any other provision of this license to the contrary, fevber reserves the right to charge, assess, and collect fees, royalties, payments, or other compensation for certain uses of this software, as set forth below.
+
+21.2 Uses Subject to Fees
+The following uses are subject to fees, which must be negotiated and agreed upon in a separate written agreement between you and fevber prior to such use commencing:
+
+(a) Commercial Use – Any use of this software in connection with any commercial, business, for-profit, or revenue-generating activity, including but not limited to:
+
+Internal business operations, data processing, or analytics;
+
+Provision of services to customers, clients, or other third parties;
+
+Use in any product or service that is sold, rented, licensed, or otherwise monetized;
+
+Use in any advertising, marketing, or promotional activities;
+
+(b) Distribution for Compensation – Any distribution, sublicensing, or sale of this software or any derivative works for any fee, price, or other consideration;
+
+(c) Enterprise Deployment – Any use of this software in any organization, regardless of size, including but not limited to sole proprietorships, partnerships, corporations, non-profits, government entities, or any other legal entity;
+
+(d) SaaS / Cloud Services – Any use of this software to provide or power any software-as-a-service, platform-as-a-service, infrastructure-as-a-service, cloud computing, or hosted service offering;
+
+(e) Embedded Systems – Any use of this software in any embedded system, device, appliance, or hardware product;
+
+(f) Derivative Commercial Products – Any commercial product, service, or application that is based upon, incorporates, or is derived from this software;
+
+(g) Any Use by an Entity – Any use of this software by any legal entity, corporation, partnership, association, government body, or organization of any kind.
+
+21.3 Exemptions from Fees
+Notwithstanding Section 21.2, the following uses are exempt from fees:
+
+(a) Personal Use – Use by natural persons (individuals) for personal, non-commercial, non-business purposes, provided that such use is not in connection with any trade, business, profession, or employment;
+
+(b) Open-Source Development – Use in the development of open-source software that is distributed under a recognized open-source license that does not impose any fees or commercial restrictions, provided that the open-source project is not owned, controlled, or sponsored by any commercial entity;
+
+(c) Educational Use – Use by educational institutions for teaching, research, or academic purposes, provided that such use is not for commercial gain and is not funded by commercial entities;
+
+(d) Non-Profit Use – Use by registered non-profit, charitable, or religious organizations for their internal operations, provided that such use is not for commercial gain and such organizations are tax-exempt under applicable law.
+
+21.4 Fee Determination
+Fees shall be determined by fevber on a case-by-case basis, taking into account factors including but not limited to:
+
+The nature and scope of your intended use;
+
+The number of users, installations, or deployments;
+
+The revenue, profits, or benefits you derive from the software;
+
+The competitive impact of your use on fevber's business;
+
+Your organization's size, revenue, and resources;
+
+Any other factors fevber deems relevant.
+
+21.5 Payment Terms
+Payment terms shall be specified in the separate written agreement referenced in Section 21.2. Unless otherwise agreed in writing:
+
+(a) Fees are due and payable within thirty (30) days of invoice;
+
+(b) Late payments shall accrue interest at the rate of one and one-half percent (1.5%) per month or the maximum lawful rate, whichever is less;
+
+(c) All fees are non-refundable and non-cancelable.
+
+21.6 Audit Rights
+You shall maintain accurate and complete records regarding your use of the software, including any use that may be subject to fees. fevber or its authorized representatives shall have the right, upon reasonable notice, to audit such records to verify compliance with this Section 21. Any underpayment of fees discovered shall be immediately paid to fevber, together with interest and any costs of audit.
+
+22. No Military Use
+22.1 Express Prohibition
+NOTWITHSTANDING ANY OTHER PROVISION IN THIS LICENSE, THIS SOFTWARE AND ANY DERIVATIVE WORKS THEREOF ARE EXPRESSLY PROHIBITED FROM BEING USED, DEPLOYED, INCORPORATED, OR OTHERWISE EMPLOYED, DIRECTLY OR INDIRECTLY, IN, FOR, OR IN CONNECTION WITH:
+
+(a) Any military, armed forces, defense, or national security application, system, or operation;
+
+(b) Any weapons system, including but not limited to missile systems, artillery systems, targeting systems, guidance systems, munitions systems, or weapons of any type or kind;
+
+(c) Any surveillance, reconnaissance, intelligence, or espionage system or operation;
+
+(d) Any combat, tactical, or strategic system or operation;
+
+(e) Any system used for armed conflict, warfare, or hostile actions;
+
+(f) Any training, simulation, or testing system for military or combat purposes;
+
+(g) Any military command, control, communications, computers, intelligence, surveillance, and reconnaissance (C4ISR) system;
+
+(h) Any autonomous or semi-autonomous weapon system, lethal autonomous weapon (LAW), or killer robot;
+
+(i) Any drone, unmanned aerial vehicle (UAV), unmanned ground vehicle (UGV), unmanned maritime vehicle (UMV), or other unmanned system used for military or combat purposes;
+
+(j) Any system used for military logistics, supply chain, or personnel management in support of combat operations;
+
+(k) Any system used for military research and development for the purposes described above.
+
+22.2 Definition of Military Use
+For purposes of this Section 22, "military use" includes, but is not limited to:
+
+Use by any armed forces, military, naval, air force, marine, space force, coast guard, or other defense force of any nation, state, or international organization;
+
+Use by any government agency engaged in defense, national security, or intelligence activities;
+
+Use by any contractor, subcontractor, supplier, or vendor performing work for or on behalf of any military or defense entity;
+
+Use in any system, product, or service that is designed, developed, produced, or procured for military or defense purposes;
+
+Use in any system that is financed, funded, or sponsored by any military or defense entity.
+
+22.3 Certification
+Upon fevber's request, you shall provide written certification that your use, deployment, distribution, or modification of the software does not violate this Section 22. fevber reserves the right to request such certification at any time.
+
+22.4 Enforcement
+Any violation of this Section 22 shall constitute:
+
+(a) A material breach of this license, resulting in immediate termination of all rights granted herein;
+
+(b) A serious violation of fevber's rights and ethical principles;
+
+(c) Grounds for injunctive relief, equitable remedies, and all other legal and equitable remedies available to fevber.
+
+22.5 Humanitarian Exemption
+The prohibition in this Section 22 does not apply to the use of the software for:
+
+(a) Humanitarian aid, disaster relief, search and rescue, or peacekeeping operations;
+
+(b) Medical, healthcare, or emergency response applications;
+
+(c) Civilian, non-combatant, or non-offensive purposes, provided that such use does not support, enable, or facilitate military or combat operations.
+
+23. Consumer Rights
+Certain jurisdictions may provide you with additional consumer rights that cannot be excluded, limited, or waived by this license. If you are acting as a consumer (a natural person acting for purposes outside your trade, business, craft, or profession), nothing in this license affects your statutory rights that cannot be lawfully excluded or limited. To the extent that any term of this license is inconsistent with such mandatory consumer rights, such term shall be deemed modified to the minimum extent necessary to comply with applicable law.
+
+24. Contact Information
+For permission requests, licensing inquiries, fee arrangements, commercial use requests, reporting of violations, or any questions regarding this license, please contact:
+
+fevber
+
+[Insert your contact method here — e.g., Email: your@email.com | Website: fevber.dev | Discord: @fevber | Twitter/X: @fevber]
+
+All inquiries, notices, and communications to fevber must be in writing and sent to the contact method specified above.
+
+25. Acknowledgment
+BY USING, COPYING, MODIFYING, DISTRIBUTING, OR OTHERWISE INTERACTING WITH THIS SOFTWARE IN ANY CAPACITY, YOU IRREVOCABLY AND UNCONDITIONALLY ACKNOWLEDGE, AGREE, AND CONFIRM THAT:
+
+(a) You have read, understood, and comprehended this license in its entirety, including all sections, subsections, provisions, and conditions;
+
+(b) You have had the opportunity and ability to seek independent legal advice, representation, and counsel before accepting this license;
+
+(c) You agree to be legally bound by all terms, conditions, obligations, and restrictions set forth herein;
+
+(d) You understand that this software is provided with NO WARRANTIES, GUARANTEES, OR REPRESENTATIONS and that you assume all risks, liabilities, and responsibilities associated with its use;
+
+(e) You understand that fevber has LIMITED LIABILITY and that you release fevber from all claims, demands, and causes of action to the fullest extent permitted by law;
+
+(f) You understand that this license is a LEGALLY BINDING CONTRACT and that violation may result in legal consequences, including injunctive relief and damages;
+
+(g) You agree to all the restrictions set forth in this license, including but not limited to the prohibition on AI training (Section 6) and the prohibition on military use (Section 22);
+
+(h) You understand that commercial use may require separate fees (Section 21);
+
+(i) You understand that this license may be terminated immediately upon any breach;
+
+(j) You have not relied on any representations, warranties, or statements not expressly set forth in this license.
