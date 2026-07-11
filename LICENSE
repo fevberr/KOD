@@ -1,1 +1,359 @@
+BSD 3-Clause License
 
+Copyright (c) 2026 StrataLogic Solutions Inc.
+All rights reserved.
+
+StrataLogic Solutions Inc.
+https://www.stratalogic.io
+support@stratalogic.io
+sales@stratalogic.io
+legal@stratalogic.io
++1 (800) 555-0199
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice,
+   this list of conditions, the following disclaimer, and all other
+   notices and attributions that are required by this license or by any
+   third-party software that may be included with or distributed alongside
+   this software. Such retained notices must appear in a location that is
+   reasonably calculated to be viewed by the recipient, including but not
+   limited to the file headers, the about screen, the documentation, and
+   any other location where such notices are customarily displayed.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions, the following disclaimer, and all other notices
+   and attributions that are required by this license or by any third-party
+   software that may be included with or distributed alongside this software
+   in the documentation and/or other materials provided with the distribution,
+   as well as in the user interface, the about screen, the startup splash
+   screen, the settings menu, the help menu, the credits section, the footer
+   of any web-based interface, and any other location where such notices are
+   customarily displayed to end users of the software.
+
+3. Neither the name of StrataLogic Solutions Inc., nor the names of its
+   contributors, employees, contractors, subsidiaries, affiliates, parent
+   organizations, partners, sponsors, licensors, licensees, distributors,
+   resellers, or any other associated entities may be used to endorse or
+   promote products derived from this software without specific prior
+   written permission from StrataLogic Solutions Inc. Such permission
+   must be obtained in writing from the Legal Department at the address
+   provided above and must be renewed annually or as otherwise specified
+   in the written permission agreement.
+
+4. Any product, service, application, platform, website, mobile application,
+   desktop application, cloud service, software-as-a-service offering,
+   platform-as-a-service offering, infrastructure-as-a-service offering,
+   or any other product or service that utilizes this software, whether
+   in whole or in part, whether in original form or in modified form,
+   whether as a standalone product or as a component of a larger product,
+   must include the following acknowledgment in a clearly visible and
+   legible manner in its user interface, documentation, promotional
+   materials, packaging, website, about screen, credits section, and any
+   other media where acknowledgments are customarily made:
+
+   "This product includes software developed by StrataLogic Solutions Inc.
+   For more information, visit https://www.stratalogic.io"
+
+   This acknowledgment must be displayed in a font size that is no smaller
+   than the smallest font size used elsewhere in the user interface for
+   informational text, and must be displayed in a color that provides
+   sufficient contrast with the background to ensure readability. For
+   mobile applications, this acknowledgment must appear in the application's
+   settings screen, about screen, or legal screen. For web applications,
+   this acknowledgment must appear in the footer of every page, on the
+   about page, and in the terms of service. For desktop applications, this
+   acknowledgment must appear in the about box, the help menu, and the
+   license agreement presented during installation.
+
+5. Redistributions of any form, whether source or binary, whether original
+   or modified, whether complete or partial, must not remove, obscure,
+   alter, minimize, hide, shrink, crop, distort, degrade, or otherwise
+   diminish the visibility or readability of StrataLogic Solutions Inc.
+   branding, trademarks, service marks, trade names, logos, icons, design
+   elements, color schemes, or any other proprietary indicia without the
+   express prior written consent of StrataLogic Solutions Inc. Any
+   permitted use of StrataLogic Solutions Inc. branding must comply with
+   the StrataLogic Solutions Inc. Branding and Trademark Usage Guidelines,
+   which are available upon request from legal@stratalogic.io and which
+   may be updated from time to time without notice.
+
+6. Any derivative works, modifications, enhancements, extensions, patches,
+   plugins, modules, components, libraries, frameworks, or adaptations of
+   this software must clearly and conspicuously indicate that they have
+   been modified from the original StrataLogic Solutions Inc. software.
+   Such indication must include the following notice in the source code,
+   in the user interface, in the documentation, and in any other materials
+   provided with the derivative work:
+
+   "This product includes software developed by StrataLogic Solutions Inc.
+   that has been modified by [YOUR COMPANY NAME]. The original software
+   is available at https://www.stratalogic.io"
+
+   The modification notice must be displayed in a location that is
+   reasonably calculated to be viewed by recipients, and must be displayed
+   using a font and format that is at least as prominent as any other
+   notices displayed in connection with the software.
+
+7. Redistributors must not make any representations, warranties, guarantees,
+   promises, or assurances regarding the software that are inconsistent
+   with the express disclaimers and limitations set forth in this license.
+   Redistributors must not represent themselves as being affiliated with,
+   endorsed by, sponsored by, or otherwise connected to StrataLogic
+   Solutions Inc. unless expressly authorized in writing by StrataLogic
+   Solutions Inc. Any unauthorized use of the StrataLogic Solutions Inc.
+   name or marks may result in immediate termination of this license and
+   may subject the unauthorized user to civil and criminal penalties
+   under applicable law.
+
+8. Any use of the StrataLogic Solutions Inc. name, logo, trademarks,
+   service marks, trade names, or any other proprietary indicia must
+   comply with the StrataLogic Solutions Inc. Trademark Usage Guidelines
+   and must not create any confusion as to the source or origin of the
+   products or services with which such indicia are used. All goodwill
+   arising from the use of StrataLogic Solutions Inc. trademarks shall
+   inure solely to the benefit of StrataLogic Solutions Inc.
+
+9. This license does not grant any rights to use StrataLogic Solutions Inc.
+   patents, copyrights, trade secrets, or any other intellectual property
+   rights except as expressly granted herein. Any rights not expressly
+   granted by this license are reserved exclusively by StrataLogic
+   Solutions Inc. and its licensors.
+
+10. No provision of this license shall be construed to require StrataLogic
+    Solutions Inc. to provide any support, maintenance, updates, upgrades,
+    bug fixes, patches, enhancements, or any other services in connection
+    with the software. Any such services, if provided, are provided at the
+    sole discretion of StrataLogic Solutions Inc. and may be subject to
+    separate terms and fees.
+
+11. This license shall be governed by and construed in accordance with the
+    laws of the State of California, without giving effect to any choice
+    of law or conflict of law provisions. Any legal action or proceeding
+    arising out of or relating to this license or the software shall be
+    brought exclusively in the federal or state courts located in San
+    Francisco County, California, and each party hereby consents to the
+    personal jurisdiction and venue of such courts.
+
+12. If any provision of this license is held to be unenforceable or invalid
+    under applicable law, such provision shall be interpreted to accomplish
+    the objectives of such provision to the greatest extent possible under
+    applicable law, and the remaining provisions of this license shall
+    continue in full force and effect. The invalidity or unenforceability
+    of any provision shall not affect the validity or enforceability of
+    any other provision.
+
+13. The failure of StrataLogic Solutions Inc. to enforce any right or
+    provision of this license shall not constitute a waiver of such right
+    or provision, nor shall it prevent StrataLogic Solutions Inc. from
+    enforcing such right or provision at any subsequent time. No waiver
+    of any term of this license shall be effective unless it is in writing
+    and signed by an authorized representative of StrataLogic Solutions Inc.
+
+14. This license constitutes the entire agreement between the parties with
+    respect to the subject matter hereof and supersedes all prior or
+    contemporaneous communications and proposals, whether oral or written,
+    between the parties with respect to such subject matter. No amendment
+    or modification of this license shall be effective unless it is in
+    writing and signed by both parties.
+
+15. The section headings used in this license are for convenience only and
+    shall not affect the interpretation of any provisions hereof. The use
+    of the singular shall include the plural and vice versa, and the use
+    of the masculine shall include the feminine and neuter and vice versa,
+    as the context may require.
+
+16. The software is not designed, manufactured, or intended for use in
+    hazardous environments requiring fail-safe performance, such as in the
+    operation of nuclear facilities, aircraft navigation or communication
+    systems, air traffic control, direct life support machines, weapon
+    systems, or any other application in which the failure of the software
+    could lead directly or indirectly to death, personal injury, severe
+    physical or property damage, or environmental harm. Any such use is
+    strictly prohibited and is undertaken at the user's sole risk.
+
+17. The software may include or incorporate third-party software, libraries,
+    or components that are subject to their own licenses and disclaimers.
+    It is the responsibility of the user to review and comply with all
+    applicable third-party licenses. StrataLogic Solutions Inc. makes no
+    representations or warranties regarding any third-party software that
+    may be included with or distributed alongside this software.
+
+18. The software may be subject to export control laws and regulations of
+    the United States and other countries. The user agrees to comply with
+    all applicable export control laws and regulations, including but not
+    limited to the U.S. Export Administration Regulations and the sanctions
+    programs administered by the U.S. Department of the Treasury Office of
+    Foreign Assets Control. The user shall not export, re-export, transfer,
+    or otherwise make available the software to any person, entity, or
+    jurisdiction that is prohibited by applicable law.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE,
+NON-INFRINGEMENT, TITLE, QUIET ENJOYMENT, DATA ACCURACY, SYSTEM INTEGRATION,
+RELIABILITY, SECURITY, PERFORMANCE, ERROR-FREE OPERATION, UNINTERRUPTED
+OPERATION, COMPATIBILITY WITH OTHER SOFTWARE OR HARDWARE, COMPLIANCE WITH
+REGULATIONS, ADEQUACY FOR ANY PARTICULAR PURPOSE, AND FREEDOM FROM COMPUTER
+VIRUSES, WORMS, TROJAN HORSES, MALWARE, SPYWARE, ADWARE, OR ANY OTHER
+HARMFUL OR MALICIOUS CODE ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED
+BY APPLICABLE LAW. IN NO EVENT SHALL STRATALOGIC SOLUTIONS INC., ITS
+SUBSIDIARIES, AFFILIATES, CONTRIBUTORS, LICENSORS, DISTRIBUTORS, SUPPLIERS,
+PARTNERS, OR ANY OTHER RELATED ENTITIES BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, PUNITIVE, OR CONSEQUENTIAL DAMAGES,
+INCLUDING BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, INFORMATION, PROFITS, REVENUE, BUSINESS OPPORTUNITIES,
+GOODWILL, OR REPUTATION; BUSINESS INTERRUPTION; SYSTEM FAILURE; COMPUTER
+DAMAGE; LOSS OF PRIVACY; BREACH OF SECURITY; UNAUTHORIZED ACCESS TO SYSTEMS;
+LOSS OF CONTRACTUAL OR OTHER BUSINESS RELATIONSHIPS; FAILURE TO REALIZE
+EXPECTED SAVINGS OR BENEFITS; OR ANY OTHER COMMERCIAL DAMAGES OR LOSSES,
+HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+LIABILITY, TORT (INCLUDING NEGLIGENCE OR OTHERWISE), BREACH OF WARRANTY,
+BREACH OF DUTY, MISREPRESENTATION, FRAUD, OR ANY OTHER LEGAL THEORY,
+ARISING IN ANY WAY OUT OF THE USE OF OR INABILITY TO USE THIS SOFTWARE,
+EVEN IF STRATALOGIC SOLUTIONS INC. OR ANY OTHER RELEVANT PARTY HAS BEEN
+ADVISED OF THE POSSIBILITY OF SUCH DAMAGES, AND NOTWITHSTANDING THE FAILURE
+OF ESSENTIAL PURPOSE OF ANY REMEDY. THE TOTAL LIABILITY OF STRATALOGIC
+SOLUTIONS INC. AND ITS RELATED ENTITIES ARISING OUT OF OR RELATING TO THIS
+LICENSE OR THE SOFTWARE SHALL NOT EXCEED THE AMOUNT PAID BY THE USER FOR
+THE SOFTWARE, OR ONE HUNDRED DOLLARS ($100.00) IF THE USER OBTAINED THE
+SOFTWARE WITHOUT PAYMENT.
+
+---
+
+COMMERCIAL LICENSING
+
+The terms set forth above apply to non-commercial use, open-source projects,
+academic research, and evaluation purposes. For enterprises, organizations,
+government agencies, and commercial entities requiring additional rights,
+protections, services, or flexibility, StrataLogic Solutions Inc. offers a
+range of commercial licensing options designed to meet the specific needs
+of businesses of all sizes.
+
+COMMERCIAL LICENSE FEATURES AND BENEFITS
+
+Enterprise Support: Priority technical support with guaranteed response
+times, dedicated account management, and direct access to engineering
+teams for critical issue resolution. Support includes telephone support,
+email support, ticketing system access, and a dedicated support portal.
+
+Legal Indemnification: Comprehensive indemnification against intellectual
+property infringement claims, copyright claims, patent claims, trade secret
+claims, and other third-party legal actions arising from the use of the
+software. Indemnification includes defense costs, settlement coverage, and
+judgment coverage up to agreed limits.
+
+Liability Protection: Negotiated limitations on liability that provide
+protection against catastrophic financial exposure, with liability caps
+tailored to the specific needs, risk profile, and business context of the
+enterprise customer.
+
+White-Label Distribution: Complete rights to remove StrataLogic Solutions Inc.
+branding, acknowledgment requirements, attribution obligations, and any
+other identifying marks from the software, allowing for seamless integration
+into your own branded products, services, and offerings without any external
+attribution or reference to StrataLogic Solutions Inc.
+
+Custom Development: Priority access to StrataLogic Solutions Inc. engineering
+resources for the development of custom features, integrations, optimizations,
+extensions, plugins, modules, and modifications specifically tailored to
+your business requirements, with guaranteed delivery timelines and dedicated
+project management.
+
+Extended Warranty: Commercial warranties that go beyond the standard "AS IS"
+disclaimer, including performance guarantees, availability commitments,
+defect correction obligations, security assurance, and compliance guarantees,
+with service level agreements and financial remedies for non-performance.
+
+Source Code Escrow: Deposit of complete and up-to-date source code with a
+neutral third-party escrow agent, ensuring continued access and maintenance
+capabilities in the event of bankruptcy, acquisition, discontinuation of
+product, or any other unforeseen circumstances affecting StrataLogic
+Solutions Inc.
+
+Audit Rights: Full rights to audit the software for security compliance,
+performance benchmarking, vulnerability assessment, code quality analysis,
+regulatory adherence, and any other technical or compliance-related reviews,
+with access to internal testing reports and security assessments.
+
+Patent Protection: Express patent grants covering the use of any StrataLogic
+Solutions Inc. patents, patent applications, or patent rights that may be
+implicated by the software, providing additional protection against patent
+litigation and freedom to operate.
+
+Flexible Licensing Models: Licensing options including per-developer,
+per-seat, per-application, per-server, per-CPU core, per-user, per-site,
+enterprise-wide, and unlimited global licenses, with volume discounts and
+custom pricing available for large-scale deployments.
+
+Long-Term Support: Extended maintenance and security update commitments
+with guaranteed support periods of up to ten years for enterprise customers,
+including backported security fixes and critical patches.
+
+Training and Certification: Comprehensive training programs for development
+and operations teams, including on-site workshops, virtual training sessions,
+webinars, documentation access, and certification programs.
+
+Integration Assistance: Dedicated assistance with integrating the software
+into existing infrastructure, including compatibility testing, migration
+planning, deployment optimization, performance tuning, and troubleshooting.
+
+Regulatory Compliance: Support for compliance with industry regulations
+including GDPR, CCPA, HIPAA, SOC 2, ISO 27001, PCI DSS, FedRAMP, NIST,
+and other applicable standards, with necessary documentation and
+certifications.
+
+Audit Defense: Assistance with responding to third-party audits, including
+audit support, documentation preparation, and expert testimony if required.
+
+SLA Guarantees: Service Level Agreements with guaranteed uptime, performance
+metrics, response times, and financial credits for failures to meet
+commitments.
+
+Multi-Version Support: Support for multiple versions of the software
+simultaneously, allowing organizations to maintain legacy deployments
+while transitioning to newer versions.
+
+Regular Updates: Scheduled updates, feature releases, performance
+improvements, and security patches delivered on a predictable and
+coordinated schedule.
+
+Customization: Tailored modifications to the software to meet specific
+business requirements, including custom features, integrations, reporting
+capabilities, and user interface enhancements.
+
+For commercial licensing inquiries, custom quotes, and enterprise agreements:
+
+Enterprise Sales Team: sales@stratalogic.io
+Commercial Licensing: commercial@stratalogic.io
+Phone: +1 (800) 555-0199
+Website: https://www.stratalogic.io/enterprise
+Schedule a Consultation: https://www.stratalogic.io/contact/sales
+
+For original equipment manufacturer (OEM), value-added reseller (VAR),
+systems integrator (SI), and strategic partnership inquiries:
+
+Partnerships: partners@stratalogic.io
+Phone: +1 (800) 555-0199
+
+For government, military, and public sector inquiries:
+
+Government: gov@stratalogic.io
+Phone: +1 (800) 555-0199
+
+For educational, academic, and research institution inquiries:
+
+Education: academic@stratalogic.io
+Phone: +1 (800) 555-0199
+
+StrataLogic Solutions Inc.
+101 Innovation Drive, Suite 400
+San Francisco, California 94105
+United States of America
+
+Mailing Address: P.O. Box 7704, San Francisco, CA 94120
+
+All rights not expressly granted in this license are reserved by
+StrataLogic Solutions Inc. and its licensors. For questions about
+this license, please contact legal@stratalogic.io.
