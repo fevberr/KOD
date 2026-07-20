@@ -4,6 +4,18 @@ import sys
 import time
 import importlib.util
 import random
+import shutil
+
+def get_width():
+    try:
+        return shutil.get_terminal_size().columns
+    except:
+        return 80
+
+def truncate(text, max_len):
+    if len(text) > max_len:
+        return text[:max_len-3] + "..."
+    return text
 
 def a1(path):
     spec = importlib.util.spec_from_file_location("module", path)
@@ -23,17 +35,19 @@ def fast(text, delay=0.002):
 
 def matrix_rain(lines=2):
     chars = "01!@#$%^&*()_+{}|:<>?~"
+    width = get_width()
     for _ in range(lines):
-        line = ''.join(random.choice(chars) for _ in range(50))
+        line = ''.join(random.choice(chars) for _ in range(min(width, 50)))
         sys.stdout.write(f"\r\033[2m{line}\033[0m")
         sys.stdout.flush()
         time.sleep(0.015)
-    print("\r" + " " * 50, end="")
+    print("\r" + " " * min(width, 50), end="")
     print("\r", end="")
 
 def show_header(module_name):
     clear()
     matrix_rain(1)
+    width = get_width()
     
     print(f"\n\033[96m┌─ \033[93mModule:\033[0m \033[97m{module_name}\033[0m")
     print(f"\033[96m├─ \033[93mHost:\033[0m \033[97m{host}\033[0m")
@@ -45,11 +59,13 @@ def show_header(module_name):
 
 def a2(module_name, options=None, current_options=None):
     show_header(module_name)
+    width = get_width()
     
     if current_options:
         print("\033[90m┌──────────────────────────────────────────────────────────────┐\033[0m")
         for key, value in current_options.items():
-            print(f"\033[90m│ \033[93m{key}:\033[0m \033[97m{value}\033[0m")
+            display = truncate(f"{key}: {value}", width - 6)
+            print(f"\033[90m│ \033[93m{display}\033[0m")
         print("\033[90m└──────────────────────────────────────────────────────────────┘\033[0m")
         print()
     
@@ -59,7 +75,8 @@ def a2(module_name, options=None, current_options=None):
         for i, key in enumerate(opt_list, 1):
             default = options[key].get('default', '')
             current = current_options.get(key, default) if current_options else default
-            print(f"\033[90m│ \033[96m{i:2}.\033[0m \033[97m{key}\033[0m \033[90m[\033[93m{current}\033[90m]\033[0m")
+            display = truncate(f"{i}. {key} [{current}]", width - 6)
+            print(f"\033[90m│ \033[96m{display}\033[0m")
         print("\033[90m└──────────────────────────────────────────────────────────────┘\033[0m")
         print()
     
@@ -81,15 +98,17 @@ def a3(module_path, options=None):
             else:
                 result = module.run()
             
+            width = get_width()
             for line in result.split('\n'):
+                display = truncate(line, width - 6)
                 if line.startswith('[+]'):
-                    fast(f"\033[92m│ ✓ {line[3:]}\033[0m", 0.002)
+                    fast(f"\033[92m│ ✓ {display[3:]}\033[0m", 0.002)
                 elif line.startswith('[!]'):
-                    fast(f"\033[91m│ ✗ {line[3:]}\033[0m", 0.002)
+                    fast(f"\033[91m│ ✗ {display[3:]}\033[0m", 0.002)
                 elif line.startswith('[*]'):
-                    fast(f"\033[94m│ ● {line[3:]}\033[0m", 0.002)
+                    fast(f"\033[94m│ ● {display[3:]}\033[0m", 0.002)
                 else:
-                    fast(f"\033[90m│ {line}\033[0m", 0.002)
+                    fast(f"\033[90m│ {display}\033[0m", 0.002)
             
             fast("\033[96m└──────────────────────────────────────────────────────────────┘\033[0m", 0.002)
             input("\n\033[92m>\033[0m ")
