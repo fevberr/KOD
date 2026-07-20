@@ -2,11 +2,12 @@ import platform
 import socket
 import subprocess
 import os
+import glob
 
 TABS = {
     "Recon Tab": ["DNS lookup.py", "Port Scanner.py", "Reverse DNS.py", "Shodan lookup.py", "OSINT search.py", "Subdomain enumeration.py", "Whois Lookup.py"],
-    "example": ["a.py", "b.py", "c.py"],
     "coming": [],
+    "Aesthetic": ["Matrix Rain.py", "", "Glitch Effect.py", "Binary Clock.py", "FPort Scanner.py", "FNetwork Sniffer.py"]
 }
 
 def s1():
