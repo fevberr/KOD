@@ -34,7 +34,7 @@ def run(options=None):
         cols = os.get_terminal_size().columns
         lines = os.get_terminal_size().lines - 2
         
-        output.append("[*] Matrix Rain v3.0 - Resizeable")
+        output.append("[*] Matrix Rain")
         output.append("[*] Terminal: {}x{} | Speed: {}s | Duration: {}s | Drops: {}".format(cols, lines, speed, seconds, density))
         
         drops = []
@@ -135,7 +135,7 @@ def run(options=None):
             frame_count += 1
             time.sleep(speed)
         
-        output.append("[+] Matrix Rain completed successfully")
+        output.append("[+] completed")
         output.append("[*] Frames rendered: {}".format(frame_count))
         output.append("[*] Total time: {:.2f}s".format(time.time() - start_time))
         
