@@ -4,21 +4,21 @@ import time
 from config import g1, g2, host, port, device, system, ping
 import random
 import shutil
-from utils.colors import *
+from utils.colors import green, red, cyan, yellow, white, gray, blue, magenta, dim, bold
 
-def a3():
+def get_terminal_size():
     try:
         return shutil.get_terminal_size()
     except:
         return os.terminal_size((80, 24))
 
-def a4():
-    return a3().columns
+def get_width():
+    return get_terminal_size().columns
 
-def a5():
-    return a3().lines
+def get_height():
+    return get_terminal_size().lines
 
-def a6(text, max_len):
+def truncate(text, max_len):
     if len(text) > max_len:
         return text[:max_len-3] + "..."
     return text
@@ -43,26 +43,26 @@ def o1(p4):
         return t1[n2[p4]]
     return []
 
-def a7(text, delay=0.008):
+def anim(text, delay=0.008):
     for char in text:
         sys.stdout.write(char)
         sys.stdout.flush()
         time.sleep(delay)
     print()
 
-def a8(text, delay=0.002):
+def fast(text, delay=0.002):
     for char in text:
         sys.stdout.write(char)
         sys.stdout.flush()
         time.sleep(delay)
     print()
 
-def a9():
+def matrix_rain():
     chars = "01!@#$%^&*()_+{}|:<>?~"
-    width = a4()
+    width = get_width()
     for _ in range(2):
         line = ''.join(random.choice(chars) for _ in range(min(width, 50)))
-        sys.stdout.write(f"\r{gr1(line)}")
+        sys.stdout.write(f"\r{gray(line)}")
         sys.stdout.flush()
         time.sleep(0.015)
     print("\r" + " " * min(width, 50), end="")
@@ -73,8 +73,8 @@ def m1():
     q1 = ""
     
     while True:
-        width = a4()
-        height = a5()
+        width = get_width()
+        height = get_height()
         os.system('cls' if os.name == 'nt' else 'clear')
         
         if width < 40:
@@ -129,92 +129,92 @@ def m1():
         tab_width = min(width - 10, 60)
         tab_display = []
         for i, name in enumerate(n2):
-            display_name = a6(name, 12)
+            display_name = truncate(name, 12)
             if i == p4:
-                tab_display.append(f"{g1('[')}{display_name}{g1(']')}")
+                tab_display.append(f"{green('[')}{display_name}{green(']')}")
             else:
-                tab_display.append(f"{gr1(' ' + display_name + ' ')}")
+                tab_display.append(f"{gray(' ' + display_name + ' ')}")
         
         tab_line = ' '.join(tab_display)
         if len(tab_line) > tab_width:
             tab_display = []
             for i, name in enumerate(n2):
-                display_name = a6(name, 8)
+                display_name = truncate(name, 8)
                 if i == p4:
-                    tab_display.append(f"{g1('[')}{display_name}{g1(']')}")
+                    tab_display.append(f"{green('[')}{display_name}{green(']')}")
                 else:
-                    tab_display.append(f"{gr1(display_name)}")
+                    tab_display.append(f"{gray(display_name)}")
             tab_line = ' '.join(tab_display)
             if len(tab_line) > tab_width:
                 tab_display = []
                 for i, name in enumerate(n2[:5]):
-                    display_name = a6(name, 6)
+                    display_name = truncate(name, 6)
                     if i == p4:
-                        tab_display.append(f"{g1('[')}{display_name}{g1(']')}")
+                        tab_display.append(f"{green('[')}{display_name}{green(']')}")
                     else:
-                        tab_display.append(f"{gr1(display_name)}")
+                        tab_display.append(f"{gray(display_name)}")
                 if len(n2) > 5:
-                    tab_display.append(f"{gr1('...')}")
+                    tab_display.append(f"{gray('...')}")
                 tab_line = ' '.join(tab_display)
         
-        print(f"\n{gr1('┌─ Menu ─')}")
-        print(f"{gr1('│')} {c2('Tabs:')} {tab_line}")
+        print(f"\n{gray('┌─ Menu ─')}")
+        print(f"{gray('│')} {cyan('Tabs:')} {tab_line}")
         
         if width < 50:
-            print(f"{gr1('├──┤')}")
+            print(f"{gray('├──┤')}")
         else:
-            print(f"{gr1('├──────────────────┤')}")
+            print(f"{gray('├──────────────────┤')}")
         
         if not c2:
-            print(f"{gr1('│')} {r1('(soon)')}")
+            print(f"{gray('│')} {red('(soon)')}")
         else:
             max_items = min(len(c2), height - 8)
             for i, m5 in enumerate(c2[:max_items], 1):
-                display_name = a6(m5, width - 10)
+                display_name = truncate(m5, width - 10)
                 if width < 50:
-                    print(f"{gr1('│')} {g1(str(i))}.{display_name}")
+                    print(f"{gray('│')} {green(str(i))}.{display_name}")
                 else:
-                    print(f"{gr1('│')} {g1(f'{i:2}')}. {display_name}")
+                    print(f"{gray('│')} {green(f'{i:2}')}. {display_name}")
             if len(c2) > max_items:
-                print(f"{gr1('│ ...')} {len(c2)-max_items} more")
+                print(f"{gray('│ ...')} {len(c2)-max_items} more")
         
         if width < 40:
-            print(f"{gr1('├──┤')}")
-            print(f"{gr1('│')} {r1('[0]')} {y1('[s]')} {c2('[t#]')} {gr1('│')}")
+            print(f"{gray('├──┤')}")
+            print(f"{gray('│')} {red('[0]')} {yellow('[s]')} {cyan('[t#]')} {gray('│')}")
         else:
-            print(f"{gr1('├──────────────────┤')}")
-            print(f"{gr1('│')} {r1('[0]')} Exit  {y1('[s]')} Search  {c2('[t#]')} Tab  {b1('[i]')} Install{gr1('│')}")
+            print(f"{gray('├──────────────────┤')}")
+            print(f"{gray('│')} {red('[0]')} Exit  {yellow('[s]')} Search  {cyan('[t#]')} Tab  {blue('[i]')} Install{gray('│')}")
         
-        print(f"{gr1('└──────────────────┘')}")
+        print(f"{gray('└──────────────────┘')}")
         print()
         
         sys.stdout.flush()
         try:
-            c1 = input(f"{g1('>')} ").strip().lower()
+            c1 = input(f"{green('>')} ").strip().lower()
         except KeyboardInterrupt:
-            print(f"\n{r1('[!] Exiting...')}")
+            print(f"\n{red('[!] Exiting...')}")
             break
         
         if c1 == "0":
-            print(f"{r1('[!] Exiting...')}")
+            print(f"{red('[!] Exiting...')}")
             break
         
         if c1 == "s":
-            q1 = input(f"{y1('Search:')} ").strip()
+            q1 = input(f"{yellow('Search:')} ").strip()
             found = []
             for tab_name, modules in g1().items():
                 for mod in modules:
                     if q1.lower() in mod.lower():
                         found.append(f"{tab_name}: {mod}")
             if found:
-                print(f"\n{g1('[+] Found:')}")
+                print(f"\n{green('[+] Found:')}")
                 for f in found[:10]:
-                    print(f"    {c2('-')} {f}")
+                    print(f"    {cyan('-')} {f}")
                 if len(found) > 10:
                     print(f"    ... and {len(found)-10} more")
             else:
-                print(f"\n{r1('[!] No matches found')}")
-            input(f"\n{g1('>')} ")
+                print(f"\n{red('[!] No matches found')}")
+            input(f"\n{green('>')} ")
             continue
         
         if c1 == "i":
@@ -222,7 +222,7 @@ def m1():
                 from installer import a11
                 a11()
             except:
-                print(f"{r1('[!] installer.py not found')}")
+                print(f"{red('[!] installer.py not found')}")
                 time.sleep(1)
             continue
         
@@ -231,20 +231,20 @@ def m1():
                 t2 = int(c1[1:])
                 if 1 <= t2 <= t1:
                     p4 = t2 - 1
-                    print(f"\n{g1('[✓] Switched to:')} {n2[p4]}")
+                    print(f"\n{green('[✓] Switched to:')} {n2[p4]}")
                     time.sleep(0.5)
                     continue
                 else:
-                    print(f"\n{r1('[!] Tab')} {t2} {r1("doesn't exist (1-")}{t1}{r1(')')}")
+                    print(f"\n{red('[!] Tab')} {t2} {red("doesn't exist (1-")}{t1}{red(')')}")
                     time.sleep(1)
                     continue
             except:
-                print(f"\n{r1('[!] Invalid tab number')}")
+                print(f"\n{red('[!] Invalid tab number')}")
                 time.sleep(1)
                 continue
         
         if not c1.isdigit():
-            print(f"\n{r1('[!] Invalid option')}")
+            print(f"\n{red('[!] Invalid option')}")
             time.sleep(1)
             continue
         
@@ -275,20 +275,20 @@ def m1():
                         
                     elif choice == "2" and module_options:
                         opt_width = min(width, 60)
-                        print(f"\n{gr1('┌─ Options ─')}")
+                        print(f"\n{gray('┌─ Options ─')}")
                         opt_list = list(module_options.keys())
                         for i, key in enumerate(opt_list, 1):
                             current = current_options.get(key, module_options[key].get('default', ''))
-                            display = a6(f"{i}. {key} = {current}", opt_width - 4)
-                            print(f"{gr1('│')} {g1(display)}")
-                        print(f"{gr1('└───────────')}")
+                            display = truncate(f"{i}. {key} = {current}", opt_width - 4)
+                            print(f"{gray('│')} {green(display)}")
+                        print(f"{gray('└───────────')}")
                         print()
-                        print(f"  {y1('Format:')} {c2('<num> <val>')}")
-                        print(f"  {gr1('Enter to keep current')}")
+                        print(f"  {yellow('Format:')} {cyan('<num> <val>')}")
+                        print(f"  {gray('Enter to keep current')}")
                         print()
                         
                         try:
-                            inp = input(f"{g1('>')} ").strip()
+                            inp = input(f"{green('>')} ").strip()
                             if inp and inp != "0":
                                 parts = inp.split()
                                 if len(parts) >= 2:
@@ -297,44 +297,44 @@ def m1():
                                     if 1 <= num <= len(opt_list):
                                         key = opt_list[num - 1]
                                         current_options[key] = val
-                                        print(f"\n{g1('[✓]')} {key} = {val}")
+                                        print(f"\n{green('[✓]')} {key} = {val}")
                                     else:
-                                        print(f"\n{r1('[!] Invalid number')}")
+                                        print(f"\n{red('[!] Invalid number')}")
                                 elif len(parts) == 1 and parts[0].isdigit():
                                     num = int(parts[0])
                                     if 1 <= num <= len(opt_list):
                                         key = opt_list[num - 1]
                                         current = current_options.get(key, module_options[key].get('default', ''))
-                                        print(f"\n{y1('  ')}{key} = {current}")
-                                        new_val = input(f"{g1('  New value:')} ").strip()
+                                        print(f"\n{yellow('  ')}{key} = {current}")
+                                        new_val = input(f"{green('  New value:')} ").strip()
                                         if new_val:
                                             current_options[key] = new_val
-                                            print(f"\n{g1('[✓]')} {key} = {new_val}")
+                                            print(f"\n{green('[✓]')} {key} = {new_val}")
                                     else:
-                                        print(f"\n{r1('[!] Invalid number')}")
+                                        print(f"\n{red('[!] Invalid number')}")
                                 else:
-                                    print(f"\n{r1('[!] Format: <number> <value>')}")
+                                    print(f"\n{red('[!] Format: <number> <value>')}")
                         except ValueError:
-                            print(f"\n{r1('[!] Invalid input')}")
+                            print(f"\n{red('[!] Invalid input')}")
                         time.sleep(0.8)
                             
                     elif choice == "3":
-                        print(f"\n{b1('[✓] Returning...')}")
+                        print(f"\n{blue('[✓] Returning...')}")
                         time.sleep(0.5)
                         break
                         
                     elif choice == "0":
-                        print(f"{r1('[!] Exiting...')}")
+                        print(f"{red('[!] Exiting...')}")
                         sys.exit(0)
                     else:
-                        print(f"\n{r1('[!] Invalid')}")
+                        print(f"\n{red('[!] Invalid')}")
                         time.sleep(0.5)
             else:
-                print(f"\n{r1('[!] Module')} {m5} {r1('not found!')}")
-                input(f"{g1('>')} ")
+                print(f"\n{red('[!] Module')} {m5} {red('not found!')}")
+                input(f"{green('>')} ")
         else:
             if c2:
-                print(f"\n{r1('[!] Invalid option')}")
+                print(f"\n{red('[!] Invalid option')}")
             else:
-                print(f"\n{r1('[!] No modules')}")
+                print(f"\n{red('[!] No modules')}")
             time.sleep(1)
