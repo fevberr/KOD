@@ -3,6 +3,7 @@ from display.banner import b1
 from display.panels import p1
 from config import host, port, device, system, ping
 import os
+import sys
 
 def r1():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -12,4 +13,8 @@ def r1():
     m1()
 
 if __name__ == "__main__":
-    r1()
+    try:
+        from boot import a5
+        a5()
+    except:
+        r1()
