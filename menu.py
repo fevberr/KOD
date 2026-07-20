@@ -3,6 +3,43 @@ import sys
 import time
 from config import g1, g2, host, port, device, system, ping
 import random
+import shutil
+
+def get_terminal_size():
+    try:
+        return shutil.get_terminal_size()
+    except:
+        return os.terminal_size((80, 24))
+
+def get_width():
+    return get_terminal_size().columns
+
+def get_height():
+    return get_terminal_size().lines
+
+def center(text, width=None):
+    if width is None:
+        width = get_width()
+    padding = max(0, (width - len(text)) // 2)
+    return " " * padding + text
+
+def line(char="─", width=None):
+    if width is None:
+        width = get_width()
+    return char * min(width, 120)
+
+def box(text, width=None):
+    if width is None:
+        width = min(get_width(), 80)
+    if width < 30:
+        return f" {text} "
+    w = min(width - 4, 120)
+    return f"┌{line('─', w)}┐\n│{center(text, w)}│\n└{line('─', w)}┘"
+
+def truncate(text, max_len):
+    if len(text) > max_len:
+        return text[:max_len-3] + "..."
+    return text
 
 G = "\033[92m"
 R = "\033[91m"
@@ -49,12 +86,13 @@ def fast(text, delay=0.002):
 
 def matrix_rain():
     chars = "01!@#$%^&*()_+{}|:<>?~"
+    width = get_width()
     for _ in range(2):
-        line = ''.join(random.choice(chars) for _ in range(50))
+        line = ''.join(random.choice(chars) for _ in range(min(width, 50)))
         sys.stdout.write(f"\r{GR}{line}{RS}")
         sys.stdout.flush()
         time.sleep(0.015)
-    print("\r" + " " * 50, end="")
+    print("\r" + " " * min(width, 50), end="")
     print("\r", end="")
 
 def m1():
@@ -62,29 +100,50 @@ def m1():
     q1 = ""
     
     while True:
+        width = get_width()
+        height = get_height()
         os.system('cls' if os.name == 'nt' else 'clear')
-        matrix_rain()
         
-        try:
-            from display.banner import b1
-            b1()
-        except:
-            print("+--- 23 KOD")
-        
-        i1 = f"host:      {host}\nPort:        {port}\nPing:     {ping}\ndevice:   {device}\nsystem:    {system}"
-        
-        try:
-            from display.panels import p1
-            p1("23 KOD", i1, "READY")
-        except:
-            print("+--- 23 KOD")
-            print(f"| host:      {host}")
-            print(f"| Port:        {port}")
-            print(f"| Ping:     {ping}")
-            print(f"| device:   {device}")
-            print(f"| system:    {system}")
-            print("|- Status: READY")
-            print("------------------------------")
+        if width < 40:
+            # Minimal mode
+            try:
+                from display.banner import b1
+                b1()
+            except:
+                print("+--- 23 KOD")
+            
+            i1 = f"host: {host}\nport: {port}\nping: {ping}\ndevice: {device}"
+            try:
+                from display.panels import p1
+                p1("23 KOD", i1, "READY")
+            except:
+                print("+--- 23 KOD")
+                print(f"| {host}")
+                print(f"| {port}")
+                print(f"| {ping}ms")
+                print("|- READY")
+                print("------------------------------")
+        else:
+            # Full mode
+            try:
+                from display.banner import b1
+                b1()
+            except:
+                print("+--- 23 KOD")
+            
+            i1 = f"host:      {host}\nPort:        {port}\nPing:     {ping}\ndevice:   {device}\nsystem:    {system}"
+            try:
+                from display.panels import p1
+                p1("23 KOD", i1, "READY")
+            except:
+                print("+--- 23 KOD")
+                print(f"| host:      {host}")
+                print(f"| Port:        {port}")
+                print(f"| Ping:     {ping}")
+                print(f"| device:   {device}")
+                print(f"| system:    {system}")
+                print("|- Status: READY")
+                print("------------------------------")
         
         n2 = n1()
         t1 = max(1, len(n2))
@@ -96,27 +155,68 @@ def m1():
         
         c2 = o1(p4)
         
+        # Responsive tab display
+        tab_width = min(width - 10, 60)
         tab_display = []
         for i, name in enumerate(n2):
+            display_name = truncate(name, 12)
             if i == p4:
-                tab_display.append(f"{G}[{name}]{RS}")
+                tab_display.append(f"{G}[{display_name}]{RS}")
             else:
-                tab_display.append(f"{GR} {name} {RS}")
+                tab_display.append(f"{GR} {display_name} {RS}")
         
         tab_line = ' '.join(tab_display)
-        print(f"\n{GR}┌─ Menu ─────────────────────────────────────────────────────┐{RS}")
+        if len(tab_line) > tab_width:
+            # Show fewer tabs if too wide
+            tab_display = []
+            for i, name in enumerate(n2):
+                display_name = truncate(name, 8)
+                if i == p4:
+                    tab_display.append(f"{G}[{display_name}]{RS}")
+                else:
+                    tab_display.append(f"{GR}{display_name}{RS}")
+            tab_line = ' '.join(tab_display)
+            if len(tab_line) > tab_width:
+                tab_display = []
+                for i, name in enumerate(n2[:5]):
+                    display_name = truncate(name, 6)
+                    if i == p4:
+                        tab_display.append(f"{G}[{display_name}]{RS}")
+                    else:
+                        tab_display.append(f"{GR}{display_name}{RS}")
+                if len(n2) > 5:
+                    tab_display.append(f"{GR}...{RS}")
+                tab_line = ' '.join(tab_display)
+        
+        print(f"\n{GR}┌─ Menu ─{RS}")
         print(f"{GR}│ {C}Tabs:{RS} {tab_line}")
-        print(f"{GR}├──────────────────────────────────────────────────────────────┤{RS}")
+        
+        if width < 50:
+            print(f"{GR}├──┤{RS}")
+        else:
+            print(f"{GR}├──────────────────┤{RS}")
         
         if not c2:
-            print(f"{GR}│ {R}(coming soon...){RS}")
+            print(f"{GR}│ {R}(soon){RS}")
         else:
-            for i, m5 in enumerate(c2, 1):
-                print(f"{GR}│ {G}{i:2}.{RS} {m5}")
+            max_items = min(len(c2), height - 8)
+            for i, m5 in enumerate(c2[:max_items], 1):
+                display_name = truncate(m5, width - 10)
+                if width < 50:
+                    print(f"{GR}│ {G}{i}.{RS}{display_name}")
+                else:
+                    print(f"{GR}│ {G}{i:2}.{RS} {display_name}")
+            if len(c2) > max_items:
+                print(f"{GR}│ ... {len(c2)-max_items} more{RS}")
         
-        print(f"{GR}├──────────────────────────────────────────────────────────────┤{RS}")
-        print(f"{GR}│ {R}[0]{RS} Exit  {Y}[s]{RS} Search  {B}[i]{RS} Install  {C}[t#]{RS} Tab          {GR}│{RS}")
-        print(f"{GR}└──────────────────────────────────────────────────────────────┘{RS}")
+        if width < 40:
+            print(f"{GR}├──┤{RS}")
+            print(f"{GR}│ {R}[0]{RS} {Y}[s]{RS} {C}[t#]{RS} {GR}│{RS}")
+        else:
+            print(f"{GR}├──────────────────┤{RS}")
+            print(f"{GR}│ {R}[0]{RS} Exit  {Y}[s]{RS} Search  {C}[t#]{RS} Tab  {B}[i]{RS} Install{GR}│{RS}")
+        
+        print(f"{GR}└──────────────────┘{RS}")
         print()
         
         sys.stdout.flush()
@@ -139,8 +239,10 @@ def m1():
                         found.append(f"{tab_name}: {mod}")
             if found:
                 print(f"\n{G}[+] Found:{RS}")
-                for f in found:
+                for f in found[:10]:
                     print(f"    {C}- {f}{RS}")
+                if len(found) > 10:
+                    print(f"    ... and {len(found)-10} more")
             else:
                 print(f"\n{R}[!] No matches found{RS}")
             input(f"\n{G}>{RS} ")
@@ -203,15 +305,16 @@ def m1():
                         a3(m6, current_options if current_options else None)
                         
                     elif choice == "2" and module_options:
-                        print(f"\n{GR}┌─ Options ─────────────────────────────────────────────┐{RS}")
+                        opt_width = min(width, 60)
+                        print(f"\n{GR}┌─ Options ─{RS}")
                         opt_list = list(module_options.keys())
                         for i, key in enumerate(opt_list, 1):
                             current = current_options.get(key, module_options[key].get('default', ''))
-                            print(f"{GR}│ {G}{i:2}.{RS} {key} {GR}={RS} {Y}{current}{RS}")
-                        print(f"{GR}└────────────────────────────────────────────────────────────┘{RS}")
+                            display = truncate(f"{i}. {key} = {current}", opt_width - 4)
+                            print(f"{GR}│ {G}{display}{RS}")
+                        print(f"{GR}└───────────{RS}")
                         print()
-                        print(f"  {Y}Format:{RS} {C}<number> <value>{RS}")
-                        print(f"  {GR}Example:{RS} 1 google.com")
+                        print(f"  {Y}Format:{RS} {C}<num> <val>{RS}")
                         print(f"  {GR}Enter to keep current{RS}")
                         print()
                         
@@ -247,7 +350,7 @@ def m1():
                         time.sleep(0.8)
                             
                     elif choice == "3":
-                        print(f"\n{B}[✓] Returning to main menu...{RS}")
+                        print(f"\n{B}[✓] Returning...{RS}")
                         time.sleep(0.5)
                         break
                         
