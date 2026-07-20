@@ -23,17 +23,6 @@ def truncate(text, max_len):
         return text[:max_len-3] + "..."
     return text
 
-def center(text, width):
-    if len(text) >= width:
-        return text
-    padding = (width - len(text)) // 2
-    return " " * padding + text
-
-def line(char="─", width=None):
-    if width is None:
-        width = get_width()
-    return char * max(1, min(width, 120))
-
 def m2():
     m1 = []
     t1 = g1()
@@ -54,183 +43,32 @@ def o1(p4):
         return t1[n2[p4]]
     return []
 
-def anim(text, delay=0.008):
-    for char in text:
-        sys.stdout.write(char)
-        sys.stdout.flush()
-        time.sleep(delay)
-    print()
-
-def fast(text, delay=0.002):
-    for char in text:
-        sys.stdout.write(char)
-        sys.stdout.flush()
-        time.sleep(delay)
-    print()
-
-def matrix_rain():
-    chars = "01!@#$%^&*()_+{}|:<>?~"
-    width = min(get_width(), 80)
-    for _ in range(min(2, max(1, get_height() // 10))):
-        line_str = ''.join(random.choice(chars) for _ in range(max(1, min(width, 50))))
-        sys.stdout.write(f"\r{gray(line_str)}")
-        sys.stdout.flush()
-        time.sleep(0.015)
-    print("\r" + " " * max(1, min(width, 50)), end="")
-    print("\r", end="")
-
 def m1():
     p4 = 0
     q1 = ""
     
     while True:
-        width = get_width()
-        height = get_height()
         os.system('cls' if os.name == 'nt' else 'clear')
-
-        if width < 30:
-            try:
-                from display.banner import b1
-                b1()
-            except:
-                print("23K")
-            
-            print(f"H:{host}")
-            print(f"P:{port}")
-            print(f"Ping:{ping}")
-            print("---")
-            n2 = n1()
-            t1 = max(1, len(n2))
-            if p4 >= t1:
-                p4 = t1 - 1
-            if p4 < 0:
-                p4 = 0
-            c2 = o1(p4)
-            
-            for i, name in enumerate(n2):
-                if i == p4:
-                    print(f"[{name}]")
-                else:
-                    print(f" {name} ")
-            print("---")
-            if not c2:
-                print("(soon)")
-            else:
-                for i, m5 in enumerate(c2, 1):
-                    print(f"{i}.{truncate(m5, width-4)}")
-            print("0=Exit s=Search t#=Tab")
-            try:
-                c1 = input("> ").strip().lower()
-            except KeyboardInterrupt:
-                print("\nExiting...")
-                break
-            if c1 == "0":
-                break
-            if c1 == "s":
-                q1 = input("Search: ").strip()
-                found = []
-                for tab_name, modules in g1().items():
-                    for mod in modules:
-                        if q1.lower() in mod.lower():
-                            found.append(f"{tab_name}: {mod}")
-                if found:
-                    for f in found[:5]:
-                        print(f"- {f}")
-                else:
-                    print("No matches")
-                input("> ")
-                continue
-            if c1.startswith('t') and len(c1) > 1:
-                try:
-                    t2 = int(c1[1:])
-                    if 1 <= t2 <= t1:
-                        p4 = t2 - 1
-                        continue
-                except:
-                    pass
-            if c1.isdigit():
-                i2 = int(c1) - 1
-                if c2 and 0 <= i2 < len(c2):
-                    m5 = c2[i2]
-                    m6 = f"modules/{m5}"
-                    if os.path.exists(m6):
-                        from utils.modUI import a1, a2, a3
-                        module = a1(m6)
-                        module_options = {}
-                        current_options = {}
-                        if hasattr(module, 'OPTIONS'):
-                            module_options = module.OPTIONS
-                            for key, value in module_options.items():
-                                if 'default' in value:
-                                    current_options[key] = value['default']
-                        while True:
-                            choice = a2(m5[:-3], module_options, current_options)
-                            if choice == "1":
-                                a3(m6, current_options if current_options else None)
-                            elif choice == "2" and module_options:
-                                opt_list = list(module_options.keys())
-                                for i, key in enumerate(opt_list, 1):
-                                    current = current_options.get(key, module_options[key].get('default', ''))
-                                    print(f"{i}. {key} = {current}")
-                                print("Format: <num> <val>")
-                                inp = input("> ").strip()
-                                if inp and inp != "0":
-                                    parts = inp.split()
-                                    if len(parts) >= 2:
-                                        num = int(parts[0])
-                                        val = ' '.join(parts[1:])
-                                        if 1 <= num <= len(opt_list):
-                                            key = opt_list[num - 1]
-                                            current_options[key] = val
-                                            print(f"✓ {key} = {val}")
-                            elif choice == "3":
-                                break
-                            elif choice == "0":
-                                sys.exit(0)
-                    else:
-                        print(f"Module not found")
-                        input("> ")
-            continue
         
-        # Normal responsive mode
-        if width < 50:
-            try:
-                from display.banner import b1
-                b1()
-            except:
-                print("+--- 23 KOD")
-            
-            i1 = f"host: {host}\nport: {port}\nping: {ping}\ndevice: {device}"
-            try:
-                from display.panels import p1
-                p1("23 KOD", i1, "READY")
-            except:
-                print("+--- 23 KOD")
-                print(f"| {host}")
-                print(f"| {port}")
-                print(f"| {ping}ms")
-                print("|- READY")
-                print("------------------------------")
-        else:
-            try:
-                from display.banner import b1
-                b1()
-            except:
-                print("+--- 23 KOD")
-            
-            i1 = f"host:      {host}\nPort:        {port}\nPing:     {ping}\ndevice:   {device}\nsystem:    {system}"
-            try:
-                from display.panels import p1
-                p1("23 KOD", i1, "READY")
-            except:
-                print("+--- 23 KOD")
-                print(f"| host:      {host}")
-                print(f"| Port:        {port}")
-                print(f"| Ping:     {ping}")
-                print(f"| device:   {device}")
-                print(f"| system:    {system}")
-                print("|- Status: READY")
-                print("------------------------------")
+        try:
+            from display.banner import b1
+            b1()
+        except:
+            print("+--- 23 KOD")
+        
+        i1 = f"host:      {host}\nPort:        {port}\nPing:     {ping}\ndevice:   {device}\nsystem:    {system}"
+        try:
+            from display.panels import p1
+            p1("23 KOD", i1, "READY")
+        except:
+            print("+--- 23 KOD")
+            print(f"| host:      {host}")
+            print(f"| Port:        {port}")
+            print(f"| Ping:     {ping}")
+            print(f"| device:   {device}")
+            print(f"| system:    {system}")
+            print("|- Status: READY")
+            print("------------------------------")
         
         n2 = n1()
         t1 = max(1, len(n2))
@@ -242,59 +80,27 @@ def m1():
         
         c2 = o1(p4)
         
-        tab_width = min(width - 14, 60)
         tab_display = []
         for i, name in enumerate(n2):
-            display_name = truncate(name, max(4, (tab_width // max(1, len(n2))) - 2))
             if i == p4:
-                tab_display.append(f"{green('[')}{display_name}{green(']')}")
+                tab_display.append(f"{green('[')}{name}{green(']')}")
             else:
-                tab_display.append(f"{gray(' ' + display_name + ' ')}")
+                tab_display.append(f"{gray(' ' + name + ' ')}")
         
         tab_line = ' '.join(tab_display)
-        if len(tab_line) > tab_width:
-            tab_display = []
-            visible = max(1, min(len(n2), tab_width // 8))
-            for i, name in enumerate(n2[:visible]):
-                display_name = truncate(name, max(3, (tab_width // visible) - 2))
-                if i == p4:
-                    tab_display.append(f"{green('[')}{display_name}{green(']')}")
-                else:
-                    tab_display.append(f"{gray(display_name)}")
-            if len(n2) > visible:
-                tab_display.append(f"{gray('…')}")
-            tab_line = ' '.join(tab_display)
-        
-        print(f"\n{gray('┌─ Menu ─')}")
-        print(f"{gray('│')} {cyan('Tabs:')} {tab_line}")
-        
-        if width < 50:
-            print(f"{gray('├──┤')}")
-        else:
-            print(f"{gray('├──────────────────┤')}")
+        print(f"\n{green('┌─ Menu ─')}")
+        print(f"{green('│')} {cyan('Tabs:')} {tab_line}")
+        print(f"{green('├──────────────────┤')}")
         
         if not c2:
-            print(f"{gray('│')} {red('(soon)')}")
+            print(f"{green('│')} {red('(coming soon...)')}")
         else:
-            max_items = min(len(c2), max(1, height - 10))
-            items_per_page = max(1, max_items)
-            for i, m5 in enumerate(c2[:items_per_page], 1):
-                display_name = truncate(m5, max(1, width - 12))
-                if width < 50:
-                    print(f"{gray('│')} {green(str(i))}.{display_name}")
-                else:
-                    print(f"{gray('│')} {green(f'{i:2}')}. {display_name}")
-            if len(c2) > items_per_page:
-                print(f"{gray('│ ...')} {len(c2)-items_per_page} more")
+            for i, m5 in enumerate(c2, 1):
+                print(f"{green('│')} {green(f'{i:2}')}. {m5}")
         
-        if width < 40:
-            print(f"{gray('├──┤')}")
-            print(f"{gray('│')} {red('[0]')} {yellow('[s]')} {cyan('[t#]')} {gray('│')}")
-        else:
-            print(f"{gray('├──────────────────┤')}")
-            print(f"{gray('│')} {red('[0]')} Exit  {yellow('[s]')} Search  {cyan('[t#]')} Tab  {blue('[i]')} Install{gray('│')}")
-        
-        print(f"{gray('└──────────────────┘')}")
+        print(f"{green('├──────────────────┤')}")
+        print(f"{green('│')} {red('[0]')} Exit  {yellow('[s]')} Search  {cyan('[t#]')} Tab  {blue('[i]')} Install{green('│')}")
+        print(f"{green('└──────────────────┘')}")
         print()
         
         sys.stdout.flush()
@@ -316,13 +122,9 @@ def m1():
                     if q1.lower() in mod.lower():
                         found.append(f"{tab_name}: {mod}")
             if found:
-                print(f"\n{gray('─' * min(40, width))}")
-                print(f"{green('[+] Found:')}")
-                for f in found[:min(10, height-6)]:
-                    print(f"    {cyan('-')} {truncate(f, width-6)}")
-                if len(found) > 10:
-                    print(f"    ... and {len(found)-10} more")
-                print(f"{gray('─' * min(40, width))}")
+                print(f"\n{green('[+] Found:')}")
+                for f in found:
+                    print(f"    {cyan('-')} {f}")
             else:
                 print(f"\n{red('[!] No matches found')}")
             input(f"\n{green('>')} ")
@@ -385,17 +187,15 @@ def m1():
                         a3(m6, current_options if current_options else None)
                         
                     elif choice == "2" and module_options:
-                        opt_width = min(width - 4, 60)
-                        print(f"\n{gray('┌─ Options ')}{gray('─' * min(opt_width-12, 40))}")
+                        print(f"\n{green('┌─ Options ─')}")
                         opt_list = list(module_options.keys())
                         for i, key in enumerate(opt_list, 1):
                             current = current_options.get(key, module_options[key].get('default', ''))
-                            display = truncate(f"{i}. {key} = {current}", opt_width)
-                            print(f"{gray('│')} {green(display)}")
-                        print(f"{gray('└' + '─' * min(opt_width+2, 50))}")
+                            print(f"{green('│')} {green(f'{i}')}. {key} = {yellow(current)}")
+                        print(f"{green('└───────────')}")
                         print()
                         print(f"  {yellow('Format:')} {cyan('<num> <val>')}")
-                        print(f"  {gray('Enter to keep')}")
+                        print(f"  {gray('Enter to keep current')}")
                         print()
                         
                         try:
