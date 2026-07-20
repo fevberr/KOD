@@ -88,9 +88,9 @@ def m1():
                 tab_display.append(f"{gray(' ' + name + ' ')}")
         
         tab_line = ' '.join(tab_display)
-        print(f"\n{green('┌─ Menu ─')}")
+        print(f"\n{green('┌──────────────────────────────────────────────────────────┐')}")
         print(f"{green('│')} {cyan('Tabs:')} {tab_line}")
-        print(f"{green('├──────────────────┤')}")
+        print(f"{green('├──────────────────────────────────────────────────────────┤')}")
         
         if not c2:
             print(f"{green('│')} {red('(coming soon...)')}")
@@ -98,9 +98,9 @@ def m1():
             for i, m5 in enumerate(c2, 1):
                 print(f"{green('│')} {green(f'{i:2}')}. {m5}")
         
-        print(f"{green('├──────────────────┤')}")
+        print(f"{green('├──────────────────────────────────────────────────────────┤')}")
         print(f"{green('│')} {red('[0]')} Exit  {yellow('[s]')} Search  {cyan('[t#]')} Tab  {blue('[i]')} Install{green('│')}")
-        print(f"{green('└──────────────────┘')}")
+        print(f"{green('└──────────────────────────────────────────────────────────┘')}")
         print()
         
         sys.stdout.flush()
@@ -187,12 +187,12 @@ def m1():
                         a3(m6, current_options if current_options else None)
                         
                     elif choice == "2" and module_options:
-                        print(f"\n{green('┌─ Options ─')}")
+                        print(f"\n{green('┌──────────────────────────────────────────────────────────┐')}")
                         opt_list = list(module_options.keys())
                         for i, key in enumerate(opt_list, 1):
                             current = current_options.get(key, module_options[key].get('default', ''))
                             print(f"{green('│')} {green(f'{i}')}. {key} = {yellow(current)}")
-                        print(f"{green('└───────────')}")
+                        print(f"{green('└──────────────────────────────────────────────────────────┘')}")
                         print()
                         print(f"  {yellow('Format:')} {cyan('<num> <val>')}")
                         print(f"  {gray('Enter to keep current')}")
