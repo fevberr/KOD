@@ -1,102 +1,150 @@
 OPTIONS = {
-    'default': {
-        'columns': 80,
-        'speed': 0.05,
-        'charset': '01',
-        'density': 0.3,
-        'fade': 0.9,
-        'duration': 50
-    },
-    'description': {
-        'columns': 'Number of columns in the matrix rain',
-        'speed': 'Delay between frames in seconds',
-        'charset': 'Character set to use for rain',
-        'density': 'Probability of new drops appearing (0-1)',
-        'fade': 'Fade rate for trailing characters (0-1)',
-        'duration': 'Number of frames to display'
-    }
+    'speed': {'default': 0.03, 'description': 'Rain speed in seconds per frame'},
+    'density': {'default': 80, 'description': 'Number of active drops (0-300)'},
+    'seconds': {'default': 10, 'description': 'Duration to run in seconds'},
+    'charset': {'default': 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()', 'description': 'Characters to use'},
+    'color': {'default': True, 'description': 'Enable colored output'},
+    'fade': {'default': True, 'description': 'Enable fade effect on trails'}
 }
 
 def run(options=None):
     output = []
+    
     try:
-        opts = OPTIONS['default'].copy()
+        opts = {}
+        for key, val in OPTIONS.items():
+            opts[key] = val['default']
         if options:
-            opts.update({k: v for k, v in options.items() if k in opts})
+            for key, val in options.items():
+                if key in opts:
+                    opts[key] = val
         
-        columns = opts['columns']
-        speed = opts['speed']
-        charset = opts['charset']
-        density = opts['density']
-        fade = opts['fade']
-        duration = opts['duration']
-        
-        import random
-        import time
+        import os
         import sys
-        from io import StringIO
+        import time
+        import random
         
-        output.append("[*] Initializing Matrix Rain...")
-        output.append("[*] Columns: {} | Charset: {} | Density: {}".format(columns, charset, density))
+        speed = float(opts['speed'])
+        density = int(opts['density'])
+        seconds = int(opts['seconds'])
+        charset = opts['charset']
+        use_color = opts['color']
+        use_fade = opts['fade']
         
-        matrix = [[' ' for _ in range(columns)] for _ in range(20)]
-        drops = [0] * columns
-        trails = [0] * columns
+        cols = os.get_terminal_size().columns
+        lines = os.get_terminal_size().lines - 2
         
-        captured = StringIO()
-        old_stdout = sys.stdout
-        sys.stdout = captured
+        output.append("[*] Matrix Rain v3.0 - Resizeable")
+        output.append("[*] Terminal: {}x{} | Speed: {}s | Duration: {}s | Drops: {}".format(cols, lines, speed, seconds, density))
         
-        try:
-            for frame in range(duration):
-                for col in range(columns):
-                    if random.random() < density:
-                        drops[col] = 19
-                        trails[col] = random.randint(3, 8)
-                    
-                    if drops[col] > 0:
-                        drops[col] -= 1
-                        row = 19 - drops[col]
-                        if row >= 0 and row < 20:
-                            matrix[row][col] = random.choice(charset)
-                    
-                    if trails[col] > 0:
-                        trails[col] = max(0, trails[col] - fade)
-                        trail_row = 19 - drops[col] - int(trails[col])
-                        if 0 <= trail_row < 20 and trails[col] > 0.5:
-                            if random.random() < 0.7:
-                                matrix[trail_row][col] = random.choice(charset).lower()
-                            else:
-                                matrix[trail_row][col] = ' '
-                    
-                    for row in range(20):
-                        if matrix[row][col] != ' ' and random.random() < 0.02:
-                            matrix[row][col] = random.choice(charset)
-                
-                sys.stdout.write('\033[H')
-                for row in matrix:
-                    sys.stdout.write(''.join(row) + '\n')
-                sys.stdout.flush()
-                time.sleep(speed)
-                
-                for row in range(20):
-                    for col in range(columns):
-                        if random.random() < 0.01:
-                            matrix[row][col] = ' '
+        drops = []
+        for i in range(min(density, cols * 2)):
+            drops.append({
+                'x': random.randint(0, cols - 1),
+                'y': random.randint(-lines, 0),
+                'speed': random.uniform(0.5, 2.5),
+                'length': random.randint(8, 30),
+                'brightness': 1.0
+            })
         
-        except KeyboardInterrupt:
-            output.append("[!] Interrupted by user")
-        finally:
-            sys.stdout = old_stdout
-            captured.close()
+        start_time = time.time()
+        end_time = start_time + seconds
+        frame_count = 0
+        
+        sys.stdout.write('\033[2J\033[H')
+        sys.stdout.flush()
+        
+        while time.time() < end_time:
+            try:
+                new_cols = os.get_terminal_size().columns
+                new_lines = os.get_terminal_size().lines - 2
+                if new_cols != cols or new_lines != lines:
+                    cols = new_cols
+                    lines = new_lines
+                    for drop in drops:
+                        if drop['x'] >= cols:
+                            drop['x'] = random.randint(0, cols - 1)
+                        if drop['y'] > lines:
+                            drop['y'] = random.randint(-lines, 0)
+            except:
+                pass
+            
+            if len(drops) < min(density, cols * 2) and random.random() < 0.1:
+                drops.append({
+                    'x': random.randint(0, cols - 1),
+                    'y': random.randint(-lines, 0),
+                    'speed': random.uniform(0.5, 2.5),
+                    'length': random.randint(8, 30),
+                    'brightness': 1.0
+                })
+            
+            if len(drops) > min(density, cols * 2):
+                drops.pop(random.randint(0, len(drops) - 1))
+            
+            frame = []
+            for y in range(lines):
+                line = ""
+                for x in range(cols):
+                    char = " "
+                    char_found = False
+                    for drop in drops:
+                        if drop['x'] == x:
+                            if drop['y'] - drop['length'] <= y <= drop['y']:
+                                char_found = True
+                                dist_from_head = drop['y'] - y
+                                brightness = 1.0 - (dist_from_head / drop['length'] * 0.8)
+                                if dist_from_head == 0:
+                                    if use_color:
+                                        char = "\033[97m" + random.choice(charset) + "\033[0m"
+                                    else:
+                                        char = random.choice(charset).upper()
+                                elif dist_from_head <= 2:
+                                    if use_color:
+                                        char = "\033[92m" + random.choice(charset) + "\033[0m"
+                                    else:
+                                        char = random.choice(charset)
+                                elif use_fade and dist_from_head < drop['length'] // 2:
+                                    if use_color:
+                                        char = "\033[32m" + random.choice(charset) + "\033[0m"
+                                    else:
+                                        char = random.choice(charset).lower()
+                                else:
+                                    if use_color and use_fade:
+                                        char = "\033[2;32m" + random.choice(charset) + "\033[0m"
+                                    else:
+                                        char = "."
+                                break
+                    if not char_found:
+                        line += " "
+                    else:
+                        line += char
+                frame.append(line)
+            
+            sys.stdout.write('\033[H')
+            sys.stdout.write('\n'.join(frame))
+            sys.stdout.flush()
+            
+            for drop in drops:
+                drop['y'] += drop['speed']
+                if drop['y'] > lines + drop['length']:
+                    drop['y'] = random.randint(-lines, 0)
+                    drop['x'] = random.randint(0, cols - 1)
+                    drop['speed'] = random.uniform(0.5, 2.5)
+                    drop['length'] = random.randint(8, 30)
+            
+            frame_count += 1
+            time.sleep(speed)
         
         output.append("[+] Matrix Rain completed successfully")
-        output.append("[*] Total frames rendered: {}".format(duration))
-        output.append("[*] Cleanup complete")
+        output.append("[*] Frames rendered: {}".format(frame_count))
+        output.append("[*] Total time: {:.2f}s".format(time.time() - start_time))
         
+    except KeyboardInterrupt:
+        output.append("[!] Interrupted by user")
     except Exception as e:
         output.append("[!] Error: {}".format(str(e)))
         import traceback
-        output.append("[!] Traceback: {}".format(traceback.format_exc()))
+        output.append("[!] {}".format(traceback.format_exc()))
     
+    output.append("[*] Complete")
     return "\n".join(output)
