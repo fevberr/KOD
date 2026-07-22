@@ -8,50 +8,54 @@ import hashlib
 import shutil
 import zipfile
 import tempfile
+import platform
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from utils.colors import green, red, cyan, yellow, white, gray, blue, magenta, dim, bold
 
-def banner():
-    print(r"""
-+--- 23 KOD UPDATER
-|  by fevber on discord
-------------------------------""")
+def get_terminal_size():
+    try:
+        import shutil
+        return shutil.get_terminal_size().columns
+    except:
+        return 80
+
+def progress_bar(current, total, width=40):
+    percent = current / total if total > 0 else 0
+    filled = int(width * percent)
+    bar = '█' * filled + '░' * (width - filled)
+    return f"{green(bar)} {int(percent * 100)}%"
+
+def get_system_info():
+    return {
+        'os': platform.system(),
+        'arch': platform.machine(),
+        'python': platform.python_version(),
+        'host': platform.node()
+    }
 
 def b1():
     os.system('clear' if os.name == 'posix' else 'cls')
-    banner()
+    width = get_terminal_size()
+    info = get_system_info()
+    
+    print(cyan("+" + "-" * (width - 2) + "+"))
+    print(cyan("|") + white(" 23 KOD UPDATER ").center(width - 2) + cyan("|"))
+    print(cyan("|") + gray(f" System: {info['os']} | Arch: {info['arch']} | Python: {info['python']} ").center(width - 2) + cyan("|"))
+    print(cyan("+" + "-" * (width - 2) + "+"))
 
 def b2():
-    print("|  Initializing...")
+    print(f"\n{cyan('|')} {blue('>>')} Initializing boot sequence...")
+    time.sleep(0.2)
+    print(f"{cyan('|')} {blue('>>')} Checking for updates...")
     time.sleep(0.2)
 
 def b3():
-    print("|  Fetching files from GitHub...")
+    print(f"{cyan('|')} {yellow('[+]')} Downloading from GitHub...")
     time.sleep(0.2)
-
-    try:
-        url = "https://api.github.com/repos/fevberr/KOD/contents"
-        req = urllib.request.Request(url)
-        req.add_header('User-Agent', 'Mozilla/5.0')
-        req.add_header('Accept', 'application/vnd.github.v3+json')
-        r = urllib.request.urlopen(req, timeout=15)
-        data = json.loads(r.read().decode())
-        print("|  Connected to GitHub (API)")
-        return data
-    except urllib.error.HTTPError as e:
-        if e.code == 403:
-            print("|  API rate limited, downloading ZIP...")
-            return b3_zip()
-        else:
-            print(f"|  HTTP Error {e.code}: {str(e.reason)}")
-    except urllib.error.URLError as e:
-        print(f"|  URL Error: {str(e.reason)}")
-    except Exception as e:
-        print(f"|  API error: {str(e)[:40]}")
-
     return b3_zip()
 
 def b3_zip():
-    print("|  Downloading repository as ZIP...")
+    print(f"{cyan('|')} {yellow('[+]')} Downloading repository ZIP...")
     temp_zip = None
     extract_dir = None
     
@@ -61,11 +65,26 @@ def b3_zip():
         req.add_header('User-Agent', 'Mozilla/5.0')
         r = urllib.request.urlopen(req, timeout=30)
 
+        total_size = int(r.headers.get('content-length', 0))
+        downloaded = 0
+        chunk_size = 8192
         temp_zip = tempfile.mktemp(suffix='.zip')
+        
         with open(temp_zip, 'wb') as f:
-            f.write(r.read())
+            while True:
+                chunk = r.read(chunk_size)
+                if not chunk:
+                    break
+                f.write(chunk)
+                downloaded += len(chunk)
+                if total_size > 0:
+                    percent = int((downloaded / total_size) * 100)
+                    bar = '█' * int(percent / 2) + '░' * (50 - int(percent / 2))
+                    sys.stdout.write(f"\r{cyan('|')} {green('[+]')} Downloading: [{green(bar)}] {percent}%")
+                    sys.stdout.flush()
+        print()
 
-        print("|  Extracting ZIP...")
+        print(f"{cyan('|')} {blue('[+]')} Extracting ZIP...")
         extract_dir = tempfile.mkdtemp()
         with zipfile.ZipFile(temp_zip, 'r') as zip_ref:
             zip_ref.extractall(extract_dir)
@@ -85,39 +104,24 @@ def b3_zip():
         if not repo_dir:
             repo_dir = extract_dir
 
-        print(f"|  Found repo at: {repo_dir}")
-
         files = []
         for root, dirs, filenames in os.walk(repo_dir):
-            dirs[:] = [d for d in dirs if not d.startswith('.') and d != '__pycache__']
-            
             for filename in filenames:
                 if filename.startswith('.'):
                     continue
-                    
                 full_path = os.path.join(root, filename)
                 rel_path = os.path.relpath(full_path, repo_dir)
-                
                 if rel_path == '.' or rel_path.startswith('.'):
                     continue
-                    
-                try:
-                    with open(full_path, 'rb') as f:
-                        sha = hashlib.sha1(f.read()).hexdigest()
-                    files.append({
-                        'name': filename,
-                        'path': rel_path,
-                        'type': 'file',
-                        'sha': sha,
-                        'download_url': None
-                    })
-                except Exception as e:
-                    print(f"|  [WARN] Could not read {filename}: {str(e)[:30]}")
-                    continue
+                files.append({
+                    'name': filename,
+                    'path': rel_path
+                })
 
-        print(f"|  Found {len(files)} files in ZIP")
-
-        print("|  Copying files...")
+        print(f"{cyan('|')} {green('[OK]')} Found {len(files)} files in ZIP")
+        print(f"{cyan('|')} {blue('[+]')} Copying files...")
+        
+        copied = 0
         for file in files:
             src = os.path.join(repo_dir, file['path'])
             dst = file['path']
@@ -126,200 +130,119 @@ def b3_zip():
                 if dst_dir:
                     os.makedirs(dst_dir, exist_ok=True)
                 shutil.copy2(src, dst)
-                print(f"|  [COPY] {dst}")
+                copied += 1
+                if copied % 5 == 0:
+                    sys.stdout.write(f"\r{cyan('|')} {green('[+]')} {copied}/{len(files)} files copied")
+                    sys.stdout.flush()
             except Exception as e:
-                print(f"|  [FAIL] {dst}: {str(e)[:30]}")
+                print(f"\n{cyan('|')} {red('[FAIL]')} {dst}: {str(e)[:30]}")
 
-        print(f"|  Downloaded {len(files)} files via ZIP")
+        print(f"\r{cyan('|')} {green('[OK]')} Copied {copied} files successfully")
+
+        shutil.rmtree(extract_dir)
         return files
 
-    except urllib.error.URLError as e:
-        print(f"|  ZIP download error: {str(e.reason)}")
-    except zipfile.BadZipFile as e:
-        print(f"|  Bad ZIP file: {str(e)}")
     except Exception as e:
-        print(f"|  ZIP error: {str(e)[:50]}")
-    finally:
-        if temp_zip and os.path.exists(temp_zip):
-            try:
-                os.remove(temp_zip)
-            except:
-                pass
+        print(f"{cyan('|')} {red('[FAIL]')} Error: {str(e)[:50]}")
         if extract_dir and os.path.exists(extract_dir):
             try:
                 shutil.rmtree(extract_dir)
+            except:
+                pass
+        if temp_zip and os.path.exists(temp_zip):
+            try:
+                os.remove(temp_zip)
             except:
                 pass
 
     return None
 
 def b4():
+    print(f"{cyan('|')} {blue('[+]')} Syncing files...")
     files = b3()
     if not files:
-        print("|  No files from GitHub, using local")
+        print(f"{cyan('|')} {red('[FAIL]')} No files from GitHub")
         return
 
-    github_files = {}
-    total = up_to_date = changed = new_files = deleted = 0
-    changed_list, new_list, deleted_list = [], [], []
+    cwd = os.getcwd()
+    github_files = set()
+    
+    for file in files:
+        github_files.add(file['path'])
 
-    print("|")
-    print("|  Scanning files...")
-    print("|")
+    missing = []
+    for path in github_files:
+        local_path = os.path.join(cwd, path)
+        if not os.path.exists(local_path):
+            missing.append(path)
 
-    def sync_file(path, sha, download_url):
-        nonlocal total, up_to_date, changed, new_files
-        total += 1
-        github_files[path] = sha
-
-        if os.path.exists(path):
-            try:
-                with open(path, 'rb') as f:
-                    local = hashlib.sha1(f.read()).hexdigest()
-                if local == sha:
-                    up_to_date += 1
-                    print(f"|  [OK] {path}")
-                else:
-                    changed += 1
-                    changed_list.append(path)
-                    print(f"|  [CHANGED] {path}")
-            except Exception as e:
-                changed += 1
-                changed_list.append(path)
-                print(f"|  [ERROR] {path}: {str(e)[:20]}")
-        else:
-            new_files += 1
-            new_list.append(path)
-            print(f"|  [NEW] {path}")
-
-    for item in files:
-        if item.get('type') == 'file':
-            sync_file(item.get('path'), item.get('sha'), item.get('download_url'))
-        elif item.get('type') == 'dir':
-            folder = item.get('path')
-            try:
-                url = f"https://api.github.com/repos/fevberr/KOD/contents/{folder}"
-                req = urllib.request.Request(url)
-                req.add_header('User-Agent', 'Mozilla/5.0')
-                req.add_header('Accept', 'application/vnd.github.v3+json')
-                r = urllib.request.urlopen(req, timeout=15)
-                sub = json.loads(r.read().decode())
-                for s in sub:
-                    if s.get('type') == 'file':
-                        sync_file(s.get('path'), s.get('sha'), s.get('download_url'))
-            except Exception as e:
-                print(f"|  [WARN] Could not process folder {folder}: {str(e)[:30]}")
-
-    print("|")
-    print("|  Checking for deleted files...")
-    print("|")
-
-    for root, dirs, files_local in os.walk("."):
+    extra = []
+    for root, dirs, files_local in os.walk(cwd):
         if ".git" in root or "__pycache__" in root:
             continue
-            
         for f in files_local:
             if f == "boot.py" or f.startswith('.'):
                 continue
-                
-            path = os.path.join(root, f)
-            path = path.lstrip("./")
-            
-            if path not in github_files:
-                deleted += 1
-                deleted_list.append(path)
-                print(f"|  [DELETED] {path}")
-                try:
-                    os.remove(path)
-                    print(f"|  [REMOVED] {path}")
-                except Exception as e:
-                    print(f"|  [FAILED] {path}: {str(e)[:20]}")
+            full_path = os.path.join(root, f)
+            rel_path = os.path.relpath(full_path, cwd)
+            if rel_path not in github_files and rel_path != "boot.py":
+                extra.append(rel_path)
 
-    for root, dirs, files_local in os.walk(".", topdown=False):
-        for d in dirs:
-            dir_path = os.path.join(root, d)
-            if ".git" in dir_path or "__pycache__" in dir_path:
-                continue
-            try:
-                if not os.listdir(dir_path):
-                    os.rmdir(dir_path)
-                    print(f"|  [REMOVED DIR] {dir_path}")
-            except Exception:
-                pass
-
-    print("|")
-    print("|  " + "-" * 40)
-    print(f"|  Total files: {total}")
-    print(f"|  Up to date: {up_to_date}")
+    print(f"\n{cyan('|')} {yellow('--- STATUS REPORT ---')}")
+    print(f"{cyan('|')} {green('[OK]')} Total GitHub files: {len(github_files)}")
+    if missing:
+        print(f"{cyan('|')} {yellow('[+]')} Missing: {len(missing)}")
+        for f in missing[:5]:
+            print(f"{cyan('|')}   {green('+')} {f}")
+        if len(missing) > 5:
+            print(f"{cyan('|')}   {gray('... and')} {len(missing)-5} {gray('more')}")
+    if extra:
+        print(f"{cyan('|')} {red('[-]')} Extra local: {len(extra)}")
+        for f in extra[:5]:
+            print(f"{cyan('|')}   {red('-')} {f}")
+        if len(extra) > 5:
+            print(f"{cyan('|')}   {gray('... and')} {len(extra)-5} {gray('more')}")
     
-    if changed > 0:
-        print(f"|  Changed: {changed}")
-        print("|")
-        print("|  Changed files:")
-        for f in changed_list[:10]:
-            print(f"|    - {f}")
-        if len(changed_list) > 10:
-            print(f"|    ... and {len(changed_list)-10} more")
-            
-    if new_files > 0:
-        print(f"|  New: {new_files}")
-        print("|")
-        print("|  New files:")
-        for f in new_list[:10]:
-            print(f"|    - {f}")
-        if len(new_list) > 10:
-            print(f"|    ... and {len(new_list)-10} more")
-            
-    if deleted > 0:
-        print(f"|  Deleted: {deleted}")
-        print("|")
-        print("|  Deleted files:")
-        for f in deleted_list[:10]:
-            print(f"|    - {f}")
-        if len(deleted_list) > 10:
-            print(f"|    ... and {len(deleted_list)-10} more")
-            
-    print("|  " + "-" * 40)
-
-    if changed == 0 and new_files == 0 and deleted == 0:
-        print("|  Everything is up to date!")
+    print(f"{cyan('|')}")
+    print(f"{cyan('|')} {green('[OK]')} All files synced successfully!")
 
 def b5():
-    print("|")
-    print("|- Sync complete")
-    print("|")
+    print(f"{cyan('|')}")
+    print(f"{cyan('|')} {green('[OK]')} Boot complete!")
+    print(f"{cyan('|')}")
+    
     version = "1.3.4"
     try:
         if os.path.exists("data/version.txt"):
             with open("data/version.txt", "r") as f:
                 version = f.read().strip()
-    except Exception:
+    except:
         pass
     
-    print(f"|- Version: {version}")
-    print("|")
-    print("|- Join our Discord for updates?")
-    print("|  [OK] [NO]")
-    print("|")
-
-    choice = input("|- Select > ").strip().lower()
-
+    print(f"{cyan('|')} {blue('[i]')} Version: {yellow(version)}")
+    print(f"{cyan('|')}")
+    print(f"{cyan('|')} {yellow('[?]')} Join our Discord for updates?")
+    print(f"{cyan('|')} {white('[')}{green('OK')}{white(']')}  {white('[')}{red('NO')}{white(']')}")
+    print(f"{cyan('|')}")
+    
+    choice = input(f"{cyan('|')} {green('>')} ").strip().lower()
+    print(f"{cyan('|')}")
     if choice in ["ok", "yes", "y"]:
-        print("|")
-        print("|- Thanks :D")
-        print("|  https://discord.gg/xrvgQD9s9b")
-    elif choice in ["no", "n"]:
-        print("|")
-        print("|- idc have the invite :D")
-        print("|  https://discord.gg/xrvgQD9s9b")
+        print(f"{cyan('|')} {green('[OK]')} Thanks!")
+        print(f"{cyan('|')} {blue('[i]')} https://discord.gg/xrvgQD9s9b")
     else:
-        print("|")
-        print("|- Invalid choice")
-        print("|  https://discord.gg/xrvgQD9s9b")
-
-    print("|")
-    print("|- 23 KOD Framework loaded")
-    print("------------------------------")
+        print(f"{cyan('|')} {blue('[i]')} https://discord.gg/xrvgQD9s9b")
+    
+    print(f"{cyan('|')}")
+    print(f"{cyan('|')} {yellow('[i]')} Press Enter to launch 23 KOD...")
+    input(f"{cyan('|')}")
+    print(f"{cyan('|')} {green('[OK]')} Launching...")
+    width = get_terminal_size()
+    print(cyan("+" + "-" * (width - 2) + "+"))
+    time.sleep(1)
+    
+    os.system('python main.py' if os.name == 'nt' else 'python3 main.py')
+    sys.exit(0)
 
 def b12():
     b1()
