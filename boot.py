@@ -1,282 +1,281 @@
+@"
 import os
-import time
-import re
-import threading
 import sys
-from urllib.request import urlopen, Request
-from urllib.error import URLError, HTTPError
+import time
+import json
+import urllib.request
+import urllib.error
+import hashlib
+import shutil
+import zipfile
+import tempfile
+import platform
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from utils.colors import green, red, cyan, yellow, white, gray, blue, magenta, dim, bold
 
-OPTIONS = {
-    'default': {
-        'frame_count': 899,
-        'fps': 6.67,
-        'delay': 0.15,
-        'threads': 10,
-        'output_dir': 'cache'
-    },
-    'description': {
-        'frame_count': 'Number of frames to generate',
-        'fps': 'Target frames per second',
-        'delay': 'Delay between frames in seconds',
-        'threads': 'Number of concurrent download threads',
-        'output_dir': 'Output directory for text frames'
+def get_terminal_size():
+    try:
+        import shutil
+        return shutil.get_terminal_size().columns
+    except:
+        return 80
+
+def progress_bar(current, total, width=40):
+    percent = current / total if total > 0 else 0
+    filled = int(width * percent)
+    bar = '█' * filled + '░' * (width - filled)
+    return f"{green(bar)} {int(percent * 100)}%"
+
+def get_system_info():
+    return {
+        'os': platform.system(),
+        'arch': platform.machine(),
+        'python': platform.python_version(),
+        'host': platform.node()
     }
-}
 
-CLEAR = '\033[2J\033[H'
-HIDE_CURSOR = '\033[?25l'
-SHOW_CURSOR = '\033[?25h'
-
-def one(url, timeout=10):
-    try:
-        req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-        with urlopen(req, timeout=timeout) as response:
-            return response.read().decode('utf-8')
-    except:
-        return None
-
-def two(html):
-    try:
-        pre_match = re.search(r'<pre[^>]*>(.*?)</pre>', html, re.DOTALL)
-        if pre_match:
-            content = pre_match.group(1)
-            content = re.sub(r'<[^>]+>', '', content)
-            content = content.replace('&amp;', '&').replace('&lt;', '<').replace('&gt;', '>')
-            content = content.replace('&quot;', '"').replace('&#39;', "'")
-            return content
-    except:
-        pass
-    return None
-
-def three(frame_num, output_dir):
-    filepath = os.path.join(output_dir, f'{frame_num}.txt')
-    
-    if os.path.exists(filepath):
-        with open(filepath, 'r', encoding='utf-8') as f:
-            content = f.read()
-            if content and len(content) > 10:
-                return True
-    
-    ascii_art = two(one(f'https://raw.githubusercontent.com/Epicpkmn11/bad-apple-html/main/frame/{frame_num}.html'))
-    if ascii_art:
-        with open(filepath, 'w', encoding='utf-8') as f:
-            f.write(ascii_art)
-        return True
+def should_ignore(path):
+    """Check if path should be ignored"""
+    ignore_patterns = [
+        'cache',
+        '.git',
+        '__pycache__',
+        '.pyc',
+        '.pyo',
+        '.pyd',
+        '.DS_Store',
+        'Thumbs.db'
+    ]
+    for pattern in ignore_patterns:
+        if pattern in path:
+            return True
     return False
 
-def four(total_frames, output_dir):
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
+def b1():
+    os.system('clear' if os.name == 'posix' else 'cls')
+    width = get_terminal_size()
+    info = get_system_info()
     
-    existing_frames = []
-    for i in range(1, total_frames + 1):
-        filepath = os.path.join(output_dir, f'{i}.txt')
-        if os.path.exists(filepath):
-            try:
-                with open(filepath, 'r', encoding='utf-8') as f:
-                    if len(f.read()) > 10:
-                        existing_frames.append(i)
-            except:
-                pass
-    
-    if existing_frames:
-        print(f'[*] Found {len(existing_frames)} existing frames in cache')
-    
-    missing_frames = [i for i in range(1, total_frames + 1) if i not in existing_frames]
-    
-    if not missing_frames:
-        print('[+] All frames already downloaded!')
-        return total_frames, 0, []
-    
-    print(f'[*] Downloading {len(missing_frames)} missing frames...')
-    
-    start_time = time.time()
-    success_count = len(existing_frames)
-    failure_count = 0
-    failed_frames = []
-    processed_frames = len(existing_frames)
-    lock = threading.Lock()
-    
-    def five(frame_num):
-        nonlocal success_count, failure_count, processed_frames
-        result = three(frame_num, output_dir)
-        with lock:
-            processed_frames += 1
-            if result:
-                success_count += 1
-            else:
-                failure_count += 1
-                failed_frames.append(frame_num)
-        return result
-    
-    def six():
-        with ThreadPoolExecutor(max_workers=OPTIONS['default']['threads']) as executor:
-            futures = {executor.submit(five, i): i for i in missing_frames}
-            for future in as_completed(futures):
-                yield
-    
-    def seven():
-        elapsed = time.time() - start_time
-        fps = (processed_frames - len(existing_frames)) / elapsed if elapsed > 0 else 0
-        
-        progress = (processed_frames - len(existing_frames)) / len(missing_frames) if missing_frames else 1
-        bar_length = 40
-        filled = int(bar_length * progress)
-        bar = '#' * filled + '.' * (bar_length - filled)
-        
-        if fps > 0:
-            eta_seconds = (len(missing_frames) - (processed_frames - len(existing_frames))) / fps
-        else:
-            eta_seconds = 0
-        
-        eta_minutes = int(eta_seconds // 60)
-        eta_seconds = int(eta_seconds % 60)
-        
-        status = f'[{bar}] {processed_frames}/{total_frames} frames'
-        status += f' | OK {success_count}'
-        status += f' | FAIL {failure_count}'
-        status += f' | {elapsed:.1f}s'
-        status += f' | ETA: {eta_minutes}m{eta_seconds}s'
-        status += f' | FPS: {fps:.1f}'
-        
-        sys.stdout.write('\r' + ' ' * 120 + '\r')
-        sys.stdout.write(status)
-        sys.stdout.flush()
-    
-    start_gen = time.time()
-    for _ in six():
-        if (processed_frames - len(existing_frames)) % 5 == 0:
-            seven()
-    
-    elapsed_total = time.time() - start_gen
-    
-    print('\n')
-    print('=' * 50)
-    if failure_count == 0:
-        print('[+] All frames downloaded successfully!')
-    else:
-        print(f'[!] {failure_count} frames failed to download')
-    print(f'Total frames: {total_frames}')
-    print(f'Successfully created: {success_count}')
-    print(f'Failed: {failure_count}')
-    print(f'Total time: {elapsed_total:.2f} seconds')
-    
-    if failed_frames:
-        print('\nFailed frames:')
-        for f in failed_frames[:10]:
-            print(f'  - Frame {f}')
-        if len(failed_frames) > 10:
-            print(f'  ... and {len(failed_frames) - 10} more')
-    
-    print(f'\nOutput directory: {os.path.abspath(output_dir)}')
-    print('=' * 50)
-    
-    return success_count, failure_count, failed_frames
+    print(cyan("+" + "=" * (width - 2) + "+"))
+    print(cyan("|") + white(" 23 KOD UPDATER ").center(width - 2) + cyan("|"))
+    print(cyan("|") + gray(f" System: {info['os']} | Arch: {info['arch']} | Python: {info['python']} ").center(width - 2) + cyan("|"))
+    print(cyan("+" + "=" * (width - 2) + "+"))
 
-def eight(output_dir):
-    frames = []
-    if not os.path.exists(output_dir):
-        return frames
-    
-    for i in range(1, 900):
-        filepath = os.path.join(output_dir, f'{i}.txt')
-        if os.path.exists(filepath):
-            try:
-                with open(filepath, 'r', encoding='utf-8') as f:
-                    if len(f.read()) > 10:
-                        frames.append(i)
-            except:
-                pass
-    return frames
+def b2():
+    print(f"\n{cyan('│')} {blue('>>')} Initializing boot sequence...")
+    time.sleep(0.2)
+    print(f"{cyan('│')} {blue('>>')} Checking for updates...")
+    time.sleep(0.2)
 
-def nine(output_dir, frame_num):
-    filepath = os.path.join(output_dir, f'{frame_num}.txt')
-    try:
-        with open(filepath, 'r', encoding='utf-8') as f:
-            return f.read()
-    except:
-        return None
+def b3():
+    print(f"{cyan('│')} {yellow('>>')} Downloading from GitHub...")
+    time.sleep(0.2)
+    return b3_zip()
 
-def ten(output_dir, total_frames, fps):
-    frames = eight(output_dir)
-    if not frames:
-        print('[!] No frames found in cache')
-        return
+def b3_zip():
+    print(f"{cyan('│')} {yellow('>>')} Downloading repository ZIP...")
+    temp_zip = None
+    extract_dir = None
     
     try:
-        sys.stdout.write(HIDE_CURSOR)
-        sys.stdout.flush()
+        zip_url = "https://github.com/fevberr/KOD/archive/refs/heads/main.zip"
+        req = urllib.request.Request(zip_url)
+        req.add_header('User-Agent', 'Mozilla/5.0')
+        r = urllib.request.urlopen(req, timeout=30)
+
+        total_size = int(r.headers.get('content-length', 0))
+        downloaded = 0
+        chunk_size = 8192
+        temp_zip = tempfile.mktemp(suffix='.zip')
         
-        frame_count = len(frames)
-        start_time = time.time()
-        frame_index = 0
-        
-        while True:
-            frame_num = frames[frame_index % frame_count]
-            ascii_art = nine(output_dir, frame_num)
-            
-            if ascii_art:
-                sys.stdout.write(CLEAR)
-                sys.stdout.write(ascii_art)
-                sys.stdout.flush()
-                
-                elapsed = time.time() - start_time
-                current_fps = frame_index / elapsed if elapsed > 0 else 0
-                
-                info = f'[Frame {frame_num}/{total_frames}] [FPS: {current_fps:.1f}] [Time: {elapsed:.1f}s]'
-                sys.stdout.write('\n' + info)
-                sys.stdout.flush()
-                
-                frame_index += 1
-                time.sleep(1.0 / fps)
-            else:
+        with open(temp_zip, 'wb') as f:
+            while True:
+                chunk = r.read(chunk_size)
+                if not chunk:
+                    break
+                f.write(chunk)
+                downloaded += len(chunk)
+                if total_size > 0:
+                    percent = int((downloaded / total_size) * 100)
+                    bar = '█' * int(percent / 2) + '░' * (50 - int(percent / 2))
+                    sys.stdout.write(f"\r{cyan('│')} {green('>>')} Downloading: [{green(bar)}] {percent}%")
+                    sys.stdout.flush()
+        print()
+
+        print(f"{cyan('│')} {blue('>>')} Extracting ZIP...")
+        extract_dir = tempfile.mkdtemp()
+        with zipfile.ZipFile(temp_zip, 'r') as zip_ref:
+            zip_ref.extractall(extract_dir)
+
+        if temp_zip and os.path.exists(temp_zip):
+            os.remove(temp_zip)
+            temp_zip = None
+
+        items = os.listdir(extract_dir)
+        repo_dir = None
+        for item in items:
+            full_path = os.path.join(extract_dir, item)
+            if os.path.isdir(full_path) and ('KOD' in item or 'main' in item):
+                repo_dir = full_path
                 break
-                
-    except KeyboardInterrupt:
-        pass
-    finally:
-        sys.stdout.write(SHOW_CURSOR)
-        sys.stdout.flush()
-        print('\n[*] Playback stopped')
 
-def run(options=None):
-    output = []
-    try:
-        opts = OPTIONS['default'].copy()
-        if options:
-            opts.update({k: v for k, v in options.items() if k in opts})
+        if not repo_dir:
+            repo_dir = extract_dir
+
+        files = []
+        for root, dirs, filenames in os.walk(repo_dir):
+            # Skip ignored directories
+            dirs[:] = [d for d in dirs if not should_ignore(d)]
+            
+            for filename in filenames:
+                if filename.startswith('.') or should_ignore(filename):
+                    continue
+                full_path = os.path.join(root, filename)
+                rel_path = os.path.relpath(full_path, repo_dir)
+                if rel_path == '.' or rel_path.startswith('.'):
+                    continue
+                files.append({
+                    'name': filename,
+                    'path': rel_path
+                })
+
+        print(f"{cyan('│')} {green('[+]')} Found {len(files)} files in ZIP")
+        print(f"{cyan('│')} {blue('>>')} Copying files...")
         
-        total_frames = int(opts['frame_count'])
-        output_dir = str(opts['output_dir'])
-        fps = float(opts['fps'])
-        
-        output.append('[*] Initializing Bad Apple Terminal Player...')
-        time.sleep(0.1)
-        
-        frames_exist = eight(output_dir)
-        
-        if not frames_exist or len(frames_exist) < total_frames:
-            output.append('[*] Checking and downloading missing frames...')
-            success, failed, failed_list = four(total_frames, output_dir)
-            output.append(f'[+] Total frames available: {success}')
-            if failed > 0:
-                output.append(f'[!] {failed} frames failed to download')
-        else:
-            output.append(f'[+] All {len(frames_exist)} frames already downloaded!')
-        
-        output.append('[*] Starting playback in terminal...')
-        output.append('[+] Press Ctrl+C to exit')
-        
-        ten(output_dir, total_frames, fps)
-        
-        output.append('[*] Playback ended')
-        
+        copied = 0
+        for file in files:
+            src = os.path.join(repo_dir, file['path'])
+            dst = file['path']
+            try:
+                dst_dir = os.path.dirname(dst)
+                if dst_dir:
+                    os.makedirs(dst_dir, exist_ok=True)
+                shutil.copy2(src, dst)
+                copied += 1
+                if copied % 5 == 0:
+                    sys.stdout.write(f"\r{cyan('│')} {green('>>')} {copied}/{len(files)} files copied")
+                    sys.stdout.flush()
+            except Exception as e:
+                print(f"\n{cyan('│')} {red('[-]')} {dst}: {str(e)[:30]}")
+
+        print(f"\r{cyan('│')} {green('[+]')} Copied {copied} files successfully")
+
+        shutil.rmtree(extract_dir)
+        return files
+
     except Exception as e:
-        output.append(f'[!] Error: {str(e)}')
-        output.append('[*] Cleanup complete')
-    
-    return '\n'.join(output)
+        print(f"{cyan('│')} {red('[-]')} Error: {str(e)[:50]}")
+        if extract_dir and os.path.exists(extract_dir):
+            try:
+                shutil.rmtree(extract_dir)
+            except:
+                pass
+        if temp_zip and os.path.exists(temp_zip):
+            try:
+                os.remove(temp_zip)
+            except:
+                pass
 
-if __name__ == '__main__':
-    print(run())
+    return None
+
+def b4():
+    print(f"{cyan('│')} {blue('>>')} Syncing files...")
+    files = b3()
+    if not files:
+        print(f"{cyan('│')} {red('[-]')} No files from GitHub")
+        return
+
+    cwd = os.getcwd()
+    github_files = set()
+    
+    for file in files:
+        github_files.add(file['path'])
+
+    missing = []
+    for path in github_files:
+        if should_ignore(path):
+            continue
+        local_path = os.path.join(cwd, path)
+        if not os.path.exists(local_path):
+            missing.append(path)
+
+    extra = []
+    for root, dirs, files_local in os.walk(cwd):
+        if should_ignore(root):
+            continue
+        for f in files_local:
+            if f == "boot.py" or f.startswith('.') or should_ignore(f):
+                continue
+            full_path = os.path.join(root, f)
+            rel_path = os.path.relpath(full_path, cwd)
+            if rel_path not in github_files and rel_path != "boot.py" and not should_ignore(rel_path):
+                extra.append(rel_path)
+
+    print(f"\n{cyan('│')} {yellow('=== STATUS REPORT ===')}")
+    print(f"{cyan('│')} {green('[+]')} Total GitHub files: {len(github_files)}")
+    print(f"{cyan('│')} {gray('>>')} Ignored folders: cache, __pycache__, .git")
+    if missing:
+        print(f"{cyan('│')} {yellow('>>')} Missing: {len(missing)}")
+        for f in missing[:5]:
+            print(f"{cyan('│')}   {green('[+]')} {f}")
+        if len(missing) > 5:
+            print(f"{cyan('│')}   {gray('... and')} {len(missing)-5} {gray('more')}")
+    if extra:
+        print(f"{cyan('│')} {red('[-]')} Extra local: {len(extra)}")
+        for f in extra[:5]:
+            print(f"{cyan('│')}   {red('[-]')} {f}")
+        if len(extra) > 5:
+            print(f"{cyan('│')}   {gray('... and')} {len(extra)-5} {gray('more')}")
+    
+    print(f"{cyan('│')}")
+    print(f"{cyan('│')} {green('[+]')} All files synced successfully!")
+
+def b5():
+    print(f"{cyan('│')}")
+    print(f"{cyan('│')} {green('[+]')} Boot complete!")
+    print(f"{cyan('│')}")
+    
+    version = "1.3.4"
+    try:
+        if os.path.exists("data/version.txt"):
+            with open("data/version.txt", "r") as f:
+                version = f.read().strip()
+    except:
+        pass
+    
+    print(f"{cyan('│')} {blue('>>')} Version: {yellow(version)}")
+    print(f"{cyan('│')}")
+    print(f"{cyan('│')} {yellow('>>')} Join our Discord for updates?")
+    print(f"{cyan('│')} {white('[')}{green('OK')}{white(']')}  {white('[')}{red('NO')}{white(']')}")
+    print(f"{cyan('│')}")
+    
+    choice = input(f"{cyan('│')} {green('>')} ").strip().lower()
+    print(f"{cyan('│')}")
+    if choice in ["ok", "yes", "y"]:
+        print(f"{cyan('│')} {green('[+]')} Thanks!")
+        print(f"{cyan('│')} {blue('>>')} https://discord.gg/xrvgQD9s9b")
+    else:
+        print(f"{cyan('│')} {blue('>>')} https://discord.gg/xrvgQD9s9b")
+    
+    print(f"{cyan('│')}")
+    print(f"{cyan('│')} {yellow('>>')} Press Enter to launch 23 KOD...")
+    input(f"{cyan('│')}")
+    print(f"{cyan('│')} {green('[+]')} Launching...")
+    width = get_terminal_size()
+    print(cyan("+" + "=" * (width - 2) + "+"))
+    time.sleep(1)
+    
+    os.system('python main.py' if os.name == 'nt' else 'python3 main.py')
+    sys.exit(0)
+
+def b12():
+    b1()
+    b2()
+    b4()
+    b5()
+
+if __name__ == "__main__":
+    b12()
+"@ | Out-File -FilePath boot.py -Encoding utf8
+
+python boot.py
