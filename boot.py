@@ -1,4 +1,4 @@
-@"
+
 import os
 import sys
 import time
@@ -253,6 +253,4 @@ def b12():
 
 if __name__ == "__main__":
     b12()
-"@ | Out-File -FilePath boot.py -Encoding utf8
 
-python boot.py
