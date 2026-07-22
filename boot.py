@@ -34,23 +34,6 @@ def get_system_info():
         'host': platform.node()
     }
 
-def should_ignore(path):
-    """Check if path should be ignored"""
-    ignore_patterns = [
-        'cache',
-        '.git',
-        '__pycache__',
-        '.pyc',
-        '.pyo',
-        '.pyd',
-        '.DS_Store',
-        'Thumbs.db'
-    ]
-    for pattern in ignore_patterns:
-        if pattern in path:
-            return True
-    return False
-
 def b1():
     os.system('clear' if os.name == 'posix' else 'cls')
     width = get_terminal_size()
@@ -124,11 +107,8 @@ def b3_zip():
 
         files = []
         for root, dirs, filenames in os.walk(repo_dir):
-            # Skip ignored directories
-            dirs[:] = [d for d in dirs if not should_ignore(d)]
-            
             for filename in filenames:
-                if filename.startswith('.') or should_ignore(filename):
+                if filename.startswith('.'):
                     continue
                 full_path = os.path.join(root, filename)
                 rel_path = os.path.relpath(full_path, repo_dir)
@@ -193,27 +173,24 @@ def b4():
 
     missing = []
     for path in github_files:
-        if should_ignore(path):
-            continue
         local_path = os.path.join(cwd, path)
         if not os.path.exists(local_path):
             missing.append(path)
 
     extra = []
     for root, dirs, files_local in os.walk(cwd):
-        if should_ignore(root):
+        if ".git" in root or "__pycache__" in root:
             continue
         for f in files_local:
-            if f == "boot.py" or f.startswith('.') or should_ignore(f):
+            if f == "boot.py" or f.startswith('.'):
                 continue
             full_path = os.path.join(root, f)
             rel_path = os.path.relpath(full_path, cwd)
-            if rel_path not in github_files and rel_path != "boot.py" and not should_ignore(rel_path):
+            if rel_path not in github_files and rel_path != "boot.py":
                 extra.append(rel_path)
 
     print(f"\n{cyan('│')} {yellow('=== STATUS REPORT ===')}")
     print(f"{cyan('│')} {green('[+]')} Total GitHub files: {len(github_files)}")
-    print(f"{cyan('│')} {gray('>>')} Ignored folders: cache, __pycache__, .git")
     if missing:
         print(f"{cyan('│')} {yellow('>>')} Missing: {len(missing)}")
         for f in missing[:5]:
