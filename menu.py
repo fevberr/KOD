@@ -6,22 +6,33 @@ import random
 import shutil
 from utils.colors import green, red, cyan, yellow, white, gray, blue, magenta, dim, bold
 
-def get_terminal_size():
+def a1(n):
+    if os.path.exists(f"modules/{n}"):
+        return f"modules/{n}"
+    if os.path.exists("modules"):
+        for r, d, f in os.walk("modules"):
+            if n in f:
+                return os.path.join(r, n)
+    if os.path.exists(f"aesthetic/{n}"):
+        return f"aesthetic/{n}"
+    return None
+
+def a2():
     try:
         return shutil.get_terminal_size()
     except:
         return os.terminal_size((80, 24))
 
-def get_width():
-    return get_terminal_size().columns
+def a3():
+    return a2().columns
 
-def get_height():
-    return get_terminal_size().lines
+def a4():
+    return a2().lines
 
-def truncate(text, max_len):
-    if len(text) > max_len:
-        return text[:max_len-3] + "..."
-    return text
+def a5(t, m):
+    if len(t) > m:
+        return t[:m-3] + "..."
+    return t
 
 def m2():
     m1 = []
@@ -48,6 +59,8 @@ def m1():
     q1 = ""
     
     while True:
+        w = a3()
+        h = a4()
         os.system('cls' if os.name == 'nt' else 'clear')
         
         try:
@@ -80,16 +93,16 @@ def m1():
         
         c2 = o1(p4)
         
-        tab_display = []
+        td = []
         for i, name in enumerate(n2):
             if i == p4:
-                tab_display.append(f"{green('[')}{name}{green(']')}")
+                td.append(f"{green('[')}{name}{green(']')}")
             else:
-                tab_display.append(f"{gray(' ' + name + ' ')}")
+                td.append(f"{gray(' ' + name + ' ')}")
         
-        tab_line = ' '.join(tab_display)
+        tl = ' '.join(td)
         print(f"\n{green('┌──────────────────────────────────────────────────────────┐')}")
-        print(f"{green('│')} {cyan('Tabs:')} {tab_line}")
+        print(f"{green('│')} {cyan('Tabs:')} {tl}")
         print(f"{green('├──────────────────────────────────────────────────────────┤')}")
         
         if not c2:
@@ -99,7 +112,7 @@ def m1():
                 print(f"{green('│')} {green(f'{i:2}')}. {m5}")
         
         print(f"{green('├──────────────────────────────────────────────────────────┤')}")
-        print(f"{green('│')} {red('[0]')} Exit  {yellow('[s]')} Search  {cyan('[t#]')} Tab  {blue('[i]')} Install{green('│')}")
+        print(f"{green('│')} {red('[0]')} Exit  {yellow('[s]')} Search  {cyan('[t#]')} Tab  {blue('[i]')} Install")
         print(f"{green('└──────────────────────────────────────────────────────────┘')}")
         print()
         
@@ -117,10 +130,10 @@ def m1():
         if c1 == "s":
             q1 = input(f"{yellow('Search:')} ").strip()
             found = []
-            for tab_name, modules in g1().items():
-                for mod in modules:
+            for tn, mods in g1().items():
+                for mod in mods:
                     if q1.lower() in mod.lower():
-                        found.append(f"{tab_name}: {mod}")
+                        found.append(f"{tn}: {mod}")
             if found:
                 print(f"\n{green('[+] Found:')}")
                 for f in found:
@@ -166,32 +179,32 @@ def m1():
         
         if c2 and 0 <= i2 < len(c2):
             m5 = c2[i2]
-            m6 = f"modules/{m5}"
-            if os.path.exists(m6):
-                from utils.modUI import a1, a2, a3
+            m6 = a1(m5)
+            if m6:
+                from utils.modUI import b1, b2, b3
                 
-                module = a1(m6)
-                module_options = {}
-                current_options = {}
+                mod = b1(m6)
+                mo = {}
+                co = {}
                 
-                if hasattr(module, 'OPTIONS'):
-                    module_options = module.OPTIONS
-                    for key, value in module_options.items():
+                if hasattr(mod, 'OPTIONS'):
+                    mo = mod.OPTIONS
+                    for key, value in mo.items():
                         if 'default' in value:
-                            current_options[key] = value['default']
+                            co[key] = value['default']
                 
                 while True:
-                    choice = a2(m5[:-3], module_options, current_options)
+                    choice = b2(m5[:-3], mo, co)
                     
                     if choice == "1":
-                        a3(m6, current_options if current_options else None)
+                        b3(m6, co if co else None)
                         
-                    elif choice == "2" and module_options:
+                    elif choice == "2" and mo:
                         print(f"\n{green('┌──────────────────────────────────────────────────────────┐')}")
-                        opt_list = list(module_options.keys())
-                        for i, key in enumerate(opt_list, 1):
-                            current = current_options.get(key, module_options[key].get('default', ''))
-                            print(f"{green('│')} {green(f'{i}')}. {key} = {yellow(current)}")
+                        ol = list(mo.keys())
+                        for i, key in enumerate(ol, 1):
+                            cur = co.get(key, mo[key].get('default', ''))
+                            print(f"{green('│')} {green(f'{i}')}. {key} = {yellow(cur)}")
                         print(f"{green('└──────────────────────────────────────────────────────────┘')}")
                         print()
                         print(f"  {yellow('Format:')} {cyan('<num> <val>')}")
@@ -205,21 +218,21 @@ def m1():
                                 if len(parts) >= 2:
                                     num = int(parts[0])
                                     val = ' '.join(parts[1:])
-                                    if 1 <= num <= len(opt_list):
-                                        key = opt_list[num - 1]
-                                        current_options[key] = val
+                                    if 1 <= num <= len(ol):
+                                        key = ol[num - 1]
+                                        co[key] = val
                                         print(f"\n{green('[✓]')} {key} = {val}")
                                     else:
                                         print(f"\n{red('[!] Invalid number')}")
                                 elif len(parts) == 1 and parts[0].isdigit():
                                     num = int(parts[0])
-                                    if 1 <= num <= len(opt_list):
-                                        key = opt_list[num - 1]
-                                        current = current_options.get(key, module_options[key].get('default', ''))
-                                        print(f"\n{yellow('  ')}{key} = {current}")
+                                    if 1 <= num <= len(ol):
+                                        key = ol[num - 1]
+                                        cur = co.get(key, mo[key].get('default', ''))
+                                        print(f"\n{yellow('  ')}{key} = {cur}")
                                         new_val = input(f"{green('  New:')} ").strip()
                                         if new_val:
-                                            current_options[key] = new_val
+                                            co[key] = new_val
                                             print(f"\n{green('[✓]')} {key} = {new_val}")
                                     else:
                                         print(f"\n{red('[!] Invalid number')}")
@@ -242,6 +255,7 @@ def m1():
                         time.sleep(0.5)
             else:
                 print(f"\n{red('[!] Module')} {m5} {red('not found!')}")
+                print(f"{gray('  Searched: modules/, modules/*/, aesthetic/')}")
                 input(f"{green('>')} ")
         else:
             if c2:
