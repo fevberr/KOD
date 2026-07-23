@@ -28,7 +28,7 @@ CLEAR = '\033[2J\033[H'
 HIDE_CURSOR = '\033[?25l'
 SHOW_CURSOR = '\033[?25h'
 
-def 1(url, timeout=10):
+def one(url, timeout=10):
     try:
         req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
         with urlopen(req, timeout=timeout) as response:
@@ -36,7 +36,7 @@ def 1(url, timeout=10):
     except:
         return None
 
-def 2(html):
+def two(html):
     try:
         pre_match = re.search(r'<pre[^>]*>(.*?)</pre>', html, re.DOTALL)
         if pre_match:
@@ -49,7 +49,7 @@ def 2(html):
         pass
     return None
 
-def 3(frame_num, output_dir):
+def three(frame_num, output_dir):
     filepath = os.path.join(output_dir, f'{frame_num}.txt')
     
     if os.path.exists(filepath):
@@ -58,14 +58,14 @@ def 3(frame_num, output_dir):
             if content and len(content) > 10:
                 return True
     
-    ascii_art = 2(1(f'https://raw.githubusercontent.com/Epicpkmn11/bad-apple-html/main/frame/{frame_num}.html'))
+    ascii_art = two(one(f'https://raw.githubusercontent.com/Epicpkmn11/bad-apple-html/main/frame/{frame_num}.html'))
     if ascii_art:
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(ascii_art)
         return True
     return False
 
-def 4(total_frames, output_dir):
+def four(total_frames, output_dir):
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     
@@ -98,9 +98,9 @@ def 4(total_frames, output_dir):
     processed_frames = len(existing_frames)
     lock = threading.Lock()
     
-    def 5(frame_num):
+    def five(frame_num):
         nonlocal success_count, failure_count, processed_frames
-        result = 3(frame_num, output_dir)
+        result = three(frame_num, output_dir)
         with lock:
             processed_frames += 1
             if result:
@@ -110,13 +110,13 @@ def 4(total_frames, output_dir):
                 failed_frames.append(frame_num)
         return result
     
-    def 6():
+    def six():
         with ThreadPoolExecutor(max_workers=OPTIONS['default']['threads']) as executor:
-            futures = {executor.submit(5, i): i for i in missing_frames}
+            futures = {executor.submit(five, i): i for i in missing_frames}
             for future in as_completed(futures):
                 yield
     
-    def 7():
+    def seven():
         elapsed = time.time() - start_time
         fps = (processed_frames - len(existing_frames)) / elapsed if elapsed > 0 else 0
         
@@ -145,9 +145,9 @@ def 4(total_frames, output_dir):
         sys.stdout.flush()
     
     start_gen = time.time()
-    for _ in 6():
+    for _ in six():
         if (processed_frames - len(existing_frames)) % 5 == 0:
-            7()
+            seven()
     
     elapsed_total = time.time() - start_gen
     
@@ -174,7 +174,7 @@ def 4(total_frames, output_dir):
     
     return success_count, failure_count, failed_frames
 
-def 8(output_dir):
+def eight(output_dir):
     frames = []
     if not os.path.exists(output_dir):
         return frames
@@ -190,7 +190,7 @@ def 8(output_dir):
                 pass
     return frames
 
-def 9(output_dir, frame_num):
+def nine(output_dir, frame_num):
     filepath = os.path.join(output_dir, f'{frame_num}.txt')
     try:
         with open(filepath, 'r', encoding='utf-8') as f:
@@ -198,8 +198,8 @@ def 9(output_dir, frame_num):
     except:
         return None
 
-def 10(output_dir, total_frames, fps):
-    frames = 8(output_dir)
+def ten(output_dir, total_frames, fps):
+    frames = eight(output_dir)
     if not frames:
         print('[!] No frames found in cache')
         return
@@ -214,7 +214,7 @@ def 10(output_dir, total_frames, fps):
         
         while True:
             frame_num = frames[frame_index % frame_count]
-            ascii_art = 9(output_dir, frame_num)
+            ascii_art = nine(output_dir, frame_num)
             
             if ascii_art:
                 sys.stdout.write(CLEAR)
@@ -240,40 +240,6 @@ def 10(output_dir, total_frames, fps):
         sys.stdout.flush()
         print('\n[*] Playback stopped')
 
-def 11(output_dir, total_frames):
-    frames = 8(output_dir)
-    if not frames:
-        return
-    
-    print('[*] Splitting frames into separate files...')
-    
-    chunks = []
-    chunk_size = 100
-    for i in range(0, len(frames), chunk_size):
-        chunks.append(frames[i:i + chunk_size])
-    
-    for idx, chunk in enumerate(chunks):
-        chunk_dir = os.path.join(output_dir, f'chunk_{idx+1}')
-        if not os.path.exists(chunk_dir):
-            os.makedirs(chunk_dir)
-        
-        for frame_num in chunk:
-            src = os.path.join(output_dir, f'{frame_num}.txt')
-            dst = os.path.join(chunk_dir, f'{frame_num}.txt')
-            if os.path.exists(src):
-                try:
-                    with open(src, 'r', encoding='utf-8') as f:
-                        content = f.read()
-                    with open(dst, 'w', encoding='utf-8') as f:
-                        f.write(content)
-                except:
-                    pass
-        
-        print(f'[+] Created chunk {idx+1} with {len(chunk)} frames')
-    
-    print(f'[+] Split {len(frames)} frames into {len(chunks)} chunks')
-    return len(chunks)
-
 def run(options=None):
     output = []
     try:
@@ -288,25 +254,21 @@ def run(options=None):
         output.append('[*] Initializing Bad Apple Terminal Player...')
         time.sleep(0.1)
         
-        frames_exist = 8(output_dir)
+        frames_exist = eight(output_dir)
         
         if not frames_exist or len(frames_exist) < total_frames:
             output.append('[*] Checking and downloading missing frames...')
-            success, failed, failed_list = 4(total_frames, output_dir)
+            success, failed, failed_list = four(total_frames, output_dir)
             output.append(f'[+] Total frames available: {success}')
             if failed > 0:
                 output.append(f'[!] {failed} frames failed to download')
         else:
             output.append(f'[+] All {len(frames_exist)} frames already downloaded!')
         
-        output.append('[*] Splitting frames into chunks...')
-        chunk_count = 11(output_dir, total_frames)
-        output.append(f'[+] Created {chunk_count} chunks with 100 frames each')
-        
         output.append('[*] Starting playback in terminal...')
         output.append('[+] Press Ctrl+C to exit')
         
-        10(output_dir, total_frames, fps)
+        ten(output_dir, total_frames, fps)
         
         output.append('[*] Playback ended')
         
