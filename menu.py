@@ -34,7 +34,7 @@ def a11():
 def a12():
     return a10().lines
 
-def m2():
+def a13():
     m1 = []
     t1 = g1()
     for t2, m3 in t1.items():
@@ -43,16 +43,24 @@ def m2():
                 m1.append(m4)
     return sorted(m1)
 
-def n1():
+def a14():
     t1 = g1()
     return list(t1.keys())
 
-def o1(p4):
+def a15(p4):
     t1 = g1()
     n2 = list(t1.keys())
     if p4 < len(n2):
         return t1[n2[p4]]
     return []
+
+def a16():
+    try:
+        from installer import a11 as installer_main
+        installer_main()
+    except:
+        print(f"{red('[!] installer.py not found')}")
+        time.sleep(1)
 
 def m1():
     p4 = 0
@@ -83,7 +91,7 @@ def m1():
             print("|- Status: READY")
             print("------------------------------")
         
-        n2 = n1()
+        n2 = a14()
         t1 = max(1, len(n2))
         
         if p4 >= t1:
@@ -91,7 +99,7 @@ def m1():
         if p4 < 0:
             p4 = 0
         
-        c2 = o1(p4)
+        c2 = a15(p4)
         
         td = []
         for i, name in enumerate(n2):
@@ -144,12 +152,7 @@ def m1():
             continue
         
         if c1 == "i":
-            try:
-                from installer import a11
-                a11()
-            except:
-                print(f"{red('[!] installer.py not found')}")
-                time.sleep(1)
+            a16()
             continue
         
         if c1.startswith('t') and len(c1) > 1:
@@ -175,7 +178,7 @@ def m1():
             continue
         
         i2 = int(c1) - 1
-        c2 = o1(p4)
+        c2 = a15(p4)
         
         if c2 and 0 <= i2 < len(c2):
             m5 = c2[i2]
