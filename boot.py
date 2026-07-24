@@ -66,102 +66,127 @@ def a8():
     temp_zip = None
     extract_dir = None
     
-    try:
-        zip_url = "https://github.com/fevberr/KOD/archive/refs/heads/main.zip"
-        req = urllib.request.Request(zip_url)
-        req.add_header('User-Agent', 'Mozilla/5.0')
-        r = urllib.request.urlopen(req, timeout=30)
+    for attempt in range(3):
+        try:
+            zip_url = "https://github.com/fevberr/KOD/archive/refs/heads/main.zip"
+            req = urllib.request.Request(zip_url)
+            req.add_header('User-Agent', 'Mozilla/5.0')
+            req.add_header('Accept-Encoding', 'gzip, deflate')
+            r = urllib.request.urlopen(req, timeout=30)
 
-        total_size = int(r.headers.get('content-length', 0))
-        downloaded = 0
-        chunk_size = 8192
-        temp_zip = tempfile.mktemp(suffix='.zip')
-        
-        with open(temp_zip, 'wb') as f:
-            while True:
-                chunk = r.read(chunk_size)
-                if not chunk:
-                    break
-                f.write(chunk)
-                downloaded += len(chunk)
-                if total_size > 0:
-                    percent = int((downloaded / total_size) * 100)
-                    bar = '█' * int(percent / 2) + '░' * (50 - int(percent / 2))
-                    sys.stdout.write(f"\r{cyan('│')} {green('>>')} Downloading: [{green(bar)}] {percent}%")
-                    sys.stdout.flush()
-        print()
+            total_size = int(r.headers.get('content-length', 0))
+            downloaded = 0
+            chunk_size = 8192
+            temp_zip = tempfile.mktemp(suffix='.zip')
+            
+            with open(temp_zip, 'wb') as f:
+                while True:
+                    chunk = r.read(chunk_size)
+                    if not chunk:
+                        break
+                    f.write(chunk)
+                    downloaded += len(chunk)
+                    if total_size > 0:
+                        percent = int((downloaded / total_size) * 100)
+                        bar = '█' * int(percent / 2) + '░' * (50 - int(percent / 2))
+                        sys.stdout.write(f"\r{cyan('│')} {green('>>')} Downloading: [{green(bar)}] {percent}%")
+                        sys.stdout.flush()
+            print()
 
-        print(f"{cyan('│')} {blue('>>')} Extracting ZIP...")
-        extract_dir = tempfile.mkdtemp()
-        with zipfile.ZipFile(temp_zip, 'r') as zip_ref:
-            zip_ref.extractall(extract_dir)
+            print(f"{cyan('│')} {blue('>>')} Extracting ZIP...")
+            extract_dir = tempfile.mkdtemp()
+            with zipfile.ZipFile(temp_zip, 'r') as zip_ref:
+                zip_ref.extractall(extract_dir)
 
-        if temp_zip and os.path.exists(temp_zip):
-            os.remove(temp_zip)
-            temp_zip = None
-
-        items = os.listdir(extract_dir)
-        repo_dir = None
-        for item in items:
-            full_path = os.path.join(extract_dir, item)
-            if os.path.isdir(full_path) and ('KOD' in item or 'main' in item):
-                repo_dir = full_path
-                break
-
-        if not repo_dir:
-            repo_dir = extract_dir
-
-        files = []
-        for root, dirs, filenames in os.walk(repo_dir):
-            dirs[:] = [d for d in dirs if not a4(d)]
-            for filename in filenames:
-                if filename.startswith('.') or a4(filename):
-                    continue
-                full_path = os.path.join(root, filename)
-                rel_path = os.path.relpath(full_path, repo_dir)
-                if rel_path == '.' or rel_path.startswith('.'):
-                    continue
-                files.append({
-                    'name': filename,
-                    'path': rel_path
-                })
-
-        print(f"{cyan('│')} {green('[+]')} Found {len(files)} files in ZIP")
-        print(f"{cyan('│')} {blue('>>')} Copying files...")
-        
-        copied = 0
-        for file in files:
-            src = os.path.join(repo_dir, file['path'])
-            dst = file['path']
-            try:
-                dst_dir = os.path.dirname(dst)
-                if dst_dir:
-                    os.makedirs(dst_dir, exist_ok=True)
-                shutil.copy2(src, dst)
-                copied += 1
-                if copied % 5 == 0:
-                    sys.stdout.write(f"\r{cyan('│')} {green('>>')} {copied}/{len(files)} files copied")
-                    sys.stdout.flush()
-            except Exception as e:
-                print(f"\n{cyan('│')} {red('[-]')} {dst}: {str(e)[:30]}")
-
-        print(f"\r{cyan('│')} {green('[+]')} Copied {copied} files successfully")
-
-        shutil.rmtree(extract_dir)
-        return files
-
-    except Exception as e:
-        print(f"{cyan('│')} {red('[-]')} Error: {str(e)[:50]}")
-        if extract_dir and os.path.exists(extract_dir):
-            try:
-                shutil.rmtree(extract_dir)
-            except:
-                pass
-        if temp_zip and os.path.exists(temp_zip):
-            try:
+            if temp_zip and os.path.exists(temp_zip):
                 os.remove(temp_zip)
-            except:
-                pass
+                temp_zip = None
+
+            items = os.listdir(extract_dir)
+            repo_dir = None
+            for item in items:
+                full_path = os.path.join(extract_dir, item)
+                if os.path.isdir(full_path) and ('KOD' in item or 'main' in item):
+                    repo_dir = full_path
+                    break
+
+            if not repo_dir:
+                repo_dir = extract_dir
+
+            files = []
+            for root, dirs, filenames in os.walk(repo_dir):
+                dirs[:] = [d for d in dirs if not a4(d)]
+                for filename in filenames:
+                    if filename.startswith('.') or a4(filename):
+                        continue
+                    full_path = os.path.join(root, filename)
+                    rel_path = os.path.relpath(full_path, repo_dir)
+                    if rel_path == '.' or rel_path.startswith('.'):
+                        continue
+                    files.append({
+                        'name': filename,
+                        'path': rel_path
+                    })
+
+            print(f"{cyan('│')} {green('[+]')} Found {len(files)} files in ZIP")
+            print(f"{cyan('│')} {blue('>>')} Copying files...")
+            
+            copied = 0
+            for file in files:
+                src = os.path.join(repo_dir, file['path'])
+                dst = file['path']
+                try:
+                    dst_dir = os.path.dirname(dst)
+                    if dst_dir:
+                        os.makedirs(dst_dir, exist_ok=True)
+                    shutil.copy2(src, dst)
+                    copied += 1
+                    if copied % 5 == 0:
+                        sys.stdout.write(f"\r{cyan('│')} {green('>>')} {copied}/{len(files)} files copied")
+                        sys.stdout.flush()
+                except Exception as e:
+                    print(f"\n{cyan('│')} {red('[-]')} {dst}: {str(e)[:30]}")
+
+            print(f"\r{cyan('│')} {green('[+]')} Copied {copied} files successfully")
+
+            shutil.rmtree(extract_dir)
+            return files
+
+        except urllib.error.HTTPError as e:
+            print(f"{cyan('│')} {red('[-]')} HTTP Error {e.code}: {str(e.reason)}")
+            if attempt < 2:
+                print(f"{cyan('│')} {yellow('>>')} Retrying in 3 seconds...")
+                time.sleep(3)
+                continue
+            else:
+                print(f"{cyan('│')} {red('[-]')} Failed after 3 attempts")
+        except urllib.error.URLError as e:
+            print(f"{cyan('│')} {red('[-]')} URL Error: {str(e.reason)}")
+            if attempt < 2:
+                print(f"{cyan('│')} {yellow('>>')} Retrying in 3 seconds...")
+                time.sleep(3)
+                continue
+            else:
+                print(f"{cyan('│')} {red('[-]')} Failed after 3 attempts")
+        except Exception as e:
+            print(f"{cyan('│')} {red('[-]')} Error: {str(e)[:50]}")
+            if attempt < 2:
+                print(f"{cyan('│')} {yellow('>>')} Retrying in 3 seconds...")
+                time.sleep(3)
+                continue
+            else:
+                print(f"{cyan('│')} {red('[-]')} Failed after 3 attempts")
+        finally:
+            if temp_zip and os.path.exists(temp_zip):
+                try:
+                    os.remove(temp_zip)
+                except:
+                    pass
+            if extract_dir and os.path.exists(extract_dir):
+                try:
+                    shutil.rmtree(extract_dir)
+                except:
+                    pass
 
     return None
 
@@ -169,7 +194,7 @@ def a9():
     print(f"{cyan('│')} {blue('>>')} Syncing files...")
     files = a8()
     if not files:
-        print(f"{cyan('│')} {red('[-]')} No files from GitHub")
+        print(f"{cyan('│')} {red('[-]')} No files from GitHub, using local")
         return
 
     cwd = os.getcwd()
@@ -178,9 +203,6 @@ def a9():
     for file in files:
         github_files.add(file['path'])
 
-    print(f"{cyan('│')} {yellow('>>')} Removing extra files...")
-    
-    # ACTUALLY DELETE extra files
     deleted_count = 0
     deleted_list = []
     
@@ -200,16 +222,15 @@ def a9():
                     if deleted_count <= 5:
                         print(f"{cyan('│')} {red('[-]')} Deleted: {rel_path}")
                 except Exception as e:
-                    print(f"{cyan('│')} {red('[-]')} Failed to delete: {rel_path} - {str(e)[:30]}")
+                    print(f"{cyan('│')} {red('[-]')} Failed: {rel_path} - {str(e)[:30]}")
 
-    # Remove empty directories
     for root, dirs, files_local in os.walk(cwd, topdown=False):
         if a4(root):
             continue
         try:
             if not os.listdir(root) and root != cwd:
                 os.rmdir(root)
-                print(f"{cyan('│')} {red('[-]')} Removed empty dir: {os.path.relpath(root, cwd)}")
+                print(f"{cyan('│')} {red('[-]')} Removed dir: {os.path.relpath(root, cwd)}")
         except:
             pass
 
@@ -221,36 +242,16 @@ def a9():
         if not os.path.exists(local_path):
             missing.append(path)
 
-    extra_remaining = []
-    for root, dirs, files_local in os.walk(cwd):
-        if a4(root):
-            continue
-        for f in files_local:
-            if f == "boot.py" or f.startswith('.') or a4(f):
-                continue
-            full_path = os.path.join(root, f)
-            rel_path = os.path.relpath(full_path, cwd)
-            if rel_path not in github_files and rel_path != "boot.py":
-                extra_remaining.append(rel_path)
-
     print(f"\n{cyan('│')} {yellow('=== STATUS REPORT ===')}")
     print(f"{cyan('│')} {green('[+]')} Total GitHub files: {len(github_files)}")
     if deleted_count > 0:
         print(f"{cyan('│')} {red('[-]')} Deleted: {deleted_count} files")
-        if len(deleted_list) > 5:
-            print(f"{cyan('│')} {gray('  ... and')} {len(deleted_list)-5} {gray('more')}")
     if missing:
         print(f"{cyan('│')} {yellow('>>')} Missing: {len(missing)}")
-        for f in missing[:5]:
+        for f in missing[:3]:
             print(f"{cyan('│')}   {green('[+]')} {f}")
-        if len(missing) > 5:
-            print(f"{cyan('│')}   {gray('... and')} {len(missing)-5} {gray('more')}")
-    if extra_remaining:
-        print(f"{cyan('│')} {red('[-]')} Extra remaining: {len(extra_remaining)}")
-        for f in extra_remaining[:5]:
-            print(f"{cyan('│')}   {red('[-]')} {f}")
-        if len(extra_remaining) > 5:
-            print(f"{cyan('│')}   {gray('... and')} {len(extra_remaining)-5} {gray('more')}")
+        if len(missing) > 3:
+            print(f"{cyan('│')}   {gray('... and')} {len(missing)-3} {gray('more')}")
     
     print(f"{cyan('│')}")
     print(f"{cyan('│')} {green('[+]')} Sync complete!")
@@ -283,11 +284,8 @@ def a10():
         print(f"{cyan('│')} {blue('>>')} https://discord.gg/xrvgQD9s9b")
     
     print(f"{cyan('│')}")
-    print(f"{cyan('│')} {yellow('>>')} Press Enter to launch 23 KOD...")
-    input(f"{cyan('│')}")
-    print(f"{cyan('│')} {green('[+]')} Launching...")
-    w = a1()
-    print(cyan("+" + "=" * (w - 2) + "+"))
+    print(f"{cyan('│')} {yellow('>>')} Launching 23 KOD...")
+    print(cyan("+" + "=" * (a1() - 2) + "+"))
     time.sleep(1)
     
     os.system('python main.py' if os.name == 'nt' else 'python3 main.py')
