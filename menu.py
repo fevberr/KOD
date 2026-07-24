@@ -14,9 +14,6 @@ def a9(n):
         for r, d, f in os.walk("modules"):
             if n in f:
                 return os.path.join(r, n)
-    for folder in ["aesthetic", "tools", "plugins", "scripts", "extensions", "addons", "features", "modules2"]:
-        if os.path.exists(f"{folder}/{n}"):
-            return f"{folder}/{n}"
     if os.path.exists("."):
         for r, d, f in os.walk("."):
             if ".git" in r or "__pycache__" in r:
@@ -256,7 +253,7 @@ def m1():
                         time.sleep(0.5)
             else:
                 print(f"\n{red('[!] Module')} {m5} {red('not found!')}")
-                print(f"{gray('  Searched: EVERYWHERE in current directory')}")
+                print(f"{gray('  Searched: EVERYWHERE')}")
                 input(f"{green('>')} ")
         else:
             if c2:
