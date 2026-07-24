@@ -7,7 +7,7 @@ import glob
 TABS = {
     "Recon Tab": ["DNS lookup.py", "Port Scanner.py", "Reverse DNS.py", "Shodan lookup.py", "OSINT search.py", "Subdomain enumeration.py", "Whois Lookup.py"],
     "coming": [],
-    "Aesthetic": ["Matrix Rain.py", "bad apple.py", "Glitch Effect.py", "Binary Clock.py", "FPort Scanner.py", "FNetwork Sniffer.py"]
+    "Aesthetic": ["Matrix Rain.py", "bad apple.py", "Glitch Effect.py", "test.py", "FPort Scanner.py", "FNetwork Sniffer.py"]
 }
 
 def s1():
