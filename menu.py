@@ -1,7 +1,8 @@
 import os
 import sys
 import time
-from config import a7, a8, host, port, device, system, ping
+from config import a7 as get_tabs, a8 as get_tab
+from config import host, port, device, system, ping
 import random
 import shutil
 from utils.colors import green, red, cyan, yellow, white, gray, blue, magenta, dim, bold
@@ -36,7 +37,7 @@ def a12():
 
 def a13():
     m = []
-    t = a7()
+    t = get_tabs()
     for t2, m3 in t.items():
         for m4 in m3:
             if m4 not in m:
@@ -44,11 +45,11 @@ def a13():
     return sorted(m)
 
 def a14():
-    t = a7()
+    t = get_tabs()
     return list(t.keys())
 
 def a15(p):
-    t = a7()
+    t = get_tabs()
     n = list(t.keys())
     if p < len(n):
         return t[n[p]]
@@ -123,7 +124,7 @@ def m1():
             if c1 == "s":
                 q1 = input("S:").strip()
                 found = []
-                for tn, mods in a7().items():
+                for tn, mods in get_tabs().items():
                     for mod in mods:
                         if q1.lower() in mod.lower():
                             found.append(f"{tn}: {mod}")
@@ -301,7 +302,7 @@ def m1():
         if c1 == "s":
             q1 = input(f"{yellow('Search:')} ").strip()
             found = []
-            for tn, mods in a7().items():
+            for tn, mods in get_tabs().items():
                 for mod in mods:
                     if q1.lower() in mod.lower():
                         found.append(f"{tn}: {mod}")
