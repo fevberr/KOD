@@ -178,6 +178,41 @@ def a9():
     for file in files:
         github_files.add(file['path'])
 
+    print(f"{cyan('│')} {yellow('>>')} Removing extra files...")
+    
+    # ACTUALLY DELETE extra files
+    deleted_count = 0
+    deleted_list = []
+    
+    for root, dirs, files_local in os.walk(cwd, topdown=False):
+        if a4(root):
+            continue
+        for f in files_local:
+            if f == "boot.py" or f.startswith('.') or a4(f):
+                continue
+            full_path = os.path.join(root, f)
+            rel_path = os.path.relpath(full_path, cwd)
+            if rel_path not in github_files and rel_path != "boot.py":
+                try:
+                    os.remove(full_path)
+                    deleted_count += 1
+                    deleted_list.append(rel_path)
+                    if deleted_count <= 5:
+                        print(f"{cyan('│')} {red('[-]')} Deleted: {rel_path}")
+                except Exception as e:
+                    print(f"{cyan('│')} {red('[-]')} Failed to delete: {rel_path} - {str(e)[:30]}")
+
+    # Remove empty directories
+    for root, dirs, files_local in os.walk(cwd, topdown=False):
+        if a4(root):
+            continue
+        try:
+            if not os.listdir(root) and root != cwd:
+                os.rmdir(root)
+                print(f"{cyan('│')} {red('[-]')} Removed empty dir: {os.path.relpath(root, cwd)}")
+        except:
+            pass
+
     missing = []
     for path in github_files:
         if a4(path):
@@ -186,7 +221,7 @@ def a9():
         if not os.path.exists(local_path):
             missing.append(path)
 
-    extra = []
+    extra_remaining = []
     for root, dirs, files_local in os.walk(cwd):
         if a4(root):
             continue
@@ -195,27 +230,30 @@ def a9():
                 continue
             full_path = os.path.join(root, f)
             rel_path = os.path.relpath(full_path, cwd)
-            if rel_path not in github_files and rel_path != "boot.py" and not a4(rel_path):
-                extra.append(rel_path)
+            if rel_path not in github_files and rel_path != "boot.py":
+                extra_remaining.append(rel_path)
 
     print(f"\n{cyan('│')} {yellow('=== STATUS REPORT ===')}")
     print(f"{cyan('│')} {green('[+]')} Total GitHub files: {len(github_files)}")
-    print(f"{cyan('│')} {gray('>>')} Ignored: cache, __pycache__, .git")
+    if deleted_count > 0:
+        print(f"{cyan('│')} {red('[-]')} Deleted: {deleted_count} files")
+        if len(deleted_list) > 5:
+            print(f"{cyan('│')} {gray('  ... and')} {len(deleted_list)-5} {gray('more')}")
     if missing:
         print(f"{cyan('│')} {yellow('>>')} Missing: {len(missing)}")
         for f in missing[:5]:
             print(f"{cyan('│')}   {green('[+]')} {f}")
         if len(missing) > 5:
             print(f"{cyan('│')}   {gray('... and')} {len(missing)-5} {gray('more')}")
-    if extra:
-        print(f"{cyan('│')} {red('[-]')} Extra local: {len(extra)}")
-        for f in extra[:5]:
+    if extra_remaining:
+        print(f"{cyan('│')} {red('[-]')} Extra remaining: {len(extra_remaining)}")
+        for f in extra_remaining[:5]:
             print(f"{cyan('│')}   {red('[-]')} {f}")
-        if len(extra) > 5:
-            print(f"{cyan('│')}   {gray('... and')} {len(extra)-5} {gray('more')}")
+        if len(extra_remaining) > 5:
+            print(f"{cyan('│')}   {gray('... and')} {len(extra_remaining)-5} {gray('more')}")
     
     print(f"{cyan('│')}")
-    print(f"{cyan('│')} {green('[+]')} All files synced successfully!")
+    print(f"{cyan('│')} {green('[+]')} Sync complete!")
 
 def a10():
     print(f"{cyan('│')}")
