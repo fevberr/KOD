@@ -2,7 +2,7 @@ import os
 import sys
 import platform
 
-def col_support():
+def a1():
     if not hasattr(sys.stdout, 'isatty') or not sys.stdout.isatty():
         return False
     if os.environ.get('NO_COLOR'):
@@ -26,8 +26,8 @@ def col_support():
             return False
     return term not in ('', 'dumb', 'linux')
 
-def get_colors():
-    class Colors:
+def a2():
+    class a3:
         RS = '\033[0m'
         B = '\033[1m'
         D = '\033[2m'
@@ -47,10 +47,10 @@ def get_colors():
         BC = '\033[96m'
         BW = '\033[97m'
         GR = '\033[90m'
-    return Colors
+    return a3
 
-if col_support():
-    _c = get_colors()
+if a1():
+    _c = a2()
     GREEN = _c.BG
     RED = _c.BR
     CYAN = _c.BC
@@ -65,16 +65,16 @@ if col_support():
 else:
     GREEN = RED = CYAN = YELLOW = WHITE = GRAY = BLUE = MAGENTA = RESET = DIM = BOLD = ''
 
-def color(text, code):
-    return f"{code}{text}{RESET}" if col_support() else text
+def a4(text, code):
+    return f"{code}{text}{RESET}" if a1() else text
 
-def green(text): return color(text, GREEN)
-def red(text): return color(text, RED)
-def cyan(text): return color(text, CYAN)
-def yellow(text): return color(text, YELLOW)
-def white(text): return color(text, WHITE)
-def gray(text): return color(text, GRAY)
-def blue(text): return color(text, BLUE)
-def magenta(text): return color(text, MAGENTA)
-def dim(text): return f"{DIM}{text}{RESET}" if col_support() else text
-def bold(text): return f"{BOLD}{text}{RESET}" if col_support() else text
+def green(text): return a4(text, GREEN)
+def red(text): return a4(text, RED)
+def cyan(text): return a4(text, CYAN)
+def yellow(text): return a4(text, YELLOW)
+def white(text): return a4(text, WHITE)
+def gray(text): return a4(text, GRAY)
+def blue(text): return a4(text, BLUE)
+def magenta(text): return a4(text, MAGENTA)
+def dim(text): return f"{DIM}{text}{RESET}" if a1() else text
+def bold(text): return f"{BOLD}{text}{RESET}" if a1() else text
