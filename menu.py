@@ -5,34 +5,37 @@ from config import g1, g2, host, port, device, system, ping
 import random
 import shutil
 from utils.colors import green, red, cyan, yellow, white, gray, blue, magenta, dim, bold
+from utils.modUI import a1, a2, a3, a4, a5, a6, a7, a8
 
-def a1(n):
+def a9(n):
     if os.path.exists(f"modules/{n}"):
         return f"modules/{n}"
     if os.path.exists("modules"):
         for r, d, f in os.walk("modules"):
             if n in f:
                 return os.path.join(r, n)
-    if os.path.exists(f"aesthetic/{n}"):
-        return f"aesthetic/{n}"
+    for folder in ["aesthetic", "tools", "plugins", "scripts", "extensions", "addons", "features", "modules2"]:
+        if os.path.exists(f"{folder}/{n}"):
+            return f"{folder}/{n}"
+    if os.path.exists("."):
+        for r, d, f in os.walk("."):
+            if ".git" in r or "__pycache__" in r:
+                continue
+            if n in f:
+                return os.path.join(r, n)
     return None
 
-def a2():
+def a10():
     try:
         return shutil.get_terminal_size()
     except:
         return os.terminal_size((80, 24))
 
-def a3():
-    return a2().columns
+def a11():
+    return a10().columns
 
-def a4():
-    return a2().lines
-
-def a5(t, m):
-    if len(t) > m:
-        return t[:m-3] + "..."
-    return t
+def a12():
+    return a10().lines
 
 def m2():
     m1 = []
@@ -59,8 +62,8 @@ def m1():
     q1 = ""
     
     while True:
-        w = a3()
-        h = a4()
+        w = a11()
+        h = a12()
         os.system('cls' if os.name == 'nt' else 'clear')
         
         try:
@@ -179,11 +182,9 @@ def m1():
         
         if c2 and 0 <= i2 < len(c2):
             m5 = c2[i2]
-            m6 = a1(m5)
+            m6 = a9(m5)
             if m6:
-                from utils.modUI import b1, b2, b3
-                
-                mod = b1(m6)
+                mod = a1(m6)
                 mo = {}
                 co = {}
                 
@@ -194,10 +195,10 @@ def m1():
                             co[key] = value['default']
                 
                 while True:
-                    choice = b2(m5[:-3], mo, co)
+                    choice = a6(m5[:-3], mo, co)
                     
                     if choice == "1":
-                        b3(m6, co if co else None)
+                        a7(m6, co if co else None)
                         
                     elif choice == "2" and mo:
                         print(f"\n{green('┌──────────────────────────────────────────────────────────┐')}")
@@ -255,7 +256,7 @@ def m1():
                         time.sleep(0.5)
             else:
                 print(f"\n{red('[!] Module')} {m5} {red('not found!')}")
-                print(f"{gray('  Searched: modules/, modules/*/, aesthetic/')}")
+                print(f"{gray('  Searched: EVERYWHERE in current directory')}")
                 input(f"{green('>')} ")
         else:
             if c2:
