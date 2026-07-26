@@ -1,0 +1,24 @@
+{
+  "name": "Default",
+  "colors": {
+    "primary": "GREEN",
+    "secondary": "CYAN",
+    "success": "GREEN",
+    "error": "RED",
+    "warning": "YELLOW",
+    "info": "BLUE",
+    "highlight": "MAGENTA",
+    "dim": "GRAY",
+    "prompt": "GREEN",
+    "border": "CYAN",
+    "title": "BRIGHT_CYAN",
+    "status": "BRIGHT_GREEN",
+    "module": "BRIGHT_WHITE",
+    "input": "BRIGHT_YELLOW",
+    "output": "WHITE"
+  },
+  "ascii": {
+    "style": "standard",
+    "color": "cyan"
+  }
+}
