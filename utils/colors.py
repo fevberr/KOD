@@ -21,32 +21,33 @@ DEFAULT_COLORS = {
 }
 
 COLOR_CODES = {
-    "BLACK": '\033[30m', "RED": '\033[31m', "GREEN": '\033[32m',
-    "YELLOW": '\033[33m', "BLUE": '\033[34m', "MAGENTA": '\033[35m',
-    "CYAN": '\033[36m', "WHITE": '\033[37m',
-    "BRIGHT_RED": '\033[91m', "BRIGHT_GREEN": '\033[92m',
-    "BRIGHT_YELLOW": '\033[93m', "BRIGHT_BLUE": '\033[94m',
-    "BRIGHT_MAGENTA": '\033[95m', "BRIGHT_CYAN": '\033[96m',
-    "BRIGHT_WHITE": '\033[97m', "GRAY": '\033[90m',
-    "PURPLE": '\033[95m', "ORANGE": '\033[38;5;208m',
-    "PINK": '\033[38;5;201m', "LIME": '\033[38;5;154m',
-    "TEAL": '\033[38;5;37m', "GOLD": '\033[38;5;220m',
-    "SILVER": '\033[38;5;250m', "BROWN": '\033[38;5;130m',
-    "RESET": '\033[0m', "BOLD": '\033[1m', "DIM": '\033[2m'
-}
-
-ALL_COLORS = ["GREEN", "RED", "CYAN", "YELLOW", "BLUE", "MAGENTA", "GRAY", "WHITE", 
-              "BLACK", "BRIGHT_GREEN", "BRIGHT_RED", "BRIGHT_CYAN", "BRIGHT_YELLOW",
-              "BRIGHT_BLUE", "BRIGHT_MAGENTA", "BRIGHT_WHITE",
-              "PURPLE", "ORANGE", "PINK", "LIME", "TEAL", "GOLD", "SILVER", "BROWN"]
-
-SETTINGS_KEYS = ["primary", "secondary", "success", "error", "warning", "info", 
-                 "highlight", "dim", "prompt", "border"]
-
-LABELS = {
-    "primary": "Primary", "secondary": "Secondary", "success": "Success",
-    "error": "Error", "warning": "Warning", "info": "Info",
-    "highlight": "Highlight", "dim": "Dim", "prompt": "Prompt", "border": "Border"
+    "BLACK": '\033[30m',
+    "RED": '\033[31m',
+    "GREEN": '\033[32m',
+    "YELLOW": '\033[33m',
+    "BLUE": '\033[34m',
+    "MAGENTA": '\033[35m',
+    "CYAN": '\033[36m',
+    "WHITE": '\033[37m',
+    "BRIGHT_RED": '\033[91m',
+    "BRIGHT_GREEN": '\033[92m',
+    "BRIGHT_YELLOW": '\033[93m',
+    "BRIGHT_BLUE": '\033[94m',
+    "BRIGHT_MAGENTA": '\033[95m',
+    "BRIGHT_CYAN": '\033[96m',
+    "BRIGHT_WHITE": '\033[97m',
+    "GRAY": '\033[90m',
+    "PURPLE": '\033[95m',
+    "ORANGE": '\033[38;5;208m',
+    "PINK": '\033[38;5;201m',
+    "LIME": '\033[38;5;154m',
+    "TEAL": '\033[38;5;37m',
+    "GOLD": '\033[38;5;220m',
+    "SILVER": '\033[38;5;250m',
+    "BROWN": '\033[38;5;130m',
+    "RESET": '\033[0m',
+    "BOLD": '\033[1m',
+    "DIM": '\033[2m'
 }
 
 def a1():
@@ -240,6 +241,17 @@ def reload_colors():
 
 def a8():
     settings = a4()
+    all_colors = ["GREEN", "RED", "CYAN", "YELLOW", "BLUE", "MAGENTA", "GRAY", "WHITE", 
+                  "BLACK", "BRIGHT_GREEN", "BRIGHT_RED", "BRIGHT_CYAN", "BRIGHT_YELLOW",
+                  "BRIGHT_BLUE", "BRIGHT_MAGENTA", "BRIGHT_WHITE",
+                  "PURPLE", "ORANGE", "PINK", "LIME", "TEAL", "GOLD", "SILVER", "BROWN"]
+    settings_list = ["primary", "secondary", "success", "error", "warning", "info", 
+                     "highlight", "dim", "prompt", "border"]
+    labels = {
+        "primary": "Primary", "secondary": "Secondary", "success": "Success",
+        "error": "Error", "warning": "Warning", "info": "Info",
+        "highlight": "Highlight", "dim": "Dim", "prompt": "Prompt", "border": "Border"
+    }
     
     while True:
         os.system('clear' if os.name == 'posix' else 'cls')
@@ -249,13 +261,13 @@ def a8():
         print("└" + "─" * (width - 2) + "┘")
         print()
         print("Choose the interface color you want to change.")
-        print("Or paste: ui.theme.success = GREEN")
+        print("Or paste: cfg.ui.color.primary -> cyan")
         print()
         
-        for i, key in enumerate(SETTINGS_KEYS, 1):
+        for i, key in enumerate(settings_list, 1):
             code = COLOR_CODES.get(settings.get(key, ''), '')
             color_name = settings.get(key, '')
-            label = LABELS.get(key, key)
+            label = labels.get(key, key)
             print(f"  {i:2}. {label:<12} {code}{color_name}{RESET}")
         
         print()
@@ -267,7 +279,8 @@ def a8():
         if choice == "0":
             break
         
-        paste_match = re.search(r'ui\.theme\.(\w+)\s*[=:]\s*(\w+)', choice.lower())
+        # Support both formats: cfg.ui.color.primary -> cyan AND ui.theme.success = GREEN
+        paste_match = re.search(r'(?:cfg\.ui\.color\.|ui\.theme\.)(\w+)\s*(?:->|=)\s*(\w+)', choice.lower())
         if paste_match:
             key = paste_match.group(1)
             color = paste_match.group(2).upper()
@@ -281,31 +294,16 @@ def a8():
                 continue
             else:
                 print(f"\n  Invalid: {key} or {color}")
-                time.sleep(1)
-                continue
-        
-        paste_match2 = re.search(r'cfg\.ui\.color\.(\w+)\s*->\s*(\w+)', choice.lower())
-        if paste_match2:
-            key = paste_match2.group(1)
-            color = paste_match2.group(2).upper()
-            if key in settings and color in COLOR_CODES:
-                settings[key] = color
-                a5(settings)
-                reload_colors()
-                print(f"\n  {key} set to {color}")
-                print("  Colors updated!")
-                time.sleep(1.5)
-                continue
-            else:
-                print(f"\n  Invalid: {key} or {color}")
-                time.sleep(1)
+                print(f"  Valid settings: {', '.join(settings_list)}")
+                print(f"  Valid colors: {', '.join(all_colors[:15])}...")
+                time.sleep(2)
                 continue
         
         if choice.isdigit():
             num = int(choice)
-            if 1 <= num <= len(SETTINGS_KEYS):
-                key = SETTINGS_KEYS[num - 1]
-                label = LABELS.get(key, key)
+            if 1 <= num <= len(settings_list):
+                key = settings_list[num - 1]
+                label = labels.get(key, key)
                 os.system('clear' if os.name == 'posix' else 'cls')
                 print("┌" + "─" * (width - 2) + "┐")
                 print("│" + " " * ((width - 16) // 2) + "Select Color" + " " * ((width - 16) // 2) + "│")
@@ -316,14 +314,14 @@ def a8():
                 print("Available colors:")
                 print()
                 
-                for i, c in enumerate(ALL_COLORS, 1):
+                for i, c in enumerate(all_colors, 1):
                     code = COLOR_CODES.get(c, '')
                     print(f"  {i:2}. {code}{c}{RESET}")
                 
                 print()
                 c_choice = input("Enter your choice: ").strip()
-                if c_choice.isdigit() and 1 <= int(c_choice) <= len(ALL_COLORS):
-                    settings[key] = ALL_COLORS[int(c_choice) - 1]
+                if c_choice.isdigit() and 1 <= int(c_choice) <= len(all_colors):
+                    settings[key] = all_colors[int(c_choice) - 1]
                     a5(settings)
                     reload_colors()
                     os.system('clear' if os.name == 'posix' else 'cls')
@@ -342,5 +340,5 @@ def a8():
                 print("\n  Invalid choice!")
                 time.sleep(1)
         else:
-            print("\n  Invalid input!")
-            time.sleep(1)
+            print("\n  Invalid input! Use number or paste: cfg.ui.color.primary -> cyan")
+            time.sleep(2)
