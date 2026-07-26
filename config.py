@@ -12,10 +12,10 @@ def a1():
         for f in glob.glob("modules/*/*.py"):
             m.append(os.path.basename(f))
     return sorted(set(m))
-
+modules/Web Enum Tab/Parameter Fuzzer.py
 TABS = {
     "Recon Tab": ["DNS lookup.py", "Port Scanner.py", "Reverse DNS.py", "Shodan lookup.py", "OSINT search.py", "Subdomain enumeration.py", "Whois Lookup.py"],
-    "Web Enum Tab": ["Directory Brute Force.py"],
+    "Web Enum Tab": ["Directory Brute Force.py", "Parameter Fuzzer.py"],
     "Aesthetic": ["Matrix Rain.py", "bad apple.py", "Glitch Effect.py", "test.py", "FPort Scanner.py", "FNetwork Sniffer.py"]
 }
 
