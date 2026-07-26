@@ -18,8 +18,4 @@ def a1():
     m1()
 
 if __name__ == "__main__":
-    try:
-        from boot import a11
-        a11()
-    except:
-        a1()
+    a1()
