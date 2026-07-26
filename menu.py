@@ -5,7 +5,7 @@ from config import a7 as get_tabs, a8 as get_tab
 from config import host, port, device, system, ping
 import random
 import shutil
-from utils.colors import green, red, cyan, yellow, white, gray, blue, magenta, dim, bold, reload_colors
+from utils.colors import green, red, cyan, yellow, white, gray, blue, magenta, dim, bold, reload_colors, purple, orange, pink, lime, teal, gold, silver, brown
 from utils.modUI import a1 as mod_load, a2, a3, a4, a5, a6, a7, a8
 
 def a9(n):
