@@ -5,8 +5,8 @@ from config import a7 as get_tabs, a8 as get_tab
 from config import host, port, device, system, ping
 import random
 import shutil
-from utils.colors import green, red, cyan, yellow, white, gray, blue, magenta, dim, bold
-from utils.modUI import a1, a2, a3, a4, a5, a6, a7, a8
+from utils.colors import green, red, cyan, yellow, white, gray, blue, magenta, dim, bold, reload_colors
+from utils.modUI import a1 as mod_load, a2, a3, a4, a5, a6, a7, a8
 
 def a9(n):
     if os.path.exists(f"modules/{n}"):
@@ -74,11 +74,22 @@ def a18(t, w):
     p = (w - len(t)) // 2
     return " " * p + t
 
+def a19():
+    try:
+        from utils.colors import a8
+        a8()
+        reload_colors()
+    except Exception as e:
+        print(f"{red('[!] Color error:')} {e}")
+        time.sleep(2)
+
 def m1():
     p4 = 0
     q1 = ""
     
     while True:
+        reload_colors()
+        
         w = a11()
         h = a12()
         os.system('cls' if os.name == 'nt' else 'clear')
@@ -113,7 +124,7 @@ def m1():
                     print(f"{i}.{a17(m5, w-4)}")
                 if len(c2) > 5:
                     print(f"... +{len(c2)-5}")
-            print("0=E s=S t#=Tab i=I")
+            print("0=E c=C s=S t#=Tab i=I")
             try:
                 c1 = input(">").strip().lower()
             except KeyboardInterrupt:
@@ -121,6 +132,9 @@ def m1():
                 break
             if c1 == "0":
                 break
+            if c1 == "c":
+                a19()
+                continue
             if c1 == "s":
                 q1 = input("S:").strip()
                 found = []
@@ -154,7 +168,7 @@ def m1():
                     m5 = c2[i2]
                     m6 = a9(m5)
                     if m6:
-                        mod = a1(m6)
+                        mod = mod_load(m6)
                         mo = {}
                         co = {}
                         if hasattr(mod, 'OPTIONS'):
@@ -280,10 +294,11 @@ def m1():
         
         if w < 60:
             print(f"{green('├' + '─' * min(w-4, 30))}")
-            print(f"{green('│')} {red('[0]')} {yellow('[s]')} {cyan('[t#]')} {blue('[i]')}")
+            print(f"{green('│')} {red('[0]')} {yellow('[s]')} {cyan('[t#]')} {blue('[i]')} {magenta('[c]')}")
+            print(f"{green('│')} {gray('  Exit   Search   Tab     Install  Colors')}")
         else:
             print(f"{green('├' + '─' * min(w-4, 50))}")
-            print(f"{green('│')} {red('[0]')} Exit  {yellow('[s]')} Search  {cyan('[t#]')} Tab  {blue('[i]')} Install")
+            print(f"{green('│')} {red('[0]')} Exit  {yellow('[s]')} Search  {cyan('[t#]')} Tab  {blue('[i]')} Install  {magenta('[c]')} Colors")
         
         print(f"{green('└' + '─' * min(w-4, 50))}")
         print()
@@ -321,6 +336,10 @@ def m1():
             a16()
             continue
         
+        if c1 == "c":
+            a19()
+            continue
+        
         if c1.startswith('t') and len(c1) > 1:
             try:
                 t2 = int(c1[1:])
@@ -350,7 +369,7 @@ def m1():
             m5 = c2[i2]
             m6 = a9(m5)
             if m6:
-                mod = a1(m6)
+                mod = mod_load(m6)
                 mo = {}
                 co = {}
                 
