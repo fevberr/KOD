@@ -5,7 +5,8 @@ from config import a7 as get_tabs, a8 as get_tab
 from config import host, port, device, system, ping
 import random
 import shutil
-from utils.colors import green, red, cyan, yellow, white, gray, blue, magenta, dim, bold, reload_colors, color_settings_menu, teal, gold, lime, orange, purple, pink
+from utils.colors import green, red, cyan, yellow, white, gray, blue, magenta, dim, bold, reload_colors, color_settings_menu, teal, gold, lime, orange, purple, pink, hot_pink, lavender, mint, peach, coral, sky_blue, neon_green, neon_pink, neon_blue, neon_purple, sunset, ocean, forest, rose
+from utils.modUI import a1 as mod_load, a2, a3, a4, a5, a6, a7, a8
 
 def a9(n):
     if os.path.exists(f"modules/{n}"):
@@ -95,10 +96,11 @@ def m1():
         os.system('cls' if os.name == 'nt' else 'clear')
         
         try:
-            from display.banner import b1
+            from display.banner import a3 as b1
             b1()
-        except:
+        except Exception as e:
             print(cyan("+--- 23 KOD"))
+            print(f"{gray('  (Banner error:')} {e}{gray(')')}")
         
         w = a11()
         if w < 60:
