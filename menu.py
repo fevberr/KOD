@@ -5,8 +5,7 @@ from config import a7 as get_tabs, a8 as get_tab
 from config import host, port, device, system, ping
 import random
 import shutil
-from utils.colors import green, red, cyan, yellow, white, gray, blue, magenta, dim, bold, reload_colors, purple, orange, pink, lime, teal, gold, silver, brown
-from utils.modUI import a1 as mod_load, a2, a3, a4, a5, a6, a7, a8
+from utils.colors import green, red, cyan, yellow, white, gray, blue, magenta, dim, bold, reload_colors, color_settings_menu, teal, gold, lime, orange, purple, pink
 
 def a9(n):
     if os.path.exists(f"modules/{n}"):
@@ -76,8 +75,7 @@ def a18(t, w):
 
 def a19():
     try:
-        from utils.colors import a8
-        a8()
+        color_settings_menu()
         reload_colors()
     except Exception as e:
         print(f"{red('[!] Color error:')} {e}")
@@ -87,6 +85,8 @@ def m1():
     p4 = 0
     q1 = ""
     
+    reload_colors()
+    
     while True:
         reload_colors()
         
@@ -94,153 +94,39 @@ def m1():
         h = a12()
         os.system('cls' if os.name == 'nt' else 'clear')
         
-        if w < 40:
-            try:
-                from display.banner import b1
-                b1()
-            except:
-                print("23K")
-            print(f"H:{a17(host, 15)}")
-            print(f"P:{port}")
-            print(f"Ping:{ping}ms")
-            print("-" * min(w, 20))
-            n2 = a14()
-            t1 = max(1, len(n2))
-            if p4 >= t1:
-                p4 = t1 - 1
-            if p4 < 0:
-                p4 = 0
-            c2 = a15(p4)
-            for i, name in enumerate(n2):
-                if i == p4:
-                    print(f"[{a17(name, 8)}]")
-                else:
-                    print(f" {a17(name, 8)} ")
-            print("-" * min(w, 20))
-            if not c2:
-                print("(soon)")
-            else:
-                for i, m5 in enumerate(c2[:5], 1):
-                    print(f"{i}.{a17(m5, w-4)}")
-                if len(c2) > 5:
-                    print(f"... +{len(c2)-5}")
-            print("0=E c=C s=S t#=Tab i=I")
-            try:
-                c1 = input(">").strip().lower()
-            except KeyboardInterrupt:
-                print("\nExiting...")
-                break
-            if c1 == "0":
-                break
-            if c1 == "c":
-                a19()
-                continue
-            if c1 == "s":
-                q1 = input("S:").strip()
-                found = []
-                for tn, mods in get_tabs().items():
-                    for mod in mods:
-                        if q1.lower() in mod.lower():
-                            found.append(f"{tn}: {mod}")
-                if found:
-                    for f in found[:3]:
-                        print(f"- {a17(f, w-2)}")
-                    if len(found) > 3:
-                        print(f"... +{len(found)-3}")
-                else:
-                    print("None")
-                input(">")
-                continue
-            if c1 == "i":
-                a16()
-                continue
-            if c1.startswith('t') and len(c1) > 1:
-                try:
-                    t2 = int(c1[1:])
-                    if 1 <= t2 <= t1:
-                        p4 = t2 - 1
-                        continue
-                except:
-                    pass
-            if c1.isdigit():
-                i2 = int(c1) - 1
-                if c2 and 0 <= i2 < len(c2):
-                    m5 = c2[i2]
-                    m6 = a9(m5)
-                    if m6:
-                        mod = mod_load(m6)
-                        mo = {}
-                        co = {}
-                        if hasattr(mod, 'OPTIONS'):
-                            mo = mod.OPTIONS
-                            for key, value in mo.items():
-                                if 'default' in value:
-                                    co[key] = value['default']
-                        while True:
-                            choice = a6(m5[:-3], mo, co)
-                            if choice == "1":
-                                a7(m6, co if co else None)
-                            elif choice == "2" and mo:
-                                ol = list(mo.keys())
-                                for i, key in enumerate(ol, 1):
-                                    cur = co.get(key, mo[key].get('default', ''))
-                                    print(f"{i}. {key} = {cur}")
-                                print("F: <num> <val>")
-                                inp = input(">").strip()
-                                if inp and inp != "0":
-                                    parts = inp.split()
-                                    if len(parts) >= 2:
-                                        num = int(parts[0])
-                                        val = ' '.join(parts[1:])
-                                        if 1 <= num <= len(ol):
-                                            key = ol[num - 1]
-                                            co[key] = val
-                                            print(f"✓ {key} = {val}")
-                            elif choice == "3":
-                                break
-                            elif choice == "0":
-                                sys.exit(0)
-                    else:
-                        print("Not found")
-                        input(">")
-            continue
+        try:
+            from display.banner import b1
+            b1()
+        except:
+            print(cyan("+--- 23 KOD"))
         
+        w = a11()
         if w < 60:
-            try:
-                from display.banner import b1
-                b1()
-            except:
-                print("+--- 23 KOD")
             i1 = f"host: {a17(host, 20)}\nport:{port}\nping:{ping}ms\ndev:{a17(device, 10)}"
             try:
                 from display.panels import p1
                 p1("23 KOD", i1, "READY")
             except:
-                print("+--- 23 KOD")
-                print(f"| {a17(host, 25)}")
-                print(f"| {port}")
-                print(f"| {ping}ms")
-                print("|- READY")
-                print("-" * min(w, 30))
+                print(cyan("+--- 23 KOD"))
+                print(cyan("| ") + white(f"{a17(host, 25)}"))
+                print(cyan("| ") + white(f"{port}"))
+                print(cyan("| ") + yellow(f"{ping}ms"))
+                print(cyan("|- ") + green("READY"))
+                print(cyan("-" * min(w, 30)))
         else:
-            try:
-                from display.banner import b1
-                b1()
-            except:
-                print("+--- 23 KOD")
             i1 = f"host:      {host}\nPort:        {port}\nPing:     {ping}\ndevice:   {device}\nsystem:    {system}"
             try:
                 from display.panels import p1
                 p1("23 KOD", i1, "READY")
             except:
-                print("+--- 23 KOD")
-                print(f"| host:      {host}")
-                print(f"| Port:        {port}")
-                print(f"| Ping:     {ping}")
-                print(f"| device:   {device}")
-                print(f"| system:    {system}")
-                print("|- Status: READY")
-                print("------------------------------")
+                print(cyan("+--- 23 KOD"))
+                print(cyan("| ") + white(f"host:      {host}"))
+                print(cyan("| ") + white(f"Port:        {port}"))
+                print(cyan("| ") + yellow(f"Ping:     {ping}"))
+                print(cyan("| ") + magenta(f"device:   {device}"))
+                print(cyan("| ") + magenta(f"system:    {system}"))
+                print(cyan("|- ") + green("Status: READY"))
+                print(cyan("-" * min(w, 30)))
         
         n2 = a14()
         t1 = max(1, len(n2))
@@ -257,7 +143,7 @@ def m1():
         for i, name in enumerate(n2):
             dn = a17(name, max(4, (tw // max(1, len(n2))) - 2))
             if i == p4:
-                td.append(f"{green('[')}{dn}{green(']')}")
+                td.append(f"{green('[')}{cyan(dn)}{green(']')}")
             else:
                 td.append(f"{gray(' ' + dn + ' ')}")
         
@@ -268,7 +154,7 @@ def m1():
             for i, name in enumerate(n2[:visible]):
                 dn = a17(name, max(3, (tw // visible) - 2))
                 if i == p4:
-                    td.append(f"{green('[')}{dn}{green(']')}")
+                    td.append(f"{green('[')}{cyan(dn)}{green(']')}")
                 else:
                     td.append(f"{gray(dn)}")
             if len(n2) > visible:
@@ -286,9 +172,9 @@ def m1():
             for i, m5 in enumerate(c2[:max_items], 1):
                 dn = a17(m5, max(1, w - 14))
                 if w < 60:
-                    print(f"{green('│')} {green(str(i))}.{dn}")
+                    print(f"{green('│')} {yellow(str(i))}.{cyan(dn)}")
                 else:
-                    print(f"{green('│')} {green(f'{i:2}')}. {dn}")
+                    print(f"{green('│')} {yellow(f'{i:2}')}. {cyan(dn)}")
             if len(c2) > max_items:
                 print(f"{green('│ ...')} {len(c2)-max_items} more")
         
@@ -345,7 +231,7 @@ def m1():
                 t2 = int(c1[1:])
                 if 1 <= t2 <= t1:
                     p4 = t2 - 1
-                    print(f"\n{green('[✓] Switched to:')} {n2[p4]}")
+                    print(f"\n{green('[✓] Switched to:')} {cyan(n2[p4])}")
                     time.sleep(0.5)
                     continue
                 else:
@@ -390,7 +276,7 @@ def m1():
                         ol = list(mo.keys())
                         for i, key in enumerate(ol, 1):
                             cur = co.get(key, mo[key].get('default', ''))
-                            print(f"{green('│')} {green(f'{i}')}. {key} = {yellow(cur)}")
+                            print(f"{green('│')} {yellow(f'{i}')}. {cyan(key)} = {gold(cur)}")
                         print(f"{green('└' + '─' * min(w-4, 50))}")
                         print()
                         print(f"  {yellow('Format:')} {cyan('<num> <val>')}")
