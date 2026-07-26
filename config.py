@@ -15,16 +15,15 @@ def a1():
 
 
 
-
 TABS = {
+
     "Recon Tab": ["DNS lookup.py", "Port Scanner.py", "Reverse DNS.py", "Shodan lookup.py", "OSINT search.py", "Subdomain enumeration.py", "Whois Lookup.py"],
+
     "Web Enum Tab": ["Directory Brute Force.py", "Parameter Fuzzer.py"],
+
     "Aesthetic": ["Matrix Rain.py", "bad apple.py", "Glitch Effect.py", "test.py", "FPort Scanner.py", "FNetwork Sniffer.py"]
+
 }
-
-
-
-
 
 def a2():
     return f"{platform.system()} {platform.release()}"
