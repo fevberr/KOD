@@ -5,6 +5,7 @@ import time
 import importlib.util
 import random
 import shutil
+from utils.colors import green, red, cyan, yellow, white, gray, blue, magenta, dim, bold, reload_colors, teal, gold, lime, orange, purple, pink, hot_pink, lavender, mint, peach, coral, sky_blue, neon_green, neon_pink, neon_blue, neon_purple, sunset, ocean, forest, rose, color_settings_menu
 
 def a1(path):
     spec = importlib.util.spec_from_file_location("module", path)
@@ -41,52 +42,57 @@ def a5():
     print("\r", end="")
 
 def a6(module_name, options=None, current_options=None):
+    reload_colors()
     a2()
     a5()
     
     try:
-        from display.banner import b1
+        from display.banner import a3 as b1
         b1()
     except:
-        print("+--- 23 KOD")
+        print(cyan("+--- 23 KOD"))
     
-    print(f"\n\033[96m┌─ \033[93mModule:\033[0m \033[97m{module_name}\033[0m")
-    print(f"\033[96m├─ \033[93mHost:\033[0m \033[97m{host}\033[0m")
-    print(f"\033[96m├─ \033[93mPort:\033[0m \033[97m{port}\033[0m")
-    print(f"\033[96m├─ \033[93mPing:\033[0m \033[97m{ping}ms\033[0m")
-    print(f"\033[96m├─ \033[93mDevice:\033[0m \033[97m{device}\033[0m")
-    print(f"\033[96m└─ \033[93mSystem:\033[0m \033[97m{system}\033[0m")
+    w = shutil.get_terminal_size().columns if hasattr(shutil, 'get_terminal_size') else 80
+    
+    print(f"\n{cyan('┌─')} {yellow('Module:')} {white(module_name)}")
+    print(f"{cyan('├─')} {yellow('Host:')} {white(host)}")
+    print(f"{cyan('├─')} {yellow('Port:')} {white(port)}")
+    print(f"{cyan('├─')} {yellow('Ping:')} {lime(str(ping) + 'ms')}")
+    print(f"{cyan('├─')} {yellow('Device:')} {magenta(device)}")
+    print(f"{cyan('└─')} {yellow('System:')} {magenta(system)}")
     print()
     
     if current_options:
-        print("\033[90m┌──────────────────────────────────────────────────────────────────┐\033[0m")
+        print(f"{gray('┌' + '─' * min(w-4, 50) + '┐')}")
         for key, value in current_options.items():
-            print(f"\033[90m│ \033[93m{key}:\033[0m \033[97m{value}\033[0m")
-        print("\033[90m└──────────────────────────────────────────────────────────────────┘\033[0m")
+            print(f"{gray('│')} {cyan(key)}: {white(value)}")
+        print(f"{gray('└' + '─' * min(w-4, 50) + '┘')}")
         print()
     
     if options:
-        print("\033[90m┌──────────────────────────────────────────────────────────────────┐\033[0m")
+        print(f"{gray('┌' + '─' * min(w-4, 50) + '┐')}")
         opt_list = list(options.keys())
         for i, key in enumerate(opt_list, 1):
             default = options[key].get('default', '')
             current = current_options.get(key, default) if current_options else default
-            print(f"\033[90m│ \033[96m{i:2}.\033[0m \033[97m{key}\033[0m \033[90m[\033[93m{current}\033[90m]\033[0m")
-        print("\033[90m└──────────────────────────────────────────────────────────────────┘\033[0m")
+            print(f"{gray('│')} {yellow(f'{i:2}.')} {cyan(key)} {gray('[')}{gold(current)}{gray(']')}")
+        print(f"{gray('└' + '─' * min(w-4, 50) + '┘')}")
         print()
     
-    print("\033[90m┌──────────────────────────────────────────────────────────────────┐\033[0m")
-    print("\033[90m│ \033[92m[1] Run\033[0m  \033[93m[2] Opt\033[0m  \033[94m[3] Back\033[0m  \033[91m[0] Exit\033[0m                   \033[90m│\033[0m")
-    print("\033[90m└──────────────────────────────────────────────────────────────────┘\033[0m")
+    print(f"{gray('┌' + '─' * min(w-4, 50) + '┐')}")
+    print(f"{gray('│')} {green('[1] Run')}  {yellow('[2] Opt')}  {blue('[3] Back')}  {red('[0] Exit')}{' ' * (min(w-4, 50) - 27)}{gray('│')}")
+    print(f"{gray('└' + '─' * min(w-4, 50) + '┘')}")
     print()
     
-    return input("\033[92m>\033[0m ").strip()
+    return input(f"{green('>')} ").strip()
 
 def a7(module_path, options=None):
+    reload_colors()
     try:
         module = a1(module_path)
         if hasattr(module, 'run'):
-            a3("\n\033[96m┌─ Output ─────────────────────────────────────────────────────┐\033[0m", 0.002)
+            w = shutil.get_terminal_size().columns if hasattr(shutil, 'get_terminal_size') else 80
+            a3(f"\n{cyan('┌─ Output ')}{cyan('─' * min(w-15, 40))}", 0.002)
             
             if options:
                 result = module.run(options)
@@ -95,29 +101,34 @@ def a7(module_path, options=None):
             
             for line in result.split('\n'):
                 if line.startswith('[+]'):
-                    a3(f"\033[92m│ ✓ {line[3:]}\033[0m", 0.002)
+                    a3(f"{cyan('│')} {lime('✓')} {white(line[3:])}", 0.002)
                 elif line.startswith('[!]'):
-                    a3(f"\033[91m│ ✗ {line[3:]}\033[0m", 0.002)
+                    a3(f"{cyan('│')} {red('✗')} {white(line[3:])}", 0.002)
                 elif line.startswith('[*]'):
-                    a3(f"\033[94m│ ● {line[3:]}\033[0m", 0.002)
+                    a3(f"{cyan('│')} {blue('●')} {white(line[3:])}", 0.002)
+                elif line.startswith('[#]'):
+                    a3(f"{cyan('│')} {gold('◆')} {white(line[3:])}", 0.002)
+                elif line.startswith('[~]'):
+                    a3(f"{cyan('│')} {purple('〜')} {white(line[3:])}", 0.002)
                 else:
-                    a3(f"\033[90m│ {line}\033[0m", 0.002)
+                    a3(f"{cyan('│')} {gray(line)}", 0.002)
             
-            a3("\033[96m└──────────────────────────────────────────────────────────────────┘\033[0m", 0.002)
-            a3(f"\n\033[92m[✓] {random.choice(['SYSTEM', 'OK', 'DONE', 'COMPLETE'])}\033[0m")
+            a3(f"{cyan('└' + '─' * min(w-4, 50))}", 0.002)
+            a3(f"\n{lime('[✓]')} {white(random.choice(['SYSTEM', 'OK', 'DONE', 'COMPLETE', 'SUCCESS']))}")
             
-            input("\n\033[92m>\033[0m ")
+            input(f"\n{green('>')} ")
             return result
         else:
-            a3("\n\033[91m[!] No run() function\033[0m")
-            input("\n\033[92m>\033[0m ")
+            a3(f"\n{red('[!] No run() function')}")
+            input(f"\n{green('>')} ")
             return None
     except Exception as e:
-        a3(f"\n\033[91m[!] {e}\033[0m")
-        input("\n\033[92m>\033[0m ")
+        a3(f"\n{red('[!]')} {white(str(e))}")
+        input(f"\n{green('>')} ")
         return None
 
 def a8(module_path, options=None):
+    reload_colors()
     try:
         module = a1(module_path)
         if hasattr(module, 'run'):
@@ -125,6 +136,6 @@ def a8(module_path, options=None):
                 return module.run(options)
             else:
                 return module.run()
-        return "[!] No run() function"
+        return f"{red('[!]')} No run() function"
     except Exception as e:
-        return f"[!] Error: {e}"
+        return f"{red('[!]')} Error: {e}"
