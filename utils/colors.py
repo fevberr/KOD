@@ -11,63 +11,59 @@ THEMES_DIR = "themes"
 CURRENT_THEME = None
 
 DEFAULT_COLORS = {
-    "primary": "ORANGE",
-    "secondary": "GOLD",
-    "success": "LIME",
-    "error": "BRIGHT_RED",
-    "warning": "BRIGHT_YELLOW",
-    "info": "PURPLE",
-    "highlight": "PINK",
-    "dim": "BROWN",
-    "prompt": "ORANGE",
-    "border": "GOLD",
+    "primary": "BRIGHT_WHITE",
+    "secondary": "WHITE",
+    "success": "BRIGHT_WHITE",
+    "error": "WHITE",
+    "warning": "BRIGHT_WHITE",
+    "info": "WHITE",
+    "highlight": "BRIGHT_WHITE",
+    "dim": "GRAY",
+    "prompt": "BRIGHT_WHITE",
+    "border": "WHITE",
     "title": "BRIGHT_WHITE",
-    "status": "BRIGHT_GREEN",
-    "module": "BRIGHT_WHITE",
-    "input": "BRIGHT_YELLOW",
+    "status": "BRIGHT_WHITE",
+    "module": "WHITE",
+    "input": "BRIGHT_WHITE",
     "output": "WHITE",
-    "banner": "BRIGHT_CYAN",
-    "tab": "BRIGHT_MAGENTA",
-    "number": "BRIGHT_YELLOW",
+    "banner": "BRIGHT_WHITE",
+    "tab": "WHITE",
+    "number": "BRIGHT_WHITE",
     "separator": "GRAY",
-    "gradient_start": "HOT_PINK",
-    "gradient_end": "BRIGHT_CYAN",
-    "accent": "GOLD",
+    "gradient_start": "BRIGHT_WHITE",
+    "gradient_end": "WHITE",
+    "accent": "BRIGHT_WHITE",
     "menu_bg": "BLACK",
     "menu_text": "BRIGHT_WHITE",
-    "menu_highlight": "BRIGHT_CYAN",
-    "status_good": "LIME",
-    "status_warn": "GOLD",
-    "status_bad": "BRIGHT_RED",
-    "header": "BRIGHT_CYAN",
+    "menu_highlight": "WHITE",
+    "status_good": "BRIGHT_WHITE",
+    "status_warn": "BRIGHT_WHITE",
+    "status_bad": "WHITE",
+    "header": "BRIGHT_WHITE",
     "footer": "GRAY",
     "divider": "GRAY",
     "label": "BRIGHT_WHITE",
-    "value": "BRIGHT_CYAN",
-    "command": "BRIGHT_YELLOW",
+    "value": "WHITE",
+    "command": "BRIGHT_WHITE",
     "result": "WHITE",
     "timestamp": "GRAY",
-    "count": "BRIGHT_MAGENTA",
-    "progress": "LIME",
-    "bar": "CYAN",
-    "loading": "PURPLE",
-    "success_icon": "LIME",
-    "error_icon": "BRIGHT_RED",
-    "warning_icon": "GOLD",
-    "info_icon": "BRIGHT_BLUE",
-    "highlight_icon": "BRIGHT_MAGENTA",
-    "dim_icon": "GRAY",
-    "border_icon": "BRIGHT_CYAN",
-    "title_icon": "BRIGHT_WHITE",
-    "status_icon": "BRIGHT_GREEN",
-    "module_icon": "BRIGHT_WHITE",
-    "input_icon": "BRIGHT_YELLOW",
-    "output_icon": "WHITE",
-    "banner_icon": "BRIGHT_CYAN",
-    "tab_icon": "BRIGHT_MAGENTA",
-    "number_icon": "BRIGHT_YELLOW",
-    "separator_icon": "GRAY",
-    "accent_icon": "GOLD"
+    "count": "BRIGHT_WHITE",
+    "progress": "BRIGHT_WHITE",
+    "bar": "WHITE",
+    "loading": "GRAY",
+    "ascii_bg": "BLACK",
+    "ascii_char": "BRIGHT_CYAN",
+    "ascii_shadow": "GRAY",
+    "ascii_highlight": "BRIGHT_WHITE",
+    "ascii_gradient1": "HOT_PINK",
+    "ascii_gradient2": "NEON_PINK",
+    "ascii_gradient3": "PINK",
+    "ascii_gradient4": "MAGENTA",
+    "ascii_gradient5": "PURPLE",
+    "ascii_gradient6": "LAVENDER",
+    "ascii_gradient7": "SKY_BLUE",
+    "ascii_gradient8": "BRIGHT_CYAN",
+    "ascii_gradient9": "CYAN"
 }
 
 COLOR_CODES = {
@@ -89,6 +85,22 @@ COLOR_CODES = {
     "NEON_BLUE": '\033[38;5;45m', "NEON_PURPLE": '\033[38;5;93m',
     "SUNSET": '\033[38;5;202m', "OCEAN": '\033[38;5;39m',
     "FOREST": '\033[38;5;28m', "ROSE": '\033[38;5;162m',
+    "CRIMSON": '\033[38;5;160m', "AMBER": '\033[38;5;214m',
+    "INDIGO": '\033[38;5;18m', "VIOLET": '\033[38;5;128m',
+    "SCARLET": '\033[38;5;196m', "EMERALD": '\033[38;5;46m',
+    "SAPPHIRE": '\033[38;5;21m', "RUBY": '\033[38;5;196m',
+    "TOPAZ": '\033[38;5;178m', "TURQUOISE": '\033[38;5;44m',
+    "AMETHYST": '\033[38;5;98m', "OPAL": '\033[38;5;254m',
+    "JADE": '\033[38;5;47m', "ONYX": '\033[38;5;232m',
+    "PEARL": '\033[38;5;255m', "CITRINE": '\033[38;5;226m',
+    "PERIDOT": '\033[38;5;191m', "MOONSTONE": '\033[38;5;248m',
+    "SUNSTONE": '\033[38;5;208m', "AQUA": '\033[38;5;80m',
+    "LILAC": '\033[38;5;183m', "FUCHSIA": '\033[38;5;197m',
+    "CERULEAN": '\033[38;5;38m', "VERMILLION": '\033[38;5;202m',
+    "CHARTREUSE": '\033[38;5;119m', "MAUVE": '\033[38;5;148m',
+    "TAUPE": '\033[38;5;102m', "CREAM": '\033[38;5;230m',
+    "IVORY": '\033[38;5;231m', "CHARCOAL": '\033[38;5;238m',
+    "SLATE": '\033[38;5;245m', "SAND": '\033[38;5;222m',
     "RESET": '\033[0m', "BOLD": '\033[1m', "DIM": '\033[2m'
 }
 
@@ -99,7 +111,13 @@ ALL_COLORS = [
     "GRAY", "PURPLE", "ORANGE", "PINK", "LIME", "TEAL", "GOLD", "SILVER", "BROWN",
     "HOT_PINK", "LAVENDER", "MINT", "PEACH", "CORAL", "SKY_BLUE",
     "NEON_GREEN", "NEON_PINK", "NEON_BLUE", "NEON_PURPLE",
-    "SUNSET", "OCEAN", "FOREST", "ROSE"
+    "SUNSET", "OCEAN", "FOREST", "ROSE",
+    "CRIMSON", "AMBER", "INDIGO", "VIOLET", "SCARLET", "EMERALD",
+    "SAPPHIRE", "RUBY", "TOPAZ", "TURQUOISE", "AMETHYST", "OPAL",
+    "JADE", "ONYX", "PEARL", "CITRINE", "PERIDOT", "MOONSTONE",
+    "SUNSTONE", "AQUA", "LILAC", "FUCHSIA", "CERULEAN", "VERMILLION",
+    "CHARTREUSE", "MAUVE", "TAUPE", "CREAM", "IVORY", "CHARCOAL",
+    "SLATE", "SAND"
 ]
 
 SETTINGS_KEYS = [
@@ -111,10 +129,10 @@ SETTINGS_KEYS = [
     "status_good", "status_warn", "status_bad",
     "header", "footer", "divider", "label", "value", 
     "command", "result", "timestamp", "count", "progress", "bar", "loading",
-    "success_icon", "error_icon", "warning_icon", "info_icon", 
-    "highlight_icon", "dim_icon", "border_icon", "title_icon", 
-    "status_icon", "module_icon", "input_icon", "output_icon",
-    "banner_icon", "tab_icon", "number_icon", "separator_icon", "accent_icon"
+    "ascii_bg", "ascii_char", "ascii_shadow", "ascii_highlight",
+    "ascii_gradient1", "ascii_gradient2", "ascii_gradient3",
+    "ascii_gradient4", "ascii_gradient5", "ascii_gradient6",
+    "ascii_gradient7", "ascii_gradient8", "ascii_gradient9"
 ]
 
 LABELS = {
@@ -132,12 +150,13 @@ LABELS = {
     "label": "Label", "value": "Value", "command": "Command",
     "result": "Result", "timestamp": "Timestamp", "count": "Count",
     "progress": "Progress", "bar": "Bar", "loading": "Loading",
-    "success_icon": "✓ Icon", "error_icon": "✗ Icon", "warning_icon": "⚠ Icon",
-    "info_icon": "ℹ Icon", "highlight_icon": "★ Icon", "dim_icon": "· Icon",
-    "border_icon": "│ Icon", "title_icon": "► Icon", "status_icon": "● Icon",
-    "module_icon": "■ Icon", "input_icon": "❯ Icon", "output_icon": "■ Icon",
-    "banner_icon": "▲ Icon", "tab_icon": "▸ Icon", "number_icon": "# Icon",
-    "separator_icon": "─ Icon", "accent_icon": "◆ Icon"
+    "ascii_bg": "ASCII BG", "ascii_char": "ASCII Char", 
+    "ascii_shadow": "ASCII Shadow", "ascii_highlight": "ASCII Highlight",
+    "ascii_gradient1": "Gradient 1", "ascii_gradient2": "Gradient 2",
+    "ascii_gradient3": "Gradient 3", "ascii_gradient4": "Gradient 4",
+    "ascii_gradient5": "Gradient 5", "ascii_gradient6": "Gradient 6",
+    "ascii_gradient7": "Gradient 7", "ascii_gradient8": "Gradient 8",
+    "ascii_gradient9": "Gradient 9"
 }
 
 def a1():
@@ -222,144 +241,42 @@ def a6():
             "NEON_GREEN": '\033[38;5;118m', "NEON_PINK": '\033[38;5;198m',
             "NEON_BLUE": '\033[38;5;45m', "NEON_PURPLE": '\033[38;5;93m',
             "SUNSET": '\033[38;5;202m', "OCEAN": '\033[38;5;39m',
-            "FOREST": '\033[38;5;28m', "ROSE": '\033[38;5;162m'
+            "FOREST": '\033[38;5;28m', "ROSE": '\033[38;5;162m',
+            "CRIMSON": '\033[38;5;160m', "AMBER": '\033[38;5;214m',
+            "INDIGO": '\033[38;5;18m', "VIOLET": '\033[38;5;128m',
+            "SCARLET": '\033[38;5;196m', "EMERALD": '\033[38;5;46m',
+            "SAPPHIRE": '\033[38;5;21m', "RUBY": '\033[38;5;196m',
+            "TOPAZ": '\033[38;5;178m', "TURQUOISE": '\033[38;5;44m',
+            "AMETHYST": '\033[38;5;98m', "OPAL": '\033[38;5;254m',
+            "JADE": '\033[38;5;47m', "ONYX": '\033[38;5;232m',
+            "PEARL": '\033[38;5;255m', "CITRINE": '\033[38;5;226m',
+            "PERIDOT": '\033[38;5;191m', "MOONSTONE": '\033[38;5;248m',
+            "SUNSTONE": '\033[38;5;208m', "AQUA": '\033[38;5;80m',
+            "LILAC": '\033[38;5;183m', "FUCHSIA": '\033[38;5;197m',
+            "CERULEAN": '\033[38;5;38m', "VERMILLION": '\033[38;5;202m',
+            "CHARTREUSE": '\033[38;5;119m', "MAUVE": '\033[38;5;148m',
+            "TAUPE": '\033[38;5;102m', "CREAM": '\033[38;5;230m',
+            "IVORY": '\033[38;5;231m', "CHARCOAL": '\033[38;5;238m',
+            "SLATE": '\033[38;5;245m', "SAND": '\033[38;5;222m'
         }
-    return {k: '' for k in DEFAULT_COLORS.values()}
+    return {k: '' for k in DEFAULT_COLORS.keys()}
 
 def a7():
     s1 = a2()
     c1 = a6()
-    return {
-        'primary': c1.get(s1.get('primary', 'ORANGE'), ''),
-        'secondary': c1.get(s1.get('secondary', 'GOLD'), ''),
-        'success': c1.get(s1.get('success', 'LIME'), ''),
-        'error': c1.get(s1.get('error', 'BRIGHT_RED'), ''),
-        'warning': c1.get(s1.get('warning', 'BRIGHT_YELLOW'), ''),
-        'info': c1.get(s1.get('info', 'PURPLE'), ''),
-        'highlight': c1.get(s1.get('highlight', 'PINK'), ''),
-        'dim': c1.get(s1.get('dim', 'BROWN'), ''),
-        'prompt': c1.get(s1.get('prompt', 'ORANGE'), ''),
-        'border': c1.get(s1.get('border', 'GOLD'), ''),
-        'title': c1.get(s1.get('title', 'BRIGHT_WHITE'), ''),
-        'status': c1.get(s1.get('status', 'BRIGHT_GREEN'), ''),
-        'module': c1.get(s1.get('module', 'BRIGHT_WHITE'), ''),
-        'input': c1.get(s1.get('input', 'BRIGHT_YELLOW'), ''),
-        'output': c1.get(s1.get('output', 'WHITE'), ''),
-        'banner': c1.get(s1.get('banner', 'BRIGHT_CYAN'), ''),
-        'tab': c1.get(s1.get('tab', 'BRIGHT_MAGENTA'), ''),
-        'number': c1.get(s1.get('number', 'BRIGHT_YELLOW'), ''),
-        'separator': c1.get(s1.get('separator', 'GRAY'), ''),
-        'gradient_start': c1.get(s1.get('gradient_start', 'HOT_PINK'), ''),
-        'gradient_end': c1.get(s1.get('gradient_end', 'BRIGHT_CYAN'), ''),
-        'accent': c1.get(s1.get('accent', 'GOLD'), ''),
-        'menu_bg': c1.get(s1.get('menu_bg', 'BLACK'), ''),
-        'menu_text': c1.get(s1.get('menu_text', 'BRIGHT_WHITE'), ''),
-        'menu_highlight': c1.get(s1.get('menu_highlight', 'BRIGHT_CYAN'), ''),
-        'status_good': c1.get(s1.get('status_good', 'LIME'), ''),
-        'status_warn': c1.get(s1.get('status_warn', 'GOLD'), ''),
-        'status_bad': c1.get(s1.get('status_bad', 'BRIGHT_RED'), ''),
-        'header': c1.get(s1.get('header', 'BRIGHT_CYAN'), ''),
-        'footer': c1.get(s1.get('footer', 'GRAY'), ''),
-        'divider': c1.get(s1.get('divider', 'GRAY'), ''),
-        'label': c1.get(s1.get('label', 'BRIGHT_WHITE'), ''),
-        'value': c1.get(s1.get('value', 'BRIGHT_CYAN'), ''),
-        'command': c1.get(s1.get('command', 'BRIGHT_YELLOW'), ''),
-        'result': c1.get(s1.get('result', 'WHITE'), ''),
-        'timestamp': c1.get(s1.get('timestamp', 'GRAY'), ''),
-        'count': c1.get(s1.get('count', 'BRIGHT_MAGENTA'), ''),
-        'progress': c1.get(s1.get('progress', 'LIME'), ''),
-        'bar': c1.get(s1.get('bar', 'CYAN'), ''),
-        'loading': c1.get(s1.get('loading', 'PURPLE'), ''),
-        'success_icon': c1.get(s1.get('success_icon', 'LIME'), ''),
-        'error_icon': c1.get(s1.get('error_icon', 'BRIGHT_RED'), ''),
-        'warning_icon': c1.get(s1.get('warning_icon', 'GOLD'), ''),
-        'info_icon': c1.get(s1.get('info_icon', 'BRIGHT_BLUE'), ''),
-        'highlight_icon': c1.get(s1.get('highlight_icon', 'BRIGHT_MAGENTA'), ''),
-        'dim_icon': c1.get(s1.get('dim_icon', 'GRAY'), ''),
-        'border_icon': c1.get(s1.get('border_icon', 'BRIGHT_CYAN'), ''),
-        'title_icon': c1.get(s1.get('title_icon', 'BRIGHT_WHITE'), ''),
-        'status_icon': c1.get(s1.get('status_icon', 'BRIGHT_GREEN'), ''),
-        'module_icon': c1.get(s1.get('module_icon', 'BRIGHT_WHITE'), ''),
-        'input_icon': c1.get(s1.get('input_icon', 'BRIGHT_YELLOW'), ''),
-        'output_icon': c1.get(s1.get('output_icon', 'WHITE'), ''),
-        'banner_icon': c1.get(s1.get('banner_icon', 'BRIGHT_CYAN'), ''),
-        'tab_icon': c1.get(s1.get('tab_icon', 'BRIGHT_MAGENTA'), ''),
-        'number_icon': c1.get(s1.get('number_icon', 'BRIGHT_YELLOW'), ''),
-        'separator_icon': c1.get(s1.get('separator_icon', 'GRAY'), ''),
-        'accent_icon': c1.get(s1.get('accent_icon', 'GOLD'), ''),
-        'reset': '\033[0m' if a1() else '',
-        'bold': '\033[1m' if a1() else '',
-        'dim_text': '\033[2m' if a1() else ''
-    }
+    r1 = {}
+    for k in DEFAULT_COLORS.keys():
+        r1[k] = c1.get(s1.get(k, DEFAULT_COLORS[k]), '')
+    r1['reset'] = '\033[0m' if a1() else ''
+    r1['bold'] = '\033[1m' if a1() else ''
+    r1['dim_text'] = '\033[2m' if a1() else ''
+    return r1
 
 GLOBAL_COLORS = {}
 
 def a8():
     global GLOBAL_COLORS
-    s1 = a2()
-    c1 = a6()
-    GLOBAL_COLORS = {
-        'primary': c1.get(s1.get('primary', 'ORANGE'), ''),
-        'secondary': c1.get(s1.get('secondary', 'GOLD'), ''),
-        'success': c1.get(s1.get('success', 'LIME'), ''),
-        'error': c1.get(s1.get('error', 'BRIGHT_RED'), ''),
-        'warning': c1.get(s1.get('warning', 'BRIGHT_YELLOW'), ''),
-        'info': c1.get(s1.get('info', 'PURPLE'), ''),
-        'highlight': c1.get(s1.get('highlight', 'PINK'), ''),
-        'dim': c1.get(s1.get('dim', 'BROWN'), ''),
-        'prompt': c1.get(s1.get('prompt', 'ORANGE'), ''),
-        'border': c1.get(s1.get('border', 'GOLD'), ''),
-        'title': c1.get(s1.get('title', 'BRIGHT_WHITE'), ''),
-        'status': c1.get(s1.get('status', 'BRIGHT_GREEN'), ''),
-        'module': c1.get(s1.get('module', 'BRIGHT_WHITE'), ''),
-        'input': c1.get(s1.get('input', 'BRIGHT_YELLOW'), ''),
-        'output': c1.get(s1.get('output', 'WHITE'), ''),
-        'banner': c1.get(s1.get('banner', 'BRIGHT_CYAN'), ''),
-        'tab': c1.get(s1.get('tab', 'BRIGHT_MAGENTA'), ''),
-        'number': c1.get(s1.get('number', 'BRIGHT_YELLOW'), ''),
-        'separator': c1.get(s1.get('separator', 'GRAY'), ''),
-        'gradient_start': c1.get(s1.get('gradient_start', 'HOT_PINK'), ''),
-        'gradient_end': c1.get(s1.get('gradient_end', 'BRIGHT_CYAN'), ''),
-        'accent': c1.get(s1.get('accent', 'GOLD'), ''),
-        'menu_bg': c1.get(s1.get('menu_bg', 'BLACK'), ''),
-        'menu_text': c1.get(s1.get('menu_text', 'BRIGHT_WHITE'), ''),
-        'menu_highlight': c1.get(s1.get('menu_highlight', 'BRIGHT_CYAN'), ''),
-        'status_good': c1.get(s1.get('status_good', 'LIME'), ''),
-        'status_warn': c1.get(s1.get('status_warn', 'GOLD'), ''),
-        'status_bad': c1.get(s1.get('status_bad', 'BRIGHT_RED'), ''),
-        'header': c1.get(s1.get('header', 'BRIGHT_CYAN'), ''),
-        'footer': c1.get(s1.get('footer', 'GRAY'), ''),
-        'divider': c1.get(s1.get('divider', 'GRAY'), ''),
-        'label': c1.get(s1.get('label', 'BRIGHT_WHITE'), ''),
-        'value': c1.get(s1.get('value', 'BRIGHT_CYAN'), ''),
-        'command': c1.get(s1.get('command', 'BRIGHT_YELLOW'), ''),
-        'result': c1.get(s1.get('result', 'WHITE'), ''),
-        'timestamp': c1.get(s1.get('timestamp', 'GRAY'), ''),
-        'count': c1.get(s1.get('count', 'BRIGHT_MAGENTA'), ''),
-        'progress': c1.get(s1.get('progress', 'LIME'), ''),
-        'bar': c1.get(s1.get('bar', 'CYAN'), ''),
-        'loading': c1.get(s1.get('loading', 'PURPLE'), ''),
-        'success_icon': c1.get(s1.get('success_icon', 'LIME'), ''),
-        'error_icon': c1.get(s1.get('error_icon', 'BRIGHT_RED'), ''),
-        'warning_icon': c1.get(s1.get('warning_icon', 'GOLD'), ''),
-        'info_icon': c1.get(s1.get('info_icon', 'BRIGHT_BLUE'), ''),
-        'highlight_icon': c1.get(s1.get('highlight_icon', 'BRIGHT_MAGENTA'), ''),
-        'dim_icon': c1.get(s1.get('dim_icon', 'GRAY'), ''),
-        'border_icon': c1.get(s1.get('border_icon', 'BRIGHT_CYAN'), ''),
-        'title_icon': c1.get(s1.get('title_icon', 'BRIGHT_WHITE'), ''),
-        'status_icon': c1.get(s1.get('status_icon', 'BRIGHT_GREEN'), ''),
-        'module_icon': c1.get(s1.get('module_icon', 'BRIGHT_WHITE'), ''),
-        'input_icon': c1.get(s1.get('input_icon', 'BRIGHT_YELLOW'), ''),
-        'output_icon': c1.get(s1.get('output_icon', 'WHITE'), ''),
-        'banner_icon': c1.get(s1.get('banner_icon', 'BRIGHT_CYAN'), ''),
-        'tab_icon': c1.get(s1.get('tab_icon', 'BRIGHT_MAGENTA'), ''),
-        'number_icon': c1.get(s1.get('number_icon', 'BRIGHT_YELLOW'), ''),
-        'separator_icon': c1.get(s1.get('separator_icon', 'GRAY'), ''),
-        'accent_icon': c1.get(s1.get('accent_icon', 'GOLD'), ''),
-        'reset': '\033[0m' if a1() else '',
-        'bold': '\033[1m' if a1() else '',
-        'dim_text': '\033[2m' if a1() else ''
-    }
+    GLOBAL_COLORS = a7()
 
 def a9():
     a8()
@@ -368,19 +285,25 @@ def a9():
     global HOT_PINK, LAVENDER, MINT, PEACH, CORAL, SKY_BLUE
     global NEON_GREEN, NEON_PINK, NEON_BLUE, NEON_PURPLE
     global SUNSET, OCEAN, FOREST, ROSE
+    global CRIMSON, AMBER, INDIGO, VIOLET, SCARLET, EMERALD
+    global SAPPHIRE, RUBY, TOPAZ, TURQUOISE, AMETHYST, OPAL
+    global JADE, ONYX, PEARL, CITRINE, PERIDOT, MOONSTONE
+    global SUNSTONE, AQUA, LILAC, FUCHSIA, CERULEAN, VERMILLION
+    global CHARTREUSE, MAUVE, TAUPE, CREAM, IVORY, CHARCOAL, SLATE, SAND
     
     c1 = GLOBAL_COLORS
-    GREEN = c1['primary']
-    RED = c1['error']
-    CYAN = c1['secondary']
-    YELLOW = c1['warning']
-    WHITE = c1['highlight']
-    GRAY = c1['dim']
-    BLUE = c1['info']
-    MAGENTA = c1['highlight']
-    RESET = c1['reset']
-    DIM = c1['dim_text']
-    BOLD = c1['bold']
+    GREEN = c1.get('primary', '')
+    RED = c1.get('error', '')
+    CYAN = c1.get('secondary', '')
+    YELLOW = c1.get('warning', '')
+    WHITE = c1.get('highlight', '')
+    GRAY = c1.get('dim', '')
+    BLUE = c1.get('info', '')
+    MAGENTA = c1.get('highlight', '')
+    RESET = c1.get('reset', '')
+    DIM = c1.get('dim_text', '')
+    BOLD = c1.get('bold', '')
+    
     PURPLE = a6().get('PURPLE', '')
     ORANGE = a6().get('ORANGE', '')
     PINK = a6().get('PINK', '')
@@ -403,6 +326,38 @@ def a9():
     OCEAN = a6().get('OCEAN', '')
     FOREST = a6().get('FOREST', '')
     ROSE = a6().get('ROSE', '')
+    CRIMSON = a6().get('CRIMSON', '')
+    AMBER = a6().get('AMBER', '')
+    INDIGO = a6().get('INDIGO', '')
+    VIOLET = a6().get('VIOLET', '')
+    SCARLET = a6().get('SCARLET', '')
+    EMERALD = a6().get('EMERALD', '')
+    SAPPHIRE = a6().get('SAPPHIRE', '')
+    RUBY = a6().get('RUBY', '')
+    TOPAZ = a6().get('TOPAZ', '')
+    TURQUOISE = a6().get('TURQUOISE', '')
+    AMETHYST = a6().get('AMETHYST', '')
+    OPAL = a6().get('OPAL', '')
+    JADE = a6().get('JADE', '')
+    ONYX = a6().get('ONYX', '')
+    PEARL = a6().get('PEARL', '')
+    CITRINE = a6().get('CITRINE', '')
+    PERIDOT = a6().get('PERIDOT', '')
+    MOONSTONE = a6().get('MOONSTONE', '')
+    SUNSTONE = a6().get('SUNSTONE', '')
+    AQUA = a6().get('AQUA', '')
+    LILAC = a6().get('LILAC', '')
+    FUCHSIA = a6().get('FUCHSIA', '')
+    CERULEAN = a6().get('CERULEAN', '')
+    VERMILLION = a6().get('VERMILLION', '')
+    CHARTREUSE = a6().get('CHARTREUSE', '')
+    MAUVE = a6().get('MAUVE', '')
+    TAUPE = a6().get('TAUPE', '')
+    CREAM = a6().get('CREAM', '')
+    IVORY = a6().get('IVORY', '')
+    CHARCOAL = a6().get('CHARCOAL', '')
+    SLATE = a6().get('SLATE', '')
+    SAND = a6().get('SAND', '')
 
 def a10(t1, c1):
     return f"{c1}{t1}{RESET}" if a1() else t1
@@ -437,6 +392,38 @@ def sunset(t1): return a10(t1, SUNSET)
 def ocean(t1): return a10(t1, OCEAN)
 def forest(t1): return a10(t1, FOREST)
 def rose(t1): return a10(t1, ROSE)
+def crimson(t1): return a10(t1, CRIMSON)
+def amber(t1): return a10(t1, AMBER)
+def indigo(t1): return a10(t1, INDIGO)
+def violet(t1): return a10(t1, VIOLET)
+def scarlet(t1): return a10(t1, SCARLET)
+def emerald(t1): return a10(t1, EMERALD)
+def sapphire(t1): return a10(t1, SAPPHIRE)
+def ruby(t1): return a10(t1, RUBY)
+def topaz(t1): return a10(t1, TOPAZ)
+def turquoise(t1): return a10(t1, TURQUOISE)
+def amethyst(t1): return a10(t1, AMETHYST)
+def opal(t1): return a10(t1, OPAL)
+def jade(t1): return a10(t1, JADE)
+def onyx(t1): return a10(t1, ONYX)
+def pearl(t1): return a10(t1, PEARL)
+def citrine(t1): return a10(t1, CITRINE)
+def peridot(t1): return a10(t1, PERIDOT)
+def moonstone(t1): return a10(t1, MOONSTONE)
+def sunstone(t1): return a10(t1, SUNSTONE)
+def aqua(t1): return a10(t1, AQUA)
+def lilac(t1): return a10(t1, LILAC)
+def fuchsia(t1): return a10(t1, FUCHSIA)
+def cerulean(t1): return a10(t1, CERULEAN)
+def vermillion(t1): return a10(t1, VERMILLION)
+def chartreuse(t1): return a10(t1, CHARTREUSE)
+def mauve(t1): return a10(t1, MAUVE)
+def taupe(t1): return a10(t1, TAUPE)
+def cream(t1): return a10(t1, CREAM)
+def ivory(t1): return a10(t1, IVORY)
+def charcoal(t1): return a10(t1, CHARCOAL)
+def slate(t1): return a10(t1, SLATE)
+def sand(t1): return a10(t1, SAND)
 def dim(t1): return f"{DIM}{t1}{RESET}" if a1() else t1
 def bold(t1): return f"{BOLD}{t1}{RESET}" if a1() else t1
 
@@ -567,6 +554,12 @@ __all__ = ['green', 'red', 'cyan', 'yellow', 'white', 'gray', 'blue', 'magenta',
            'hot_pink', 'lavender', 'mint', 'peach', 'coral', 'sky_blue',
            'neon_green', 'neon_pink', 'neon_blue', 'neon_purple',
            'sunset', 'ocean', 'forest', 'rose',
+           'crimson', 'amber', 'indigo', 'violet', 'scarlet', 'emerald',
+           'sapphire', 'ruby', 'topaz', 'turquoise', 'amethyst', 'opal',
+           'jade', 'onyx', 'pearl', 'citrine', 'peridot', 'moonstone',
+           'sunstone', 'aqua', 'lilac', 'fuchsia', 'cerulean', 'vermillion',
+           'chartreuse', 'mauve', 'taupe', 'cream', 'ivory', 'charcoal',
+           'slate', 'sand',
            'dim', 'bold', 'reload_colors', 'color_settings_menu',
            'GREEN', 'RED', 'CYAN', 'YELLOW', 'WHITE', 'GRAY', 'BLUE', 'MAGENTA',
            'RESET', 'DIM', 'BOLD']
