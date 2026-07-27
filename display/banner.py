@@ -1,38 +1,40 @@
 import shutil
-from utils.colors import a1 as supports_color, COLOR_CODES, a9 as reload_colors
+import json
+import os
+from utils.colors import a1 as a1c, COLOR_CODES, a9 as a9c
 
-def w1():
+def a1():
     try:
         return min(shutil.get_terminal_size().columns, 80)
     except:
         return 80
 
-def b1():
-    reload_colors()
-    w = w1()
+def a2():
     try:
-        import json
-        with open('color_settings.json', 'r') as f:
-            s1 = json.load(f)
-        c1 = s1.get('gradient_start', 'HOT_PINK')
-        c2 = s1.get('gradient_end', 'BRIGHT_CYAN')
+        if os.path.exists("themes/default.json"):
+            with open("themes/default.json", 'r') as f:
+                t1 = json.load(f)
+                if 'colors' in t1:
+                    return t1['colors']
+        with open("color_settings.json", 'r') as f:
+            return json.load(f)
     except:
-        c1 = 'HOT_PINK'
-        c2 = 'BRIGHT_CYAN'
-    
-    gradient_colors = [
-        c1,
-        'HOT_PINK',
-        'NEON_PINK',
-        'PINK',
-        'MAGENTA',
-        'PURPLE',
-        'LAVENDER',
-        'SKY_BLUE',
-        'BRIGHT_CYAN',
-        'CYAN',
-        c2
-    ]
+        return {}
+
+def a3():
+    a9c()
+    w = a1()
+    c1 = a2()
+    g1 = c1.get('ascii_gradient1', c1.get('gradient_start', 'HOT_PINK'))
+    g2 = c1.get('ascii_gradient2', 'NEON_PINK')
+    g3 = c1.get('ascii_gradient3', 'PINK')
+    g4 = c1.get('ascii_gradient4', 'MAGENTA')
+    g5 = c1.get('ascii_gradient5', 'PURPLE')
+    g6 = c1.get('ascii_gradient6', 'LAVENDER')
+    g7 = c1.get('ascii_gradient7', 'SKY_BLUE')
+    g8 = c1.get('ascii_gradient8', 'BRIGHT_CYAN')
+    g9 = c1.get('ascii_gradient9', 'CYAN')
+    gc = [g1, g2, g3, g4, g5, g6, g7, g8, g9]
     
     if w >= 109:
         b2 = [
@@ -143,34 +145,30 @@ def b1():
     else:
         b2 = ["23 KOD", "────────────────"]
     
-    if supports_color():
+    if a1c():
         for i, line in enumerate(b2):
             if not line.strip():
                 print(line)
                 continue
             p1 = i / len(b2) if len(b2) > 1 else 0
-            if p1 < 0.08:
-                color = gradient_colors[0]
-            elif p1 < 0.15:
-                color = gradient_colors[1]
-            elif p1 < 0.25:
-                color = gradient_colors[2]
-            elif p1 < 0.35:
-                color = gradient_colors[3]
-            elif p1 < 0.45:
-                color = gradient_colors[4]
-            elif p1 < 0.55:
-                color = gradient_colors[5]
-            elif p1 < 0.65:
-                color = gradient_colors[6]
-            elif p1 < 0.75:
-                color = gradient_colors[7]
-            elif p1 < 0.85:
-                color = gradient_colors[8]
-            elif p1 < 0.95:
-                color = gradient_colors[9]
+            if p1 < 0.1:
+                color = gc[0]
+            elif p1 < 0.2:
+                color = gc[1]
+            elif p1 < 0.3:
+                color = gc[2]
+            elif p1 < 0.4:
+                color = gc[3]
+            elif p1 < 0.5:
+                color = gc[4]
+            elif p1 < 0.6:
+                color = gc[5]
+            elif p1 < 0.7:
+                color = gc[6]
+            elif p1 < 0.8:
+                color = gc[7]
             else:
-                color = gradient_colors[10]
+                color = gc[8]
             print(f"{COLOR_CODES.get(color, '')}{line}{COLOR_CODES.get('RESET', '')}")
     else:
         for line in b2:
