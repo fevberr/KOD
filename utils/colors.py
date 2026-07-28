@@ -4,6 +4,7 @@ import platform
 import json
 import time
 import re
+import shutil
 
 CACHE_DIR = "cache"
 COLORS_FILE = os.path.join(CACHE_DIR, "CSET.json")
@@ -38,6 +39,17 @@ def is_hex_color(color):
             color = color[1:]
         return len(color) in (3, 6) and all(c in '0123456789ABCDEFabcdef' for c in color)
     return False
+
+def get_terminal_width():
+    try:
+        return shutil.get_terminal_size().columns
+    except:
+        return 80
+
+def truncate(s, w):
+    if len(s) > w:
+        return s[:w-1] + "…"
+    return s
 
 SETTINGS_KEYS = [
     "primary", "secondary", "success", "error", "warning", "info", 
@@ -91,63 +103,89 @@ def a2(s1):
     with open(COLORS_FILE, 'w') as f:
         json.dump(s1, f, indent=2)
 
-def a3():
-    return a1()
-
 def reload_colors():
     pass
 
 def color_settings_menu():
     s1 = a1()
+    w = get_terminal_width()
+    rs = '\033[0m'
+    g = '\033[92m'
+    r = '\033[91m'
+    c = '\033[96m'
+    y = '\033[93m'
+    wc = '\033[97m'
+    gr = '\033[90m'
+    m = '\033[95m'
+    b = '\033[94m'
+    
     while True:
         os.system('clear' if os.name == 'posix' else 'cls')
-        w1 = 80
-        print("┌" + "─" * (w1 - 2) + "┐")
-        print("│" + " 23 KOD COLOR SETTINGS ".center(w1 - 2) + "│")
-        print("├" + "─" * (w1 - 2) + "┤")
+        bw = min(w-2, 60)
+        
+        print(f"{c}┌{'─' * bw}┐{rs}")
+        print(f"{c}│{rs}{wc}{' COLOR SETTINGS '.center(bw)}{rs}{c}│{rs}")
+        print(f"{c}├{'─' * bw}┤{rs}")
+        
         if not s1:
-            print("│" + " No colors set. Add HEX values below.".center(w1 - 2) + "│")
+            print(f"{c}│{rs}{gr}{' No colors set. Add HEX below. '.center(bw)}{rs}{c}│{rs}")
         else:
             for i, k1 in enumerate(SETTINGS_KEYS, 1):
                 val = s1.get(k1, '')
                 c2 = ''
                 if is_hex_color(val):
                     c2 = hex_to_ansi(val)
-                n1 = val if val else '(not set)'
-                l1 = LABELS.get(k1, k1)
-                print("│ " + f"{i:2}. {l1:<16} [{n1:<12}]".ljust(w1 - 10) + c2 + "██████\033[0m".ljust(10) + "│")
-        print("├" + "─" * (w1 - 2) + "┤")
-        print("│" + " [R] Reset  [0] Back  [H] HEX Color".ljust(w1 - 2) + "│")
-        print("└" + "─" * (w1 - 2) + "┘")
+                n1 = truncate(val if val else '(not set)', 10)
+                l1 = truncate(LABELS.get(k1, k1), 12)
+                color_block = f"{c2}██████{rs}" if c2 else f"{gr}──────{rs}"
+                if w < 40:
+                    print(f"{c}│{rs} {y}{i:2}{rs} {l1} {color_block}")
+                elif w < 60:
+                    print(f"{c}│{rs} {y}{i:2}{rs}. {l1:<12} [{n1:<10}] {color_block}")
+                else:
+                    print(f"{c}│{rs} {y}{i:2}{rs}. {l1:<16} [{n1:<12}] {color_block}")
+        print(f"{c}├{'─' * bw}┤{rs}")
+        
+        if w < 30:
+            print(f"{c}│{rs} {g}[R]{rs} {r}[0]{rs} {m}[H]{rs}")
+            print(f"{c}│{rs} {gr}Rst  Back  Hex{rs}")
+        elif w < 50:
+            print(f"{c}│{rs} {g}[R]{rs} Reset  {r}[0]{rs} Back  {m}[H]{rs} HEX")
+        else:
+            print(f"{c}│{rs} {g}[R]{rs} Reset  {r}[0]{rs} Back  {m}[H]{rs} HEX Color")
+        print(f"{c}└{'─' * bw}┘{rs}")
         print()
-        print(" Enter number to change, or paste: primary = #FF6B6B")
+        print(f"{gr} Enter number or: primary = #FF6B6B{rs}")
         print()
-        c1 = input("> ").strip()
+        
+        c1 = input(f"{g}> {rs}").strip()
+        
         if c1 == "0":
             break
         elif c1.lower() == "r":
             a2({})
             s1 = {}
-            print("\n[✓] All colors cleared!")
+            print(f"\n{g}[✓]{rs} All colors cleared!")
             time.sleep(1)
             continue
         elif c1.lower() == "h":
-            print("\nEnter HEX color (e.g., #FF6B6B or FF6B6B):")
-            hex_in = input("> ").strip()
+            print(f"\n{c}Enter HEX color (e.g., #FF6B6B):{rs}")
+            hex_in = input(f"{g}> {rs}").strip()
             if hex_in:
                 if not hex_in.startswith('#'):
                     hex_in = '#' + hex_in
                 if is_hex_color(hex_in):
                     ansi = hex_to_ansi(hex_in)
-                    print("[✓] HEX " + hex_in + " converted to ANSI")
-                    print("  Preview: " + ansi + "██████\033[0m")
-                    print("\nPaste this in color settings:")
-                    print("  primary = " + hex_in)
-                    input("\n> ")
+                    print(f"\n{g}[✓]{rs} HEX {hex_in} converted")
+                    print(f"  Preview: {ansi}██████{rs}")
+                    print(f"\n{gr}Paste: primary = {hex_in}{rs}")
+                    input(f"\n{g}> {rs}")
                 else:
-                    print("[!] Invalid HEX color")
+                    print(f"\n{r}[!]{rs} Invalid HEX")
                     time.sleep(1)
             continue
+        
+        # Check for setting = value pattern
         p1 = [
             r'(\w+)\s*[=:]\s*(#[0-9a-fA-F]{3,6}|[^\s]+)',
             r'(\w+)\s*->\s*(#[0-9a-fA-F]{3,6}|[^\s]+)',
@@ -162,51 +200,54 @@ def color_settings_menu():
                     if is_hex_color(c2):
                         s1[k1] = c2
                         a2(s1)
-                        print("\n[✓] " + k1 + " set to " + c2)
+                        print(f"\n{g}[✓]{rs} {k1} = {c2}")
                         time.sleep(1.5)
                         m1 = True
                         break
                     else:
-                        print("\n[!] Invalid color: " + c2)
+                        print(f"\n{r}[!]{rs} Invalid color: {c2}")
                         time.sleep(2)
                         m1 = True
                         break
                 else:
-                    print("\n[!] Invalid setting: " + k1)
+                    print(f"\n{r}[!]{rs} Invalid setting: {k1}")
+                    print(f"{gr}  Valid: {', '.join(list(LABELS.keys())[:5])}...{rs}")
                     time.sleep(2)
                     m1 = True
                     break
         if m1:
             continue
+        
         if c1.isdigit():
             n1 = int(c1)
             if 1 <= n1 <= len(SETTINGS_KEYS):
                 k1 = SETTINGS_KEYS[n1 - 1]
                 l1 = LABELS.get(k1, k1)
                 os.system('clear' if os.name == 'posix' else 'cls')
-                print("┌" + "─" * (w1 - 2) + "┐")
-                print("│" + (" Select Color for: " + l1).center(w1 - 2) + "│")
-                print("└" + "─" * (w1 - 2) + "┘")
+                print(f"{c}┌{'─' * bw}┐{rs}")
+                print(f"{c}│{rs}{wc}{f' Select Color: {l1} '.center(bw)}{rs}{c}│{rs}")
+                print(f"{c}└{'─' * bw}┘{rs}")
                 print()
-                print("Enter HEX color (e.g., #FF6B6B or FF6B6B):")
+                print(f"{gr}Enter HEX (e.g., #FF6B6B){rs}")
                 print()
-                c2 = input("> ").strip()
+                c2 = input(f"{g}> {rs}").strip()
                 if c2:
                     if not c2.startswith('#'):
                         c2 = '#' + c2
                     if is_hex_color(c2):
                         s1[k1] = c2
                         a2(s1)
-                        print("\n[✓] " + l1 + " changed to " + s1[k1])
+                        print(f"\n{g}[✓]{rs} {l1} = {c2}")
                         time.sleep(1)
                     else:
-                        print("\n[!] Invalid color!")
+                        print(f"\n{r}[!]{rs} Invalid color!")
                         time.sleep(1)
             else:
-                print("\n[!] Invalid number!")
+                print(f"\n{r}[!]{rs} Invalid number!")
                 time.sleep(1)
         else:
-            print("\n[!] Invalid input! Use number or: primary = #FF6B6B")
+            print(f"\n{r}[!]{rs} Invalid input!")
+            print(f"{gr}  Use: primary = #FF6B6B{rs}")
             time.sleep(2)
 
-__all__ = ['reload_colors', 'color_settings_menu', 'a1', 'a2', 'a3', 'hex_to_ansi', 'is_hex_color']
+__all__ = ['reload_colors', 'color_settings_menu', 'a1', 'a2', 'hex_to_ansi', 'is_hex_color']
