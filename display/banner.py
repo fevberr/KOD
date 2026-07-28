@@ -1,7 +1,7 @@
 import shutil
 import json
 import os
-from utils.colors import a1 as a1c, hex_to_ansi, is_hex_color, a9 as a9c
+from utils.colors import a1 as a1c, hex_to_ansi, is_hex_color, a6 as a6c
 
 def a1():
     try:
@@ -11,32 +11,15 @@ def a1():
 
 def a2():
     try:
-        if os.path.exists("themes/default.json"):
-            with open("themes/default.json", 'r') as f:
-                t1 = json.load(f)
-                if 'colors' in t1:
-                    return t1['colors']
-        with open("color_settings.json", 'r') as f:
+        with open("cache/CSET.json", 'r') as f:
             return json.load(f)
     except:
         return {}
 
 def a3():
-    a9c()
+    a6c()
     w = a1()
     c1 = a2()
-    
-    g1 = c1.get('ascii_gradient1', c1.get('gradient_start', '#ff1493'))
-    g2 = c1.get('ascii_gradient2', '#ff6bff')
-    g3 = c1.get('ascii_gradient3', '#ff44ff')
-    g4 = c1.get('ascii_gradient4', '#cc00ff')
-    g5 = c1.get('ascii_gradient5', '#8800ff')
-    g6 = c1.get('ascii_gradient6', '#4444ff')
-    g7 = c1.get('ascii_gradient7', '#0088ff')
-    g8 = c1.get('ascii_gradient8', '#00ccff')
-    g9 = c1.get('ascii_gradient9', '#00ffcc')
-    
-    gc = [g1, g2, g3, g4, g5, g6, g7, g8, g9]
     
     if w >= 109:
         b2 = [
@@ -151,32 +134,13 @@ def a3():
         for i, line in enumerate(b2):
             if not line.strip():
                 print(line)
-                continue
-            p1 = i / len(b2) if len(b2) > 1 else 0
-            if p1 < 0.1:
-                color = gc[0]
-            elif p1 < 0.2:
-                color = gc[1]
-            elif p1 < 0.3:
-                color = gc[2]
-            elif p1 < 0.4:
-                color = gc[3]
-            elif p1 < 0.5:
-                color = gc[4]
-            elif p1 < 0.6:
-                color = gc[5]
-            elif p1 < 0.7:
-                color = gc[6]
-            elif p1 < 0.8:
-                color = gc[7]
             else:
-                color = gc[8]
-            
-            if is_hex_color(color):
-                ansi = hex_to_ansi(color)
-                print(f"{ansi}{line}{'\033[0m'}")
-            else:
-                print(line)
+                color = c1.get('ascii_gradient' + str((i % 9) + 1), '#00ffcc')
+                if is_hex_color(color):
+                    ansi = hex_to_ansi(color)
+                    print(f"{ansi}{line}{'\033[0m'}")
+                else:
+                    print(line)
     else:
         for line in b2:
             print(line)
