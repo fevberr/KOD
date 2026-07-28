@@ -6,9 +6,13 @@ import time
 import re
 import glob
 
-COLORS_FILE = "color_settings.json"
+CACHE_DIR = "cache"
+COLORS_FILE = os.path.join(CACHE_DIR, "CSET.json")
 THEMES_DIR = "themes"
 CURRENT_THEME = None
+
+if not os.path.exists(CACHE_DIR):
+    os.makedirs(CACHE_DIR)
 
 DEFAULT_COLORS = {
     "primary": "#00ffcc",
@@ -167,6 +171,8 @@ def a2():
         return DEFAULT_COLORS.copy()
 
 def a3(s1):
+    if not os.path.exists(CACHE_DIR):
+        os.makedirs(CACHE_DIR)
     with open(COLORS_FILE, 'w') as f:
         json.dump(s1, f, indent=2)
 
