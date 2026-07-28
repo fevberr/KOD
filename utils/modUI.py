@@ -5,7 +5,7 @@ import time
 import importlib.util
 import random
 import shutil
-from utils.colors import green, red, cyan, yellow, white, gray, blue, magenta, dim, bold, reload_colors, teal, gold, lime, orange, purple, pink, hot_pink, lavender, mint, peach, coral, sky_blue, neon_green, neon_pink, neon_blue, neon_purple, sunset, ocean, forest, rose, color_settings_menu
+from utils.colors import reload_colors, color_settings_menu
 
 def a1(path):
     spec = importlib.util.spec_from_file_location("module", path)
@@ -41,6 +41,15 @@ def a5():
     print("\r" + " " * min(width, 50), end="")
     print("\r", end="")
 
+def c1(t): return f"\033[92m{t}\033[0m"
+def c2(t): return f"\033[91m{t}\033[0m"
+def c3(t): return f"\033[96m{t}\033[0m"
+def c4(t): return f"\033[93m{t}\033[0m"
+def c5(t): return f"\033[97m{t}\033[0m"
+def c6(t): return f"\033[90m{t}\033[0m"
+def c7(t): return f"\033[94m{t}\033[0m"
+def c8(t): return f"\033[95m{t}\033[0m"
+
 def a6(module_name, options=None, current_options=None):
     reload_colors()
     a2()
@@ -50,41 +59,41 @@ def a6(module_name, options=None, current_options=None):
         from display.banner import a3 as b1
         b1()
     except:
-        print(cyan("+--- 23 KOD"))
+        print(c3("+--- 23 KOD"))
     
     w = shutil.get_terminal_size().columns if hasattr(shutil, 'get_terminal_size') else 80
     
-    print(f"\n{cyan('┌─')} {yellow('Module:')} {white(module_name)}")
-    print(f"{cyan('├─')} {yellow('Host:')} {white(host)}")
-    print(f"{cyan('├─')} {yellow('Port:')} {white(port)}")
-    print(f"{cyan('├─')} {yellow('Ping:')} {lime(str(ping) + 'ms')}")
-    print(f"{cyan('├─')} {yellow('Device:')} {magenta(device)}")
-    print(f"{cyan('└─')} {yellow('System:')} {magenta(system)}")
+    print(f"\n{c3('┌─')} {c4('Module:')} {c5(module_name)}")
+    print(f"{c3('├─')} {c4('Host:')} {c5(host)}")
+    print(f"{c3('├─')} {c4('Port:')} {c5(port)}")
+    print(f"{c3('├─')} {c4('Ping:')} {c1(str(ping) + 'ms')}")
+    print(f"{c3('├─')} {c4('Device:')} {c8(device)}")
+    print(f"{c3('└─')} {c4('System:')} {c8(system)}")
     print()
     
     if current_options:
-        print(f"{gray('┌' + '─' * min(w-4, 50) + '┐')}")
+        print(f"{c6('┌' + '─' * min(w-4, 50) + '┐')}")
         for key, value in current_options.items():
-            print(f"{gray('│')} {cyan(key)}: {white(value)}")
-        print(f"{gray('└' + '─' * min(w-4, 50) + '┘')}")
+            print(f"{c6('│')} {c3(key)}: {c5(value)}")
+        print(f"{c6('└' + '─' * min(w-4, 50) + '┘')}")
         print()
     
     if options:
-        print(f"{gray('┌' + '─' * min(w-4, 50) + '┐')}")
+        print(f"{c6('┌' + '─' * min(w-4, 50) + '┐')}")
         opt_list = list(options.keys())
         for i, key in enumerate(opt_list, 1):
             default = options[key].get('default', '')
             current = current_options.get(key, default) if current_options else default
-            print(f"{gray('│')} {yellow(f'{i:2}.')} {cyan(key)} {gray('[')}{gold(current)}{gray(']')}")
-        print(f"{gray('└' + '─' * min(w-4, 50) + '┘')}")
+            print(f"{c6('│')} {c4(f'{i:2}.')} {c3(key)} {c6('[')}{c4(current)}{c6(']')}")
+        print(f"{c6('└' + '─' * min(w-4, 50) + '┘')}")
         print()
     
-    print(f"{gray('┌' + '─' * min(w-4, 50) + '┐')}")
-    print(f"{gray('│')} {green('[1] Run')}  {yellow('[2] Opt')}  {blue('[3] Back')}  {red('[0] Exit')}{' ' * (min(w-4, 50) - 27)}{gray('│')}")
-    print(f"{gray('└' + '─' * min(w-4, 50) + '┘')}")
+    print(f"{c6('┌' + '─' * min(w-4, 50) + '┐')}")
+    print(f"{c6('│')} {c1('[1] Run')}  {c4('[2] Opt')}  {c7('[3] Back')}  {c2('[0] Exit')}{' ' * (min(w-4, 50) - 27)}{c6('│')}")
+    print(f"{c6('└' + '─' * min(w-4, 50) + '┘')}")
     print()
     
-    return input(f"{green('>')} ").strip()
+    return input(f"{c1('>')} ").strip()
 
 def a7(module_path, options=None):
     reload_colors()
@@ -92,7 +101,7 @@ def a7(module_path, options=None):
         module = a1(module_path)
         if hasattr(module, 'run'):
             w = shutil.get_terminal_size().columns if hasattr(shutil, 'get_terminal_size') else 80
-            a3(f"\n{cyan('┌─ Output ')}{cyan('─' * min(w-15, 40))}", 0.002)
+            a3(f"\n{c3('┌─ Output ')}{c3('─' * min(w-15, 40))}", 0.002)
             
             if options:
                 result = module.run(options)
@@ -101,30 +110,30 @@ def a7(module_path, options=None):
             
             for line in result.split('\n'):
                 if line.startswith('[+]'):
-                    a3(f"{cyan('│')} {lime('✓')} {white(line[3:])}", 0.002)
+                    a3(f"{c3('│')} {c1('✓')} {c5(line[3:])}", 0.002)
                 elif line.startswith('[!]'):
-                    a3(f"{cyan('│')} {red('✗')} {white(line[3:])}", 0.002)
+                    a3(f"{c3('│')} {c2('✗')} {c5(line[3:])}", 0.002)
                 elif line.startswith('[*]'):
-                    a3(f"{cyan('│')} {blue('●')} {white(line[3:])}", 0.002)
+                    a3(f"{c3('│')} {c7('●')} {c5(line[3:])}", 0.002)
                 elif line.startswith('[#]'):
-                    a3(f"{cyan('│')} {gold('◆')} {white(line[3:])}", 0.002)
+                    a3(f"{c3('│')} {c4('◆')} {c5(line[3:])}", 0.002)
                 elif line.startswith('[~]'):
-                    a3(f"{cyan('│')} {purple('〜')} {white(line[3:])}", 0.002)
+                    a3(f"{c3('│')} {c8('〜')} {c5(line[3:])}", 0.002)
                 else:
-                    a3(f"{cyan('│')} {gray(line)}", 0.002)
+                    a3(f"{c3('│')} {c6(line)}", 0.002)
             
-            a3(f"{cyan('└' + '─' * min(w-4, 50))}", 0.002)
-            a3(f"\n{lime('[✓]')} {white(random.choice(['SYSTEM', 'OK', 'DONE', 'COMPLETE', 'SUCCESS']))}")
+            a3(f"{c3('└' + '─' * min(w-4, 50))}", 0.002)
+            a3(f"\n{c1('[✓]')} {c5(random.choice(['SYSTEM', 'OK', 'DONE', 'COMPLETE', 'SUCCESS']))}")
             
-            input(f"\n{green('>')} ")
+            input(f"\n{c1('>')} ")
             return result
         else:
-            a3(f"\n{red('[!] No run() function')}")
-            input(f"\n{green('>')} ")
+            a3(f"\n{c2('[!] No run() function')}")
+            input(f"\n{c1('>')} ")
             return None
     except Exception as e:
-        a3(f"\n{red('[!]')} {white(str(e))}")
-        input(f"\n{green('>')} ")
+        a3(f"\n{c2('[!]')} {c5(str(e))}")
+        input(f"\n{c1('>')} ")
         return None
 
 def a8(module_path, options=None):
@@ -136,6 +145,6 @@ def a8(module_path, options=None):
                 return module.run(options)
             else:
                 return module.run()
-        return f"{red('[!]')} No run() function"
+        return f"{c2('[!]')} No run() function"
     except Exception as e:
-        return f"{red('[!]')} Error: {e}"
+        return f"{c2('[!]')} Error: {e}"
