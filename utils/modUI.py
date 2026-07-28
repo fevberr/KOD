@@ -42,32 +42,9 @@ def a5():
     print("\r" + " " * min(width, 50), end="")
     print("\r", end="")
 
-def a9():
-    try:
-        with open("cache/CSET.json", 'r') as f:
-            return json.load(f)
-    except:
-        return {}
-
-def a10(c):
-    try:
-        h = c.lstrip('#')
-        if len(h) == 3:
-            h = ''.join([x*2 for x in h])
-        if len(h) == 6:
-            r = int(h[0:2], 16)
-            g = int(h[2:4], 16)
-            b = int(h[4:6], 16)
-            return f'\033[38;2;{r};{g};{b}m'
-    except:
-        pass
-    return ''
-
 def a6(module_name, options=None, current_options=None):
-    reload_colors()
     a2()
     a5()
-    c1 = a9()
     
     try:
         from display.banner import a3 as b1
@@ -75,14 +52,46 @@ def a6(module_name, options=None, current_options=None):
     except:
         print("+--- 23 KOD")
     
+    w = shutil.get_terminal_size().columns if hasattr(shutil, 'get_terminal_size') else 80
+    
+    print(f"\n┌─ Module: {module_name}")
+    print(f"├─ Host: {host}")
+    print(f"├─ Port: {port}")
+    print(f"├─ Ping: {ping}ms")
+    print(f"├─ Device: {device}")
+    print(f"└─ System: {system}")
+    print()
+    
+    if current_options:
+        print("┌" + "─" * min(w-4, 50) + "┐")
+        for key, value in current_options.items():
+            print(f"│ {key}: {value}")
+        print("└" + "─" * min(w-4, 50) + "┘")
+        print()
+    
+    if options:
+        print("┌" + "─" * min(w-4, 50) + "┐")
+        opt_list = list(options.keys())
+        for i, key in enumerate(opt_list, 1):
+            default = options[key].get('default', '')
+            current = current_options.get(key, default) if current_options else default
+            print(f"│ {i:2}. {key} [{current}]")
+        print("└" + "─" * min(w-4, 50) + "┘")
+        print()
+    
+    print("┌" + "─" * min(w-4, 50) + "┐")
+    print("│ [1] Run  [2] Opt  [3] Back  [0] Exit" + " " * (min(w-4, 50) - 27) + "│")
+    print("└" + "─" * min(w-4, 50) + "┘")
+    print()
+    
     return input("> ").strip()
 
 def a7(module_path, options=None):
-    reload_colors()
     try:
         module = a1(module_path)
         if hasattr(module, 'run'):
-            a3("\n┌─ Output ─────────────────────────────────────────────────────┐", 0.002)
+            w = shutil.get_terminal_size().columns if hasattr(shutil, 'get_terminal_size') else 80
+            a3("\n┌─ Output " + "─" * min(w-15, 40), 0.002)
             
             if options:
                 result = module.run(options)
@@ -103,7 +112,7 @@ def a7(module_path, options=None):
                 else:
                     a3("│ " + line, 0.002)
             
-            a3("└──────────────────────────────────────────────────────────────────┘", 0.002)
+            a3("└" + "─" * min(w-4, 50), 0.002)
             a3("\n[✓] " + random.choice(['SYSTEM', 'OK', 'DONE', 'COMPLETE', 'SUCCESS']))
             
             input("\n> ")
@@ -118,7 +127,6 @@ def a7(module_path, options=None):
         return None
 
 def a8(module_path, options=None):
-    reload_colors()
     try:
         module = a1(module_path)
         if hasattr(module, 'run'):
