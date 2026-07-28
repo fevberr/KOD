@@ -10,7 +10,19 @@ import zipfile
 import tempfile
 import platform
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from utils.colors import green, red, cyan, yellow, white, gray, blue, magenta, dim, bold
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+def green(t): return t
+def red(t): return t
+def cyan(t): return t
+def yellow(t): return t
+def white(t): return t
+def gray(t): return t
+def blue(t): return t
+def magenta(t): return t
+def dim(t): return t
+def bold(t): return t
 
 def a1():
     try:
