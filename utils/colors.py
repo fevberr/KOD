@@ -209,4 +209,4 @@ def color_settings_menu():
             print("\n[!] Invalid input! Use number or: primary = #FF6B6B")
             time.sleep(2)
 
-__all__ = ['reload_colors', 'color_settings_menu', 'a1', 'a2', 'a3']
+__all__ = ['reload_colors', 'color_settings_menu', 'a1', 'a2', 'a3', 'hex_to_ansi', 'is_hex_color']
