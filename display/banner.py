@@ -1,7 +1,7 @@
 import shutil
 import json
 import os
-from utils.colors import a1 as a1c, hex_to_ansi, is_hex_color
+from utils.colors import hex_to_ansi, is_hex_color
 
 def a1():
     try:
@@ -19,6 +19,7 @@ def a2():
 def a3():
     w = a1()
     c1 = a2()
+    rs = '\033[0m'
     
     if w >= 109:
         b2 = [
@@ -129,17 +130,13 @@ def a3():
     else:
         b2 = ["23 KOD", "────────────────"]
     
-    if True:
-        for i, line in enumerate(b2):
-            if not line.strip():
-                print(line)
-                continue
-            color = c1.get('ascii_gradient' + str((i % 9) + 1), '#00ffcc')
-            if is_hex_color(color):
-                ansi = hex_to_ansi(color)
-                print(f"{ansi}{line}\033[0m")
-            else:
-                print(line)
-    else:
-        for line in b2:
+    for i, line in enumerate(b2):
+        if not line.strip():
+            print(line)
+            continue
+        color = c1.get('ascii_gradient' + str((i % 9) + 1), '#00ffcc')
+        if is_hex_color(color):
+            ansi = hex_to_ansi(color)
+            print(f"{ansi}{line}{rs}")
+        else:
             print(line)
