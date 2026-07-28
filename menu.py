@@ -6,7 +6,7 @@ from config import a7 as get_tabs, a8 as get_tab
 from config import host, port, device, system, ping
 import random
 import shutil
-from utils.colors import reload_colors, color_settings_menu
+from utils.colors import hex_to_ansi, is_hex_color
 from utils.modUI import a1 as mod_load, a2, a3, a4, a5, a6, a7, a8
 
 def a9(n):
@@ -61,7 +61,7 @@ def a16():
         from installer import a11 as installer_main
         installer_main()
     except:
-        print("\033[91m[!] installer.py not found\033[0m")
+        print("[!] installer.py not found")
         time.sleep(1)
 
 def a17(t, m):
@@ -77,11 +77,10 @@ def a18(t, w):
 
 def a19():
     try:
+        from utils.colors import color_settings_menu
         color_settings_menu()
-        reload_colors()
-    except Exception as e:
-        print("\033[91m[!] Color error:\033[0m " + str(e))
-        time.sleep(2)
+    except:
+        pass
 
 def a20():
     try:
@@ -91,39 +90,65 @@ def a20():
         return {}
 
 def a21(c):
-    try:
-        h = c.lstrip('#')
-        if len(h) == 3:
-            h = ''.join([x*2 for x in h])
-        if len(h) == 6:
-            r = int(h[0:2], 16)
-            g = int(h[2:4], 16)
-            b = int(h[4:6], 16)
-            return f'\033[38;2;{r};{g};{b}m'
-    except:
-        pass
+    if c and isinstance(c, str):
+        return hex_to_ansi(c)
     return ''
 
 def m1():
     p4 = 0
     q1 = ""
     
-    reload_colors()
-    
     while True:
-        reload_colors()
         c1 = a20()
+        rs = '\033[0m'
         
         w = a11()
         h = a12()
         os.system('cls' if os.name == 'nt' else 'clear')
         
+        g = a21(c1.get('primary', '#00ffcc'))
+        r = a21(c1.get('error', '#ff0044'))
+        c = a21(c1.get('secondary', '#ff6bff'))
+        y = a21(c1.get('warning', '#ffaa00'))
+        wc = a21(c1.get('highlight', '#ffffff'))
+        gr = a21(c1.get('dim', '#888888'))
+        b = a21(c1.get('info', '#0088ff'))
+        m = a21(c1.get('tab', '#ff44ff'))
+        
         try:
             from display.banner import a3 as b1
             b1()
         except Exception as e:
-            print("+--- 23 KOD")
-            print("  (Banner error: " + str(e) + ")")
+            print(f"{c}+--- 23 KOD{rs}")
+            print(f"{gr}  (Banner error: {e}){rs}")
+        
+        w = a11()
+        if w < 60:
+            i1 = f"host: {a17(host, 20)}\nport:{port}\nping:{ping}ms\ndev:{a17(device, 10)}"
+            try:
+                from display.panels import p1
+                p1("23 KOD", i1, "READY")
+            except:
+                print(f"{c}+--- 23 KOD{rs}")
+                print(f"{c}| {rs}{wc}{a17(host, 25)}{rs}")
+                print(f"{c}| {rs}{wc}{port}{rs}")
+                print(f"{c}| {rs}{y}{ping}ms{rs}")
+                print(f"{c}|- {rs}{g}READY{rs}")
+                print(f"{c}{'-' * min(w, 30)}{rs}")
+        else:
+            i1 = f"host:      {host}\nPort:        {port}\nPing:     {ping}\ndevice:   {device}\nsystem:    {system}"
+            try:
+                from display.panels import p1
+                p1("23 KOD", i1, "READY")
+            except:
+                print(f"{c}+--- 23 KOD{rs}")
+                print(f"{c}| {rs}{wc}host:      {host}{rs}")
+                print(f"{c}| {rs}{wc}Port:        {port}{rs}")
+                print(f"{c}| {rs}{y}Ping:     {ping}{rs}")
+                print(f"{c}| {rs}{m}device:   {device}{rs}")
+                print(f"{c}| {rs}{m}system:    {system}{rs}")
+                print(f"{c}|- {rs}{g}Status: READY{rs}")
+                print(f"{c}{'-' * min(w, 30)}{rs}")
         
         n2 = a14()
         t1 = max(1, len(n2))
@@ -140,9 +165,9 @@ def m1():
         for i, name in enumerate(n2):
             dn = a17(name, max(4, (tw // max(1, len(n2))) - 2))
             if i == p4:
-                td.append("[" + dn + "]")
+                td.append(f"{g}[{rs}{c}{dn}{rs}{g}]{rs}")
             else:
-                td.append(" " + dn + " ")
+                td.append(f"{gr} {dn} {rs}")
         
         tl = ' '.join(td)
         if len(tl) > tw:
@@ -151,68 +176,68 @@ def m1():
             for i, name in enumerate(n2[:visible]):
                 dn = a17(name, max(3, (tw // visible) - 2))
                 if i == p4:
-                    td.append("[" + dn + "]")
+                    td.append(f"{g}[{rs}{c}{dn}{rs}{g}]{rs}")
                 else:
-                    td.append(dn)
+                    td.append(f"{gr}{dn}{rs}")
             if len(n2) > visible:
-                td.append("…")
+                td.append(f"{gr}…{rs}")
             tl = ' '.join(td)
         
-        print("\n┌─ Menu " + "─" * min(w-10, 40))
-        print("│ Tabs: " + tl)
-        print("├" + "─" * min(w-4, 50))
+        print(f"\n{g}┌─ Menu {rs}{g}{'─' * min(w-10, 40)}{rs}")
+        print(f"{g}│ {rs}{c}Tabs:{rs} {tl}")
+        print(f"{g}├{'─' * min(w-4, 50)}{rs}")
         
         if not c2:
-            print("│ (coming soon...)")
+            print(f"{g}│ {rs}{r}(coming soon...){rs}")
         else:
             max_items = min(len(c2), max(1, h - 10))
             for i, m5 in enumerate(c2[:max_items], 1):
                 dn = a17(m5, max(1, w - 14))
                 if w < 60:
-                    print("│ " + str(i) + "." + dn)
+                    print(f"{g}│ {rs}{y}{str(i)}{rs}.{c}{dn}{rs}")
                 else:
-                    print("│ " + f'{i:2}' + ". " + dn)
+                    print(f"{g}│ {rs}{y}{f'{i:2}'}{rs}. {c}{dn}{rs}")
             if len(c2) > max_items:
-                print("│ ... " + str(len(c2)-max_items) + " more")
+                print(f"{g}│ ... {rs}{len(c2)-max_items} more")
         
         if w < 60:
-            print("├" + "─" * min(w-4, 30))
-            print("│ [0] [s] [t#] [i] [c]")
-            print("│   Exit   Search   Tab     Install  Colors")
+            print(f"{g}├{'─' * min(w-4, 30)}{rs}")
+            print(f"{g}│ {rs}{r}[0]{rs} {y}[s]{rs} {c}[t#]{rs} {b}[i]{rs} {m}[c]{rs}")
+            print(f"{g}│ {rs}{gr}  Exit   Search   Tab     Install  Colors{rs}")
         else:
-            print("├" + "─" * min(w-4, 50))
-            print("│ [0] Exit  [s] Search  [t#] Tab  [i] Install  [c] Colors")
+            print(f"{g}├{'─' * min(w-4, 50)}{rs}")
+            print(f"{g}│ {rs}{r}[0]{rs} Exit  {y}[s]{rs} Search  {c}[t#]{rs} Tab  {b}[i]{rs} Install  {m}[c]{rs} Colors")
         
-        print("└" + "─" * min(w-4, 50))
+        print(f"{g}└{'─' * min(w-4, 50)}{rs}")
         print()
         
         sys.stdout.flush()
         try:
-            ch = input("> ").strip().lower()
+            ch = input(f"{g}> {rs}").strip().lower()
         except KeyboardInterrupt:
-            print("\n[!] Exiting...")
+            print(f"\n{r}[!] Exiting...{rs}")
             break
         
         if ch == "0":
-            print("[!] Exiting...")
+            print(f"{r}[!] Exiting...{rs}")
             break
         
         if ch == "s":
-            q1 = input("Search: ").strip()
+            q1 = input(f"{y}Search: {rs}").strip()
             found = []
             for tn, mods in get_tabs().items():
                 for mod in mods:
                     if q1.lower() in mod.lower():
-                        found.append(tn + ": " + mod)
+                        found.append(f"{tn}: {mod}")
             if found:
-                print("\n[+] Found:")
+                print(f"\n{g}[+] Found:{rs}")
                 for f in found[:min(10, h-6)]:
-                    print("    - " + a17(f, w-6))
+                    print(f"    {c}-{rs} {a17(f, w-6)}")
                 if len(found) > 10:
-                    print("    ... and " + str(len(found)-10) + " more")
+                    print(f"    ... and {len(found)-10} more")
             else:
-                print("\n[!] No matches found")
-            input("\n> ")
+                print(f"\n{r}[!] No matches found{rs}")
+            input(f"\n{g}> {rs}")
             continue
         
         if ch == "i":
@@ -228,20 +253,20 @@ def m1():
                 t2 = int(ch[1:])
                 if 1 <= t2 <= t1:
                     p4 = t2 - 1
-                    print("\n[✓] Switched to: " + n2[p4])
+                    print(f"\n{g}[✓] Switched to: {rs}{c}{n2[p4]}{rs}")
                     time.sleep(0.5)
                     continue
                 else:
-                    print("\n[!] Tab " + str(t2) + " invalid (1-" + str(t1) + ")")
+                    print(f"\n{r}[!] Tab {t2} invalid (1-{t1}){rs}")
                     time.sleep(1)
                     continue
             except:
-                print("\n[!] Invalid tab number")
+                print(f"\n{r}[!] Invalid tab number{rs}")
                 time.sleep(1)
                 continue
         
         if not ch.isdigit():
-            print("\n[!] Invalid option")
+            print(f"\n{r}[!] Invalid option{rs}")
             time.sleep(1)
             continue
         
@@ -269,19 +294,19 @@ def m1():
                         a7(m6, co if co else None)
                         
                     elif choice == "2" and mo:
-                        print("\n┌─ Options " + "─" * min(w-15, 40))
+                        print(f"\n{g}┌─ Options {rs}{g}{'─' * min(w-15, 40)}{rs}")
                         ol = list(mo.keys())
                         for i, key in enumerate(ol, 1):
                             cur = co.get(key, mo[key].get('default', ''))
-                            print("│ " + str(i) + ". " + key + " = " + cur)
-                        print("└" + "─" * min(w-4, 50))
+                            print(f"{g}│ {rs}{y}{f'{i}'}{rs}. {c}{key}{rs} = {y}{cur}{rs}")
+                        print(f"{g}└{'─' * min(w-4, 50)}{rs}")
                         print()
-                        print("  Format: <num> <val>")
-                        print("  Enter to keep current")
+                        print(f"  {y}Format:{rs} {c}<num> <val>{rs}")
+                        print(f"  {gr}Enter to keep current{rs}")
                         print()
                         
                         try:
-                            inp = input("> ").strip()
+                            inp = input(f"{g}> {rs}").strip()
                             if inp and inp != "0":
                                 parts = inp.split()
                                 if len(parts) >= 2:
@@ -290,47 +315,47 @@ def m1():
                                     if 1 <= num <= len(ol):
                                         key = ol[num - 1]
                                         co[key] = val
-                                        print("\n[✓] " + key + " = " + val)
+                                        print(f"\n{g}[✓] {key} = {val}{rs}")
                                     else:
-                                        print("\n[!] Invalid number")
+                                        print(f"\n{r}[!] Invalid number{rs}")
                                 elif len(parts) == 1 and parts[0].isdigit():
                                     num = int(parts[0])
                                     if 1 <= num <= len(ol):
                                         key = ol[num - 1]
                                         cur = co.get(key, mo[key].get('default', ''))
-                                        print("\n  " + key + " = " + cur)
-                                        new_val = input("  New: ").strip()
+                                        print(f"\n{y}  {key} = {cur}{rs}")
+                                        new_val = input(f"{g}  New: {rs}").strip()
                                         if new_val:
                                             co[key] = new_val
-                                            print("\n[✓] " + key + " = " + new_val)
+                                            print(f"\n{g}[✓] {key} = {new_val}{rs}")
                                     else:
-                                        print("\n[!] Invalid number")
+                                        print(f"\n{r}[!] Invalid number{rs}")
                                 else:
-                                    print("\n[!] Format: <num> <val>")
+                                    print(f"\n{r}[!] Format: <num> <val>{rs}")
                         except ValueError:
-                            print("\n[!] Invalid input")
+                            print(f"\n{r}[!] Invalid input{rs}")
                         time.sleep(0.8)
                             
                     elif choice == "3":
-                        print("\n[✓] Returning...")
+                        print(f"\n{b}[✓] Returning...{rs}")
                         time.sleep(0.5)
                         break
                         
                     elif choice == "0":
-                        print("[!] Exiting...")
+                        print(f"{r}[!] Exiting...{rs}")
                         sys.exit(0)
                     else:
-                        print("\n[!] Invalid")
+                        print(f"\n{r}[!] Invalid{rs}")
                         time.sleep(0.5)
             else:
-                print("\n[!] Module " + m5 + " not found!")
-                print("  Searched: EVERYWHERE")
-                input("> ")
+                print(f"\n{r}[!] Module {m5} not found!{rs}")
+                print(f"{gr}  Searched: EVERYWHERE{rs}")
+                input(f"{g}> {rs}")
         else:
             if c2:
-                print("\n[!] Invalid option")
+                print(f"\n{r}[!] Invalid option{rs}")
             else:
-                print("\n[!] No modules")
+                print(f"\n{r}[!] No modules{rs}")
             time.sleep(1)
 
 __all__ = ['m1']
