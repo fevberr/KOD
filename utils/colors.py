@@ -331,7 +331,7 @@ def color_settings_menu():
                 k1 = m2.group(1)
                 c2 = m2.group(2)
                 if k1 in s1:
-                    if is_hex_color(c2) or c2.upper() in ['BLACK', 'RED', 'GREEN', 'YELLOW', 'BLUE', 'MAGENTA', 'CYAN', 'WHITE']:
+                    if is_hex_color(c2):
                         s1[k1] = c2
                         a3(s1)
                         a9()
@@ -340,7 +340,8 @@ def color_settings_menu():
                         m1 = True
                         break
                     else:
-                        print(f"{RED}\n[!] Invalid color: {c2}{RESET}")
+                        print(f"{RED}\n[!] Invalid HEX color: {c2}{RESET}")
+                        print(f"{GRAY}  Use format: #FF6B6B or FF6B6B{RESET}")
                         time.sleep(2)
                         m1 = True
                         break
@@ -362,20 +363,19 @@ def color_settings_menu():
                 print(f"{CYAN}└{'─' * (w1 - 2)}┘{RESET}")
                 print()
                 print("Enter HEX color (e.g., #FF6B6B or FF6B6B):")
-                print("Or enter one of: BLACK, RED, GREEN, YELLOW, BLUE, MAGENTA, CYAN, WHITE")
                 print()
                 c2 = input(f"{GREEN}> {RESET}").strip()
                 if c2:
-                    if not c2.startswith('#') and c2.upper() not in ['BLACK', 'RED', 'GREEN', 'YELLOW', 'BLUE', 'MAGENTA', 'CYAN', 'WHITE']:
+                    if not c2.startswith('#'):
                         c2 = '#' + c2
-                    if is_hex_color(c2) or c2.upper() in ['BLACK', 'RED', 'GREEN', 'YELLOW', 'BLUE', 'MAGENTA', 'CYAN', 'WHITE']:
+                    if is_hex_color(c2):
                         s1[k1] = c2
                         a3(s1)
                         a9()
                         print(f"{GREEN}\n[✓] {l1} changed to {s1[k1]}{RESET}")
                         time.sleep(1)
                     else:
-                        print(f"{RED}\n[!] Invalid color!{RESET}")
+                        print(f"{RED}\n[!] Invalid HEX color! Use #RRGGBB format{RESET}")
                         time.sleep(1)
             else:
                 print(f"{RED}\n[!] Invalid number!{RESET}")
