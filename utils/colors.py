@@ -7,68 +7,9 @@ import re
 
 CACHE_DIR = "cache"
 COLORS_FILE = os.path.join(CACHE_DIR, "CSET.json")
-CURRENT_THEME = None
 
 if not os.path.exists(CACHE_DIR):
     os.makedirs(CACHE_DIR)
-
-DEFAULT_COLORS = {
-    "primary": "#00ffcc",
-    "secondary": "#ff6bff",
-    "success": "#00ff88",
-    "error": "#ff0044",
-    "warning": "#ffaa00",
-    "info": "#0088ff",
-    "highlight": "#ff44ff",
-    "dim": "#888888",
-    "prompt": "#00ffcc",
-    "border": "#ff6bff",
-    "title": "#ffffff",
-    "status": "#00ff88",
-    "module": "#ffffff",
-    "input": "#ffdd00",
-    "output": "#ffffff",
-    "banner": "#00ffcc",
-    "tab": "#ff44ff",
-    "number": "#ffdd00",
-    "separator": "#888888",
-    "gradient_start": "#ff1493",
-    "gradient_end": "#00ffcc",
-    "accent": "#ffaa00",
-    "menu_bg": "#000000",
-    "menu_text": "#ffffff",
-    "menu_highlight": "#00ffcc",
-    "status_good": "#00ff88",
-    "status_warn": "#ffaa00",
-    "status_bad": "#ff0044",
-    "header": "#00ffcc",
-    "footer": "#888888",
-    "divider": "#888888",
-    "label": "#ffffff",
-    "value": "#00ffcc",
-    "command": "#ffdd00",
-    "result": "#ffffff",
-    "timestamp": "#888888",
-    "count": "#ff44ff",
-    "progress": "#00ff88",
-    "bar": "#00ffcc",
-    "loading": "#ff44ff",
-    "ascii_bg": "#000000",
-    "ascii_char": "#00ffcc",
-    "ascii_shadow": "#888888",
-    "ascii_highlight": "#ffffff",
-    "ascii_gradient1": "#ff1493",
-    "ascii_gradient2": "#ff6bff",
-    "ascii_gradient3": "#ff44ff",
-    "ascii_gradient4": "#cc00ff",
-    "ascii_gradient5": "#8800ff",
-    "ascii_gradient6": "#4444ff",
-    "ascii_gradient7": "#0088ff",
-    "ascii_gradient8": "#00ccff",
-    "ascii_gradient9": "#00ffcc"
-}
-
-COLOR_CODES = {}
 
 HEX_CACHE = {}
 
@@ -138,149 +79,76 @@ LABELS = {
 }
 
 def a1():
-    if not hasattr(sys.stdout, 'isatty') or not sys.stdout.isatty():
-        return False
-    if os.environ.get('NO_COLOR'):
-        return False
-    if os.environ.get('FORCE_COLOR'):
-        return True
-    t1 = os.environ.get('TERM', '')
-    if t1 in ('dumb', 'linux'):
-        return False
-    if platform.system() == 'Windows':
-        try:
-            import ctypes
-            k1 = ctypes.windll.kernel32
-            h1 = k1.GetStdHandle(-11)
-            m1 = ctypes.c_ulong()
-            if k1.GetConsoleMode(h1, ctypes.byref(m1)):
-                k1.SetConsoleMode(h1, m1.value | 0x0004)
-                return True
-            return False
-        except:
-            return False
-    return t1 not in ('', 'dumb', 'linux')
-
-def a2():
     try:
         with open(COLORS_FILE, 'r') as f:
             return json.load(f)
     except:
-        return DEFAULT_COLORS.copy()
+        return {}
 
-def a3(s1):
+def a2(s1):
     if not os.path.exists(CACHE_DIR):
         os.makedirs(CACHE_DIR)
     with open(COLORS_FILE, 'w') as f:
         json.dump(s1, f, indent=2)
 
-def a4():
-    s1 = a2()
-    r1 = {}
-    for k in DEFAULT_COLORS.keys():
-        val = s1.get(k, DEFAULT_COLORS[k])
-        if is_hex_color(val):
-            r1[k] = hex_to_ansi(val)
-        else:
-            r1[k] = ''
-    r1['reset'] = '\033[0m' if a1() else ''
-    r1['bold'] = '\033[1m' if a1() else ''
-    r1['dim_text'] = '\033[2m' if a1() else ''
-    return r1
-
-GLOBAL_COLORS = {}
-
-def a5():
-    global GLOBAL_COLORS
-    GLOBAL_COLORS = a4()
-
-def a6():
-    a5()
-    global GREEN, RED, CYAN, YELLOW, WHITE, GRAY, BLUE, MAGENTA, RESET, DIM, BOLD
-    c1 = GLOBAL_COLORS
-    GREEN = c1.get('primary', '')
-    RED = c1.get('error', '')
-    CYAN = c1.get('secondary', '')
-    YELLOW = c1.get('warning', '')
-    WHITE = c1.get('highlight', '')
-    GRAY = c1.get('dim', '')
-    BLUE = c1.get('info', '')
-    MAGENTA = c1.get('highlight', '')
-    RESET = c1.get('reset', '')
-    DIM = c1.get('dim_text', '')
-    BOLD = c1.get('bold', '')
-
-def a7(t1, c1):
-    return f"{c1}{t1}{RESET}" if a1() else t1
-
-def green(t1): return a7(t1, GREEN)
-def red(t1): return a7(t1, RED)
-def cyan(t1): return a7(t1, CYAN)
-def yellow(t1): return a7(t1, YELLOW)
-def white(t1): return a7(t1, WHITE)
-def gray(t1): return a7(t1, GRAY)
-def blue(t1): return a7(t1, BLUE)
-def magenta(t1): return a7(t1, MAGENTA)
-def dim(t1): return f"{DIM}{t1}{RESET}" if a1() else t1
-def bold(t1): return f"{BOLD}{t1}{RESET}" if a1() else t1
+def a3():
+    return a1()
 
 def reload_colors():
-    a6()
+    pass
 
 def color_settings_menu():
-    s1 = a2()
+    s1 = a1()
     while True:
         os.system('clear' if os.name == 'posix' else 'cls')
         w1 = 80
-        print(f"{CYAN}┌{'─' * (w1 - 2)}┐{RESET}")
-        print(f"{CYAN}│{RESET}{WHITE}{' 23 KOD COLOR SETTINGS '.center(w1 - 2)}{RESET}{CYAN}│{RESET}")
-        print(f"{CYAN}├{'─' * (w1 - 2)}┤{RESET}")
-        if CURRENT_THEME:
-            print(f"{CYAN}│{RESET}{GREEN} Theme: {CURRENT_THEME.get('name', 'Custom')}{RESET}".ljust(w1 - 2) + f"{CYAN}│{RESET}")
-        print(f"{CYAN}├{'─' * (w1 - 2)}┤{RESET}")
-        for i, k1 in enumerate(SETTINGS_KEYS, 1):
-            val = s1.get(k1, '')
-            c2 = ''
-            if is_hex_color(val):
-                c2 = hex_to_ansi(val)
-            n1 = val
-            l1 = LABELS.get(k1, k1)
-            print(f"{CYAN}│ {i:2}. {l1:<16} [{n1:<12}]".ljust(w1 - 10) + f"{c2}██████{RESET}".ljust(10) + f"{CYAN}│{RESET}")
-        print(f"{CYAN}├{'─' * (w1 - 2)}┤{RESET}")
-        print(f"{CYAN}│{RESET}{GREEN} [R] Reset  [0] Back  [H] HEX Color{RESET}".ljust(w1 - 2) + f"{CYAN}│{RESET}")
-        print(f"{CYAN}└{'─' * (w1 - 2)}┘{RESET}")
+        print("┌" + "─" * (w1 - 2) + "┐")
+        print("│" + " 23 KOD COLOR SETTINGS ".center(w1 - 2) + "│")
+        print("├" + "─" * (w1 - 2) + "┤")
+        if not s1:
+            print("│" + " No colors set. Add HEX values below.".center(w1 - 2) + "│")
+        else:
+            for i, k1 in enumerate(SETTINGS_KEYS, 1):
+                val = s1.get(k1, '')
+                c2 = ''
+                if is_hex_color(val):
+                    c2 = hex_to_ansi(val)
+                n1 = val if val else '(not set)'
+                l1 = LABELS.get(k1, k1)
+                print("│ " + f"{i:2}. {l1:<16} [{n1:<12}]".ljust(w1 - 10) + c2 + "██████\033[0m".ljust(10) + "│")
+        print("├" + "─" * (w1 - 2) + "┤")
+        print("│" + " [R] Reset  [0] Back  [H] HEX Color".ljust(w1 - 2) + "│")
+        print("└" + "─" * (w1 - 2) + "┘")
         print()
-        print(f"{GRAY} Enter number to change, or paste: ui.theme.primary = #FF6B6B{RESET}")
+        print(" Enter number to change, or paste: primary = #FF6B6B")
         print()
-        c1 = input(f"{GREEN}> {RESET}").strip()
+        c1 = input("> ").strip()
         if c1 == "0":
             break
         elif c1.lower() == "r":
-            a3(DEFAULT_COLORS)
-            a6()
-            print(f"{GREEN}\n[✓] Reset to default colors!{RESET}")
+            a2({})
+            s1 = {}
+            print("\n[✓] All colors cleared!")
             time.sleep(1)
             continue
         elif c1.lower() == "h":
-            print(f"\n{CYAN}Enter HEX color (e.g., #FF6B6B or FF6B6B):{RESET}")
-            hex_in = input(f"{GREEN}> {RESET}").strip()
+            print("\nEnter HEX color (e.g., #FF6B6B or FF6B6B):")
+            hex_in = input("> ").strip()
             if hex_in:
                 if not hex_in.startswith('#'):
                     hex_in = '#' + hex_in
                 if is_hex_color(hex_in):
                     ansi = hex_to_ansi(hex_in)
-                    print(f"{GREEN}[✓] HEX {hex_in} converted to ANSI{RESET}")
-                    print(f"  Preview: {ansi}██████{RESET}")
-                    print(f"\n{GRAY}Paste this in color settings:{RESET}")
-                    print(f"  ui.theme.primary = {hex_in}")
-                    input(f"\n{GREEN}> {RESET}")
+                    print("[✓] HEX " + hex_in + " converted to ANSI")
+                    print("  Preview: " + ansi + "██████\033[0m")
+                    print("\nPaste this in color settings:")
+                    print("  primary = " + hex_in)
+                    input("\n> ")
                 else:
-                    print(f"{RED}[!] Invalid HEX color{RESET}")
+                    print("[!] Invalid HEX color")
                     time.sleep(1)
             continue
         p1 = [
-            r'(?:ui\.theme\.|cfg\.ui\.color\.)(\w+)\s*[=:]\s*(#[0-9a-fA-F]{3,6}|[^\s]+)',
-            r'(?:ui\.theme\.|cfg\.ui\.color\.)(\w+)\s*->\s*(#[0-9a-fA-F]{3,6}|[^\s]+)',
             r'(\w+)\s*[=:]\s*(#[0-9a-fA-F]{3,6}|[^\s]+)',
             r'(\w+)\s*->\s*(#[0-9a-fA-F]{3,6}|[^\s]+)',
         ]
@@ -290,22 +158,21 @@ def color_settings_menu():
             if m2:
                 k1 = m2.group(1)
                 c2 = m2.group(2)
-                if k1 in s1:
+                if k1 in LABELS:
                     if is_hex_color(c2):
                         s1[k1] = c2
-                        a3(s1)
-                        a6()
-                        print(f"{GREEN}\n[✓] {k1} set to {c2}{RESET}")
+                        a2(s1)
+                        print("\n[✓] " + k1 + " set to " + c2)
                         time.sleep(1.5)
                         m1 = True
                         break
                     else:
-                        print(f"{RED}\n[!] Invalid color: {c2}{RESET}")
+                        print("\n[!] Invalid color: " + c2)
                         time.sleep(2)
                         m1 = True
                         break
                 else:
-                    print(f"{RED}\n[!] Invalid setting: {k1}{RESET}")
+                    print("\n[!] Invalid setting: " + k1)
                     time.sleep(2)
                     m1 = True
                     break
@@ -317,30 +184,29 @@ def color_settings_menu():
                 k1 = SETTINGS_KEYS[n1 - 1]
                 l1 = LABELS.get(k1, k1)
                 os.system('clear' if os.name == 'posix' else 'cls')
-                print(f"{CYAN}┌{'─' * (w1 - 2)}┐{RESET}")
-                print(f"{CYAN}│{RESET}{WHITE} Select Color for: {l1} {RESET}".center(w1 - 2) + f"{CYAN}│{RESET}")
-                print(f"{CYAN}└{'─' * (w1 - 2)}┘{RESET}")
+                print("┌" + "─" * (w1 - 2) + "┐")
+                print("│" + (" Select Color for: " + l1).center(w1 - 2) + "│")
+                print("└" + "─" * (w1 - 2) + "┘")
                 print()
                 print("Enter HEX color (e.g., #FF6B6B or FF6B6B):")
                 print()
-                c2 = input(f"{GREEN}> {RESET}").strip()
+                c2 = input("> ").strip()
                 if c2:
                     if not c2.startswith('#'):
                         c2 = '#' + c2
                     if is_hex_color(c2):
                         s1[k1] = c2
-                        a3(s1)
-                        a6()
-                        print(f"{GREEN}\n[✓] {l1} changed to {s1[k1]}{RESET}")
+                        a2(s1)
+                        print("\n[✓] " + l1 + " changed to " + s1[k1])
                         time.sleep(1)
                     else:
-                        print(f"{RED}\n[!] Invalid color!{RESET}")
+                        print("\n[!] Invalid color!")
                         time.sleep(1)
             else:
-                print(f"{RED}\n[!] Invalid number!{RESET}")
+                print("\n[!] Invalid number!")
                 time.sleep(1)
         else:
-            print(f"{RED}\n[!] Invalid input! Use number or: ui.theme.primary = #FF6B6B{RESET}")
+            print("\n[!] Invalid input! Use number or: primary = #FF6B6B")
             time.sleep(2)
 
-a6()
+__all__ = ['reload_colors', 'color_settings_menu', 'a1', 'a2', 'a3']
