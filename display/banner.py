@@ -1,7 +1,7 @@
 import shutil
 import json
 import os
-from utils.colors import a1 as a1c, COLOR_CODES, a9 as a9c
+from utils.colors import a1 as a1c, hex_to_ansi, is_hex_color, a9 as a9c
 
 def a1():
     try:
@@ -25,15 +25,17 @@ def a3():
     a9c()
     w = a1()
     c1 = a2()
-    g1 = c1.get('ascii_gradient1', c1.get('gradient_start', 'HOT_PINK'))
-    g2 = c1.get('ascii_gradient2', 'NEON_PINK')
-    g3 = c1.get('ascii_gradient3', 'PINK')
-    g4 = c1.get('ascii_gradient4', 'MAGENTA')
-    g5 = c1.get('ascii_gradient5', 'PURPLE')
-    g6 = c1.get('ascii_gradient6', 'LAVENDER')
-    g7 = c1.get('ascii_gradient7', 'SKY_BLUE')
-    g8 = c1.get('ascii_gradient8', 'BRIGHT_CYAN')
-    g9 = c1.get('ascii_gradient9', 'CYAN')
+    
+    g1 = c1.get('ascii_gradient1', c1.get('gradient_start', '#ff1493'))
+    g2 = c1.get('ascii_gradient2', '#ff6bff')
+    g3 = c1.get('ascii_gradient3', '#ff44ff')
+    g4 = c1.get('ascii_gradient4', '#cc00ff')
+    g5 = c1.get('ascii_gradient5', '#8800ff')
+    g6 = c1.get('ascii_gradient6', '#4444ff')
+    g7 = c1.get('ascii_gradient7', '#0088ff')
+    g8 = c1.get('ascii_gradient8', '#00ccff')
+    g9 = c1.get('ascii_gradient9', '#00ffcc')
+    
     gc = [g1, g2, g3, g4, g5, g6, g7, g8, g9]
     
     if w >= 109:
@@ -169,7 +171,12 @@ def a3():
                 color = gc[7]
             else:
                 color = gc[8]
-            print(f"{COLOR_CODES.get(color, '')}{line}{COLOR_CODES.get('RESET', '')}")
+            
+            if is_hex_color(color):
+                ansi = hex_to_ansi(color)
+                print(f"{ansi}{line}{'\033[0m'}")
+            else:
+                print(line)
     else:
         for line in b2:
             print(line)
