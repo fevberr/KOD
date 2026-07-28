@@ -66,6 +66,8 @@ DEFAULT_COLORS = {
     "ascii_gradient9": "#00ffcc"
 }
 
+COLOR_CODES = {}
+
 HEX_CACHE = {}
 
 def hex_to_ansi(hex_color):
@@ -385,7 +387,9 @@ def color_settings_menu():
 
 a9()
 
-__all__ = ['green', 'red', 'cyan', 'yellow', 'white', 'gray', 'blue', 'magenta',
-           'dim', 'bold', 'reload_colors', 'color_settings_menu',
-           'GREEN', 'RED', 'CYAN', 'YELLOW', 'WHITE', 'GRAY', 'BLUE', 'MAGENTA',
-           'RESET', 'DIM', 'BOLD']
+__all__ = [
+    'green', 'red', 'cyan', 'yellow', 'white', 'gray', 'blue', 'magenta',
+    'dim', 'bold', 'reload_colors', 'color_settings_menu',
+    'GREEN', 'RED', 'CYAN', 'YELLOW', 'WHITE', 'GRAY', 'BLUE', 'MAGENTA',
+    'RESET', 'DIM', 'BOLD', 'COLOR_CODES'
+]
