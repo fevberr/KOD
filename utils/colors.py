@@ -4,11 +4,9 @@ import platform
 import json
 import time
 import re
-import glob
 
 CACHE_DIR = "cache"
 COLORS_FILE = os.path.join(CACHE_DIR, "CSET.json")
-THEMES_DIR = "themes"
 CURRENT_THEME = None
 
 if not os.path.exists(CACHE_DIR):
@@ -176,37 +174,7 @@ def a3(s1):
     with open(COLORS_FILE, 'w') as f:
         json.dump(s1, f, indent=2)
 
-def a4(p1):
-    global CURRENT_THEME
-    try:
-        with open(p1, 'r') as f:
-            t1 = json.load(f)
-        if 'colors' in t1:
-            CURRENT_THEME = t1
-            a3(t1['colors'])
-            a9()
-            return True
-    except:
-        pass
-    return False
-
-def a5():
-    t1 = []
-    if os.path.exists(THEMES_DIR):
-        for f in glob.glob(f"{THEMES_DIR}/*.json"):
-            try:
-                with open(f, 'r') as file:
-                    d1 = json.load(file)
-                    n1 = d1.get('name', os.path.basename(f).replace('.json', ''))
-                    t1.append((os.path.basename(f), n1))
-            except:
-                t1.append((os.path.basename(f), os.path.basename(f).replace('.json', '')))
-    return t1
-
-def a6():
-    return {}
-
-def a7():
+def a4():
     s1 = a2()
     r1 = {}
     for k in DEFAULT_COLORS.keys():
@@ -222,12 +190,12 @@ def a7():
 
 GLOBAL_COLORS = {}
 
-def a8():
+def a5():
     global GLOBAL_COLORS
-    GLOBAL_COLORS = a7()
+    GLOBAL_COLORS = a4()
 
-def a9():
-    a8()
+def a6():
+    a5()
     global GREEN, RED, CYAN, YELLOW, WHITE, GRAY, BLUE, MAGENTA, RESET, DIM, BOLD
     c1 = GLOBAL_COLORS
     GREEN = c1.get('primary', '')
@@ -242,22 +210,22 @@ def a9():
     DIM = c1.get('dim_text', '')
     BOLD = c1.get('bold', '')
 
-def a10(t1, c1):
+def a7(t1, c1):
     return f"{c1}{t1}{RESET}" if a1() else t1
 
-def green(t1): return a10(t1, GREEN)
-def red(t1): return a10(t1, RED)
-def cyan(t1): return a10(t1, CYAN)
-def yellow(t1): return a10(t1, YELLOW)
-def white(t1): return a10(t1, WHITE)
-def gray(t1): return a10(t1, GRAY)
-def blue(t1): return a10(t1, BLUE)
-def magenta(t1): return a10(t1, MAGENTA)
+def green(t1): return a7(t1, GREEN)
+def red(t1): return a7(t1, RED)
+def cyan(t1): return a7(t1, CYAN)
+def yellow(t1): return a7(t1, YELLOW)
+def white(t1): return a7(t1, WHITE)
+def gray(t1): return a7(t1, GRAY)
+def blue(t1): return a7(t1, BLUE)
+def magenta(t1): return a7(t1, MAGENTA)
 def dim(t1): return f"{DIM}{t1}{RESET}" if a1() else t1
 def bold(t1): return f"{BOLD}{t1}{RESET}" if a1() else t1
 
 def reload_colors():
-    a9()
+    a6()
 
 def color_settings_menu():
     s1 = a2()
@@ -279,7 +247,7 @@ def color_settings_menu():
             l1 = LABELS.get(k1, k1)
             print(f"{CYAN}│ {i:2}. {l1:<16} [{n1:<12}]".ljust(w1 - 10) + f"{c2}██████{RESET}".ljust(10) + f"{CYAN}│{RESET}")
         print(f"{CYAN}├{'─' * (w1 - 2)}┤{RESET}")
-        print(f"{CYAN}│{RESET}{GREEN} [T] Load Theme  [R] Reset  [0] Back  [H] HEX Color{RESET}".ljust(w1 - 2) + f"{CYAN}│{RESET}")
+        print(f"{CYAN}│{RESET}{GREEN} [R] Reset  [0] Back  [H] HEX Color{RESET}".ljust(w1 - 2) + f"{CYAN}│{RESET}")
         print(f"{CYAN}└{'─' * (w1 - 2)}┘{RESET}")
         print()
         print(f"{GRAY} Enter number to change, or paste: ui.theme.primary = #FF6B6B{RESET}")
@@ -287,25 +255,9 @@ def color_settings_menu():
         c1 = input(f"{GREEN}> {RESET}").strip()
         if c1 == "0":
             break
-        elif c1.lower() == "t":
-            t1 = a5()
-            if t1:
-                print(f"\n{CYAN}Available Themes:{RESET}")
-                for i, (f1, n1) in enumerate(t1, 1):
-                    print(f"  {i}. {n1}")
-                print()
-                t2 = input(f"{GREEN}Select theme: {RESET}").strip()
-                if t2.isdigit() and 1 <= int(t2) <= len(t1):
-                    if a4(os.path.join(THEMES_DIR, t1[int(t2)-1][0])):
-                        print(f"{GREEN}\n[✓] Loaded theme: {t1[int(t2)-1][0]}{RESET}")
-                        time.sleep(1)
-            else:
-                print(f"{RED}\n[!] No themes found{RESET}")
-                time.sleep(1)
-            continue
         elif c1.lower() == "r":
             a3(DEFAULT_COLORS)
-            a9()
+            a6()
             print(f"{GREEN}\n[✓] Reset to default colors!{RESET}")
             time.sleep(1)
             continue
@@ -342,7 +294,7 @@ def color_settings_menu():
                     if is_hex_color(c2):
                         s1[k1] = c2
                         a3(s1)
-                        a9()
+                        a6()
                         print(f"{GREEN}\n[✓] {k1} set to {c2}{RESET}")
                         time.sleep(1.5)
                         m1 = True
@@ -378,7 +330,7 @@ def color_settings_menu():
                     if is_hex_color(c2):
                         s1[k1] = c2
                         a3(s1)
-                        a9()
+                        a6()
                         print(f"{GREEN}\n[✓] {l1} changed to {s1[k1]}{RESET}")
                         time.sleep(1)
                     else:
@@ -391,11 +343,4 @@ def color_settings_menu():
             print(f"{RED}\n[!] Invalid input! Use number or: ui.theme.primary = #FF6B6B{RESET}")
             time.sleep(2)
 
-a9()
-
-__all__ = [
-    'green', 'red', 'cyan', 'yellow', 'white', 'gray', 'blue', 'magenta',
-    'dim', 'bold', 'reload_colors', 'color_settings_menu',
-    'GREEN', 'RED', 'CYAN', 'YELLOW', 'WHITE', 'GRAY', 'BLUE', 'MAGENTA',
-    'RESET', 'DIM', 'BOLD', 'COLOR_CODES'
-]
+a6()
