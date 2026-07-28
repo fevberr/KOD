@@ -340,8 +340,7 @@ def color_settings_menu():
                         m1 = True
                         break
                     else:
-                        print(f"{RED}\n[!] Invalid HEX color: {c2}{RESET}")
-                        print(f"{GRAY}  Use format: #FF6B6B or FF6B6B{RESET}")
+                        print(f"{RED}\n[!] Invalid color: {c2}{RESET}")
                         time.sleep(2)
                         m1 = True
                         break
@@ -375,7 +374,7 @@ def color_settings_menu():
                         print(f"{GREEN}\n[✓] {l1} changed to {s1[k1]}{RESET}")
                         time.sleep(1)
                     else:
-                        print(f"{RED}\n[!] Invalid HEX color! Use #RRGGBB format{RESET}")
+                        print(f"{RED}\n[!] Invalid color!{RESET}")
                         time.sleep(1)
             else:
                 print(f"{RED}\n[!] Invalid number!{RESET}")
