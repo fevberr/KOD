@@ -6,9 +6,9 @@ from config import a7 as get_tabs, a8 as get_tab
 from config import host, port, device, system, ping
 from utils.colors import hex_to_ansi, is_hex_color
 from utils.modUI import a1 as mod_load, a2, a3, a4, a5, a6, a7, a8
-from .tabs import get_tab_list, get_current_tab_modules, switch_tab, get_tab_count
-from .search import search_modules, search_items
-from .ui import draw_banner, draw_header, draw_tabs, draw_modules, draw_footer, clear_screen, get_terminal_size
+from .tabs import get_tab_list, get_current_tab_modules, get_tab_count
+from .search import search_modules
+from .ui import draw_banner, draw_header, draw_tabs, draw_modules, draw_footer, clear_screen, get_terminal_size, truncate
 from .options import parse_option_input
 
 def a9(n):
@@ -154,8 +154,8 @@ def m1():
                     continue
             except:
                 print(f"\n{r}[!] Invalid tab number{rs}")
-                time.sleep(1)
-                continue
+                    time.sleep(1)
+                    continue
         
         if ch == "s":
             clear_screen()
@@ -184,7 +184,7 @@ def m1():
                             display = f"{tab}: {module}"
                         else:
                             display = module
-                        dn = display[:w-8] + "…" if len(display) > w-8 else display
+                        dn = truncate(display, w - 8)
                         bar_len = min(int(score / 20), 10)
                         bar = '█' * bar_len + '░' * (10 - bar_len)
                         if w < 40:
