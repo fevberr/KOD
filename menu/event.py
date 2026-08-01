@@ -41,12 +41,12 @@ def countdown():
     lights = ['*', '*', '*', '*', '*', '*']
     
     print("=" * 50)
-    print("         CHRISTMAS COUNTDOWN TREE          ")
+    print("       CHRISTMAS COUNTDOWN (Boring Edition)    ")
     print("=" * 50)
     print()
     
-    print(f"  >>> DAYS UNTIL CHRISTMAS: {days:03d} days")
-    print(f"  >>> {hours:02d}:{minutes:02d}:{seconds:02d}")
+    print(f"  Days until Christmas: {days:03d} days")
+    print(f"  Time remaining: {hours:02d}:{minutes:02d}:{seconds:02d}")
     print()
     print("  " + "-" * 46)
     print()
@@ -67,7 +67,7 @@ def countdown():
     
     print()
     print("=" * 50)
-    print("     ^^^ Santa is coming! ^^^")
+    print("     Christmas will occur on December 25th     ")
     print("=" * 50)
     print()
     input("Press Enter to update countdown...")
