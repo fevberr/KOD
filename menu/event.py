@@ -2,7 +2,7 @@ import os
 import random
 from datetime import datetime
 
-def 1():
+def countdown():
     os.system('cls' if os.name == 'nt' else 'clear')
     
     now = datetime.now()
@@ -73,4 +73,4 @@ def 1():
     input("Press Enter to update countdown...")
 
 while True:
-    1()
+    countdown()
