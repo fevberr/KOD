@@ -61,6 +61,14 @@ def a11(s, w):
         return s[:w-1] + "…"
     return s
 
+def get_current_path():
+    return os.getcwd()
+
+def truncate_path(s, w):
+    if len(s) > w:
+        return s[:w-1] + "…"
+    return s
+
 def a6(module_name, options=None, current_options=None):
     a2()
     a5()
@@ -72,88 +80,86 @@ def a6(module_name, options=None, current_options=None):
         from display.banner import a3 as b1
         b1()
     except:
-        print("╔═══ 23 KOD")
+        pass
     
     w = min(term_w, 80)
+    path = get_current_path()
+    path_display = truncate_path(path, w - 20)
     
-    if w < 30:
-        print(f"\n{a10(c1.get('secondary', '#ff6bff'))}╔═══ Module{rs}")
-        print(f"{a10(c1.get('secondary', '#ff6bff'))}║{rs} {a10(c1.get('highlight', '#ffffff'))}{a11(module_name, 15)}{rs}")
-        print(f"{a10(c1.get('secondary', '#ff6bff'))}║{rs} {a10(c1.get('highlight', '#ffffff'))}H: {a11(host, 10)}{rs}")
-        print(f"{a10(c1.get('secondary', '#ff6bff'))}║{rs} {a10(c1.get('highlight', '#ffffff'))}P: {port}{rs}")
-        print(f"{a10(c1.get('secondary', '#ff6bff'))}║{rs} {a10(c1.get('primary', '#00ffcc'))}Pi: {ping}ms{rs}")
-        print(f"{a10(c1.get('secondary', '#ff6bff'))}║{rs} {a10(c1.get('tab', '#ff44ff'))}D: {a11(device, 8)}{rs}")
-        print(f"{a10(c1.get('secondary', '#ff6bff'))}║{rs} {a10(c1.get('tab', '#ff44ff'))}S: {a11(system, 8)}{rs}")
-        print(f"{a10(c1.get('secondary', '#ff6bff'))}╚═══{rs}")
-        print()
-    elif w < 50:
-        print(f"\n{a10(c1.get('secondary', '#ff6bff'))}╔═══ Module{rs}")
-        print(f"{a10(c1.get('secondary', '#ff6bff'))}║{rs} {a10(c1.get('warning', '#ffaa00'))}Module:{rs} {a10(c1.get('highlight', '#ffffff'))}{a11(module_name, 20)}{rs}")
-        print(f"{a10(c1.get('secondary', '#ff6bff'))}║{rs} {a10(c1.get('warning', '#ffaa00'))}Host:{rs} {a10(c1.get('highlight', '#ffffff'))}{a11(host, 15)}{rs}")
-        print(f"{a10(c1.get('secondary', '#ff6bff'))}║{rs} {a10(c1.get('warning', '#ffaa00'))}Port:{rs} {a10(c1.get('highlight', '#ffffff'))}{port}{rs}")
-        print(f"{a10(c1.get('secondary', '#ff6bff'))}║{rs} {a10(c1.get('warning', '#ffaa00'))}Ping:{rs} {a10(c1.get('primary', '#00ffcc'))}{ping}ms{rs}")
-        print(f"{a10(c1.get('secondary', '#ff6bff'))}║{rs} {a10(c1.get('warning', '#ffaa00'))}Device:{rs} {a10(c1.get('tab', '#ff44ff'))}{a11(device, 12)}{rs}")
-        print(f"{a10(c1.get('secondary', '#ff6bff'))}║{rs} {a10(c1.get('warning', '#ffaa00'))}System:{rs} {a10(c1.get('tab', '#ff44ff'))}{a11(system, 12)}{rs}")
-        print(f"{a10(c1.get('secondary', '#ff6bff'))}╚═══{rs}")
-        print()
-    else:
-        print(f"\n{a10(c1.get('secondary', '#ff6bff'))}╔═══ Module{rs}")
-        print(f"{a10(c1.get('secondary', '#ff6bff'))}║{rs} {a10(c1.get('warning', '#ffaa00'))}Module:{rs} {a10(c1.get('highlight', '#ffffff'))}{module_name}{rs}")
-        print(f"{a10(c1.get('secondary', '#ff6bff'))}║{rs} {a10(c1.get('warning', '#ffaa00'))}Host:{rs} {a10(c1.get('highlight', '#ffffff'))}{host}{rs}")
-        print(f"{a10(c1.get('secondary', '#ff6bff'))}║{rs} {a10(c1.get('warning', '#ffaa00'))}Port:{rs} {a10(c1.get('highlight', '#ffffff'))}{port}{rs}")
-        print(f"{a10(c1.get('secondary', '#ff6bff'))}║{rs} {a10(c1.get('warning', '#ffaa00'))}Ping:{rs} {a10(c1.get('primary', '#00ffcc'))}{ping}ms{rs}")
-        print(f"{a10(c1.get('secondary', '#ff6bff'))}║{rs} {a10(c1.get('warning', '#ffaa00'))}Device:{rs} {a10(c1.get('tab', '#ff44ff'))}{device}{rs}")
-        print(f"{a10(c1.get('secondary', '#ff6bff'))}║{rs} {a10(c1.get('warning', '#ffaa00'))}System:{rs} {a10(c1.get('tab', '#ff44ff'))}{system}{rs}")
-        print(f"{a10(c1.get('secondary', '#ff6bff'))}╚═══{rs}")
-        print()
+    g = a10(c1.get('primary', '#7b2fbe'))
+    r = a10(c1.get('error', '#e74c3c'))
+    c = a10(c1.get('secondary', '#9b59b6'))
+    y = a10(c1.get('warning', '#f1c40f'))
+    wc = a10(c1.get('highlight', '#ffffff'))
+    gr = a10(c1.get('dim', '#7f8c8d'))
+    b = a10(c1.get('info', '#3498db'))
+    m = a10(c1.get('tab', '#8e44ad'))
+    
+    # Header with KOD style
+    print(f"\n{g}╔══[ {wc}KOD by fevber{rs}{g} ]══ {wc}{path_display}{rs}{g} ══╗{rs}")
+    print(f"{g}║{rs} {c}Module:{rs} {wc}{module_name}{rs}")
+    print(f"{g}║{rs} {c}Host:{rs} {wc}{host}{rs}")
+    print(f"{g}║{rs} {c}Port:{rs} {wc}{port}{rs}")
+    print(f"{g}║{rs} {c}Ping:{rs} {y}{ping}ms{rs}")
+    print(f"{g}║{rs} {c}Device:{rs} {m}{device}{rs}")
+    print(f"{g}║{rs} {c}System:{rs} {m}{system}{rs}")
+    print(f"{g}╚═══{rs}")
     
     if current_options:
         bw = min(w-4, 40)
-        print(f"{a10(c1.get('dim', '#888888'))}╔═══ Current{rs}")
+        print(f"\n{g}╔═══ Current{rs}")
         for key, value in current_options.items():
             if value is None:
                 value = ""
-            print(f"{a10(c1.get('dim', '#888888'))}║{rs} {a10(c1.get('secondary', '#ff6bff'))}{a11(key, 10)}{rs}: {a10(c1.get('highlight', '#ffffff'))}{a11(str(value), 15)}{rs}")
-        print(f"{a10(c1.get('dim', '#888888'))}╚═══{rs}")
-        print()
+            print(f"{g}║{rs} {c}{a11(key, 10)}{rs}: {wc}{a11(str(value), 15)}{rs}")
+        print(f"{g}╚═══{rs}")
     
     if options:
         bw = min(w-4, 40)
-        print(f"{a10(c1.get('dim', '#888888'))}╔═══ Options{rs}")
+        print(f"\n{g}╔═══ Options{rs}")
         opt_list = list(options.keys())
         for i, key in enumerate(opt_list, 1):
             default = options[key].get('default', '')
             current = current_options.get(key, default) if current_options else default
             if current is None:
                 current = ""
-            print(f"{a10(c1.get('dim', '#888888'))}║{rs} {a10(c1.get('warning', '#ffaa00'))}{i:2}.{rs} {a10(c1.get('secondary', '#ff6bff'))}{a11(key, 12)}{rs} [{a10(c1.get('warning', '#ffaa00'))}{a11(str(current), 10)}{rs}]")
-        print(f"{a10(c1.get('dim', '#888888'))}╚═══{rs}")
-        print()
+            print(f"{g}║{rs} {y}{i:2}.{rs} {c}{a11(key, 12)}{rs} {gr}[{wc}{a11(str(current), 10)}{rs}{gr}]{rs}")
+        print(f"{g}╚═══{rs}")
     
-    bw = min(w-4, 40)
-    print(f"{a10(c1.get('dim', '#888888'))}╔═══{rs}")
-    if w < 30:
-        print(f"{a10(c1.get('dim', '#888888'))}║{rs} {a10(c1.get('primary', '#00ffcc'))}1R{rs} {a10(c1.get('warning', '#ffaa00'))}2O{rs} {a10(c1.get('info', '#0088ff'))}3B{rs} {a10(c1.get('error', '#ff0044'))}0E{rs}")
-    elif w < 50:
-        print(f"{a10(c1.get('dim', '#888888'))}║{rs} {a10(c1.get('primary', '#00ffcc'))}[1]{rs} Run  {a10(c1.get('warning', '#ffaa00'))}[2]{rs} Opt  {a10(c1.get('info', '#0088ff'))}[3]{rs} Back  {a10(c1.get('error', '#ff0044'))}[0]{rs} Exit")
-    else:
-        print(f"{a10(c1.get('dim', '#888888'))}║{rs} {a10(c1.get('primary', '#00ffcc'))}[1]{rs} Run  {a10(c1.get('warning', '#ffaa00'))}[2]{rs} Options  {a10(c1.get('info', '#0088ff'))}[3]{rs} Back  {a10(c1.get('error', '#ff0044'))}[0]{rs} Exit")
-    print(f"{a10(c1.get('dim', '#888888'))}╚═══{rs}")
+    # KOD prompt style
+    print(f"\n{g}╔══[ {wc}KOD by fevber{rs}{g} ]══ {wc}{path_display}{rs}{g} ══╗{rs}")
+    print(f"{g}║{rs} {c}[1]{rs} Run  {c}[2]{rs} Opt  {c}[3]{rs} Back  {c}[0]{rs} Exit{rs}")
+    print(f"{g}╚═══{rs}")
     print()
     
-    return input(f"{a10(c1.get('primary', '#00ffcc'))}> {rs}").strip()
+    print(f"{g}╔══[ {wc}KOD by fevber{rs}{g} ]══ {wc}{path_display}{rs}{g} ══╗{rs}")
+    print(f"{g}╚══ ▶{rs} ", end="")
+    
+    return input().strip()
 
 def a7(module_path, options=None):
     c1 = a9()
     rs = '\033[0m'
     term_w = shutil.get_terminal_size().columns if hasattr(shutil, 'get_terminal_size') else 80
     w = min(term_w, 80)
+    path = get_current_path()
+    path_display = truncate_path(path, w - 20)
+    
+    g = a10(c1.get('primary', '#7b2fbe'))
+    r = a10(c1.get('error', '#e74c3c'))
+    c = a10(c1.get('secondary', '#9b59b6'))
+    y = a10(c1.get('warning', '#f1c40f'))
+    wc = a10(c1.get('highlight', '#ffffff'))
+    gr = a10(c1.get('dim', '#7f8c8d'))
+    b = a10(c1.get('info', '#3498db'))
+    m = a10(c1.get('tab', '#8e44ad'))
     
     try:
         module = a1(module_path)
         if hasattr(module, 'run'):
-            bw = min(w-4, 40)
-            a3(f"\n{a10(c1.get('secondary', '#ff6bff'))}╔═══ Output{rs}", 0.002)
+            print(f"\n{g}╔══[ {wc}KOD by fevber{rs}{g} ]══ {wc}{path_display}{rs}{g} ══╗{rs}")
+            print(f"{g}║{rs} {c}Output:{rs}")
+            print(f"{g}╠═══{rs}")
             
             if options:
                 result = module.run(options)
@@ -162,30 +168,39 @@ def a7(module_path, options=None):
             
             for line in result.split('\n'):
                 if line.startswith('[+]'):
-                    a3(f"{a10(c1.get('secondary', '#ff6bff'))}║{rs} {a10(c1.get('primary', '#00ffcc'))}+{rs} {a10(c1.get('highlight', '#ffffff'))}{a11(line[3:], w-6)}{rs}", 0.002)
+                    print(f"{g}║{rs} {g}+{rs} {wc}{a11(line[3:], w-6)}{rs}")
                 elif line.startswith('[!]'):
-                    a3(f"{a10(c1.get('secondary', '#ff6bff'))}║{rs} {a10(c1.get('error', '#ff0044'))}!{rs} {a10(c1.get('highlight', '#ffffff'))}{a11(line[3:], w-6)}{rs}", 0.002)
+                    print(f"{g}║{rs} {r}!{rs} {wc}{a11(line[3:], w-6)}{rs}")
                 elif line.startswith('[*]'):
-                    a3(f"{a10(c1.get('secondary', '#ff6bff'))}║{rs} {a10(c1.get('info', '#0088ff'))}*{rs} {a10(c1.get('highlight', '#ffffff'))}{a11(line[3:], w-6)}{rs}", 0.002)
+                    print(f"{g}║{rs} {b}*{rs} {wc}{a11(line[3:], w-6)}{rs}")
                 elif line.startswith('[#]'):
-                    a3(f"{a10(c1.get('secondary', '#ff6bff'))}║{rs} {a10(c1.get('warning', '#ffaa00'))}#{rs} {a10(c1.get('highlight', '#ffffff'))}{a11(line[3:], w-6)}{rs}", 0.002)
+                    print(f"{g}║{rs} {y}#{rs} {wc}{a11(line[3:], w-6)}{rs}")
                 elif line.startswith('[~]'):
-                    a3(f"{a10(c1.get('secondary', '#ff6bff'))}║{rs} {a10(c1.get('tab', '#ff44ff'))}~{rs} {a10(c1.get('highlight', '#ffffff'))}{a11(line[3:], w-6)}{rs}", 0.002)
+                    print(f"{g}║{rs} {m}~{rs} {wc}{a11(line[3:], w-6)}{rs}")
                 else:
-                    a3(f"{a10(c1.get('secondary', '#ff6bff'))}║{rs} {a10(c1.get('dim', '#888888'))}{a11(line, w-4)}{rs}", 0.002)
+                    print(f"{g}║{rs} {gr}{a11(line, w-4)}{rs}")
             
-            a3(f"{a10(c1.get('secondary', '#ff6bff'))}╚═══{rs}", 0.002)
-            a3(f"\n{a10(c1.get('primary', '#00ffcc'))}[OK]{rs} {a10(c1.get('highlight', '#ffffff'))}{random.choice(['SYSTEM', 'OK', 'DONE', 'SUCCESS', 'COMPLETE'])}{rs}")
+            print(f"{g}╚═══{rs}")
+            print(f"\n{g}╔══[ {wc}KOD by fevber{rs}{g} ]══ {wc}{path_display}{rs}{g} ══╗{rs}")
+            print(f"{g}║{rs} {g}[OK]{rs} {wc}{random.choice(['SYSTEM', 'OK', 'DONE', 'SUCCESS', 'COMPLETE'])}{rs}")
+            print(f"{g}╚═══{rs}")
+            print()
             
-            input(f"\n{a10(c1.get('primary', '#00ffcc'))}> {rs}")
+            print(f"{g}╔══[ {wc}KOD by fevber{rs}{g} ]══ {wc}{path_display}{rs}{g} ══╗{rs}")
+            print(f"{g}╚══ ▶{rs} ", end="")
+            input()
             return result
         else:
-            a3(f"\n{a10(c1.get('error', '#ff0044'))}[!] No run() function{rs}")
-            input(f"\n{a10(c1.get('primary', '#00ffcc'))}> {rs}")
+            print(f"\n{r}[!] No run() function{rs}")
+            print(f"{g}╔══[ {wc}KOD by fevber{rs}{g} ]══ {wc}{path_display}{rs}{g} ══╗{rs}")
+            print(f"{g}╚══ ▶{rs} ", end="")
+            input()
             return None
     except Exception as e:
-        a3(f"\n{a10(c1.get('error', '#ff0044'))}[!]{rs} {a10(c1.get('highlight', '#ffffff'))}{a11(str(e), w-4)}{rs}")
-        input(f"\n{a10(c1.get('primary', '#00ffcc'))}> {rs}")
+        print(f"\n{r}[!] {str(e)}{rs}")
+        print(f"{g}╔══[ {wc}KOD by fevber{rs}{g} ]══ {wc}{path_display}{rs}{g} ══╗{rs}")
+        print(f"{g}╚══ ▶{rs} ", end="")
+        input()
         return None
 
 def a8(module_path, options=None):
