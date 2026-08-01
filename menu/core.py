@@ -2,6 +2,7 @@ import os
 import sys
 import time
 import json
+import random
 from config import a7 as get_tabs, a8 as get_tab
 from config import host, port, device, system, ping
 from utils.colors import hex_to_ansi, is_hex_color
@@ -10,6 +11,7 @@ from .tabs import get_tab_list, get_current_tab_modules, get_tab_count
 from .search import search_modules
 from .ui import draw_banner, draw_header, draw_tabs, draw_modules, draw_footer, clear_screen, get_terminal_size, truncate
 from .options import parse_option_input
+from .event import xmas, newyear, halloween, easter
 
 def a9(n):
     if os.path.exists(f"modules/{n}"):
@@ -95,6 +97,20 @@ def m1():
         if ch == "0":
             print(f"{r}[!] Exiting...{rs}")
             break
+        
+        # Events
+        if ch == "xmas":
+            xmas()
+            continue
+        if ch == "newyear" or ch == "ny":
+            newyear()
+            continue
+        if ch == "halloween" or ch == "hall":
+            halloween()
+            continue
+        if ch == "easter":
+            easter()
+            continue
         
         if ch == "t":
             clear_screen()
