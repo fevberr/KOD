@@ -55,6 +55,8 @@ def a10(c):
     return ''
 
 def a11(s, w):
+    if s is None:
+        return ""
     if len(s) > w:
         return s[:w-1] + "…"
     return s
@@ -109,7 +111,9 @@ def a6(module_name, options=None, current_options=None):
         bw = min(w-4, 40)
         print(f"{a10(c1.get('dim', '#888888'))}╔═══ Current{rs}")
         for key, value in current_options.items():
-            print(f"{a10(c1.get('dim', '#888888'))}║{rs} {a10(c1.get('secondary', '#ff6bff'))}{a11(key, 10)}{rs}: {a10(c1.get('highlight', '#ffffff'))}{a11(value, 15)}{rs}")
+            if value is None:
+                value = ""
+            print(f"{a10(c1.get('dim', '#888888'))}║{rs} {a10(c1.get('secondary', '#ff6bff'))}{a11(key, 10)}{rs}: {a10(c1.get('highlight', '#ffffff'))}{a11(str(value), 15)}{rs}")
         print(f"{a10(c1.get('dim', '#888888'))}╚═══{rs}")
         print()
     
@@ -120,7 +124,9 @@ def a6(module_name, options=None, current_options=None):
         for i, key in enumerate(opt_list, 1):
             default = options[key].get('default', '')
             current = current_options.get(key, default) if current_options else default
-            print(f"{a10(c1.get('dim', '#888888'))}║{rs} {a10(c1.get('warning', '#ffaa00'))}{i:2}.{rs} {a10(c1.get('secondary', '#ff6bff'))}{a11(key, 12)}{rs} [{a10(c1.get('warning', '#ffaa00'))}{a11(current, 10)}{rs}]")
+            if current is None:
+                current = ""
+            print(f"{a10(c1.get('dim', '#888888'))}║{rs} {a10(c1.get('warning', '#ffaa00'))}{i:2}.{rs} {a10(c1.get('secondary', '#ff6bff'))}{a11(key, 12)}{rs} [{a10(c1.get('warning', '#ffaa00'))}{a11(str(current), 10)}{rs}]")
         print(f"{a10(c1.get('dim', '#888888'))}╚═══{rs}")
         print()
     
