@@ -2,8 +2,60 @@ import os
 import random
 from datetime import datetime
 
+def xmas():
+    os.system('cls' if os.name == 'nt' else 'clear')
+    rs = '\033[0m'
+    g = '\033[92m'
+    r = '\033[91m'
+    y = '\033[93m'
+    c = '\033[96m'
+    w = '\033[97m'
+    m = '\033[95m'
+    
+    tree = [
+        "        *        ",
+        "       ***       ",
+        "      *****      ",
+        "     *******     ",
+        "    *********    ",
+        "   ***********   ",
+        "  *************  ",
+        " *************** ",
+        "       |||       ",
+        "       |||       ",
+        "    MERRY XMAS   ",
+        "   2024 - 2025   "
+    ]
+    
+    lights = ['Q', 'W', 'E', 'R', 'T', 'Y']
+    colors = [r, y, g, c, m, '\033[38;5;208m']
+    
+    for i, line in enumerate(tree):
+        if i < len(tree) - 2:
+            if i % 2 == 0:
+                light = random.choice(lights)
+                color = random.choice(colors)
+                pos = random.randint(2, len(line)-3)
+                line_list = list(line)
+                if pos < len(line_list) and line_list[pos] == ' ':
+                    line_list[pos] = light
+                print(f"  {''.join(line_list)}")
+            else:
+                print(f"  {line}")
+        else:
+            print(f"  {line}")
+    
+    print()
+    input(f"{g}Press Enter to continue{rs}")
+
 def countdown():
     os.system('cls' if os.name == 'nt' else 'clear')
+    rs = '\033[0m'
+    g = '\033[92m'
+    r = '\033[91m'
+    y = '\033[93m'
+    c = '\033[96m'
+    w = '\033[97m'
     
     now = datetime.now()
     current_year = now.year
@@ -38,23 +90,20 @@ def countdown():
         f"   {target_year - 1} - {target_year}   "
     ]
     
-    lights = ['*', '*', '*', '*', '*', '*']
+    lights = ['A', 'Q', 'W', 'J', 'S', 'N']
+    colors = ['\033[91m', '\033[93m', '\033[92m', '\033[94m', '\033[95m', '\033[38;5;208m']
     
-    print("=" * 50)
-    print("       CHRISTMAS COUNTDOWN (Boring Edition)    ")
-    print("=" * 50)
+    print(f"  {g}Days until Christmas: {days:03d} days{rs}")
+    print(f"  {y}Time remaining: {hours:02d}:{minutes:02d}:{seconds:02d}{rs}")
     print()
-    
-    print(f"  Days until Christmas: {days:03d} days")
-    print(f"  Time remaining: {hours:02d}:{minutes:02d}:{seconds:02d}")
-    print()
-    print("  " + "-" * 46)
+    print(f"  {c}{'─' * 46}{rs}")
     print()
     
     for i, line in enumerate(tree):
         if i < len(tree) - 2:
             if i % 2 == 0:
                 light = random.choice(lights)
+                color = random.choice(colors)
                 pos = random.randint(2, len(line)-3)
                 line_list = list(line)
                 if pos < len(line_list) and line_list[pos] == ' ':
@@ -66,11 +115,7 @@ def countdown():
             print(f"  {line}")
     
     print()
-    print("=" * 50)
-    print("     Christmas will occur on December 25th     ")
-    print("=" * 50)
     print()
-    input("Press Enter to update countdown...")
+    input(f"{g}Press Enter to continue{rs}")
 
-while True:
-    countdown()
+__all__ = ['xmas', 'countdown']
