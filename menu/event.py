@@ -2,6 +2,7 @@ import os
 import random
 import time
 import sys
+import json
 from utils.colors import hex_to_ansi, is_hex_color
 
 def get_current_path():
@@ -15,7 +16,6 @@ def truncate_path(s, w):
 def load_colors():
     try:
         with open("cache/CSET.json", 'r') as f:
-            import json
             return json.load(f)
     except:
         return {}
@@ -42,7 +42,6 @@ def xmas():
     path = get_current_path()
     path_display = truncate_path(path, 50)
     
-    # KOD header
     print(f"\n{g}╔══[ {w}KOD by fevber{rs}{g} ]══ {w}{path_display}{rs}{g} ══╗{rs}")
     print(f"{g}║{rs} {c}🎄 MERRY CHRISTMAS! 🎄{rs}")
     print(f"{g}╚═══{rs}")
@@ -78,9 +77,15 @@ def xmas():
     ornaments = ['*', '+', '·', 'o', 'O', '@', '#', '$', '%', '&', '?', '!', '~', '^', '<', '>', '=', ':', ';', '`', "'", '"', '|', '/', '\\', '(', ')', '[', ']', '{', '}']
     colors = [r, y, g, c, m, b, o]
     
-    print(f"{r}╔═══════════════════════════════════════════════════════════════╗{rs}")
-    print(f"{r}║{rs} {b}* {c}+ {g}o {y}O {m}@ {o}# {r}$ {b}% {c}& {g}? {y}! {m}~ {o}^ {r}< {c}> {g}= {y}: {m}; {o}` {r}' {b}\" {c}| {g}/ {m}\\ {r}( {y}) {o}[ {b}] {c}{ {g}} {rs}{r}║{rs}")
-    print(f"{r}╚═══════════════════════════════════════════════════════════════╝{rs}")
+    print(f"{r}╔{'═' * 63}╗{rs}")
+    print(f"{r}║{rs}", end='')
+    for i, orn in enumerate(ornaments[:30]):
+        color = random.choice(colors)
+        print(f"{color}{orn}{rs}", end='')
+        if i < 29:
+            print(' ', end='')
+    print(f"{r}║{rs}")
+    print(f"{r}╚{'═' * 63}╝{rs}")
     
     sparkles = ['*', '·', '°', '+', '~', '^']
     top_line = "        "
@@ -108,7 +113,13 @@ def xmas():
     print(f"  {w}°  °  °  °  °  °  °  °  °  °  °  °  °  °  °  °  °  °  °  °{rs}")
     print(f"  {c}·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·{rs}")
     
-    print(f"\n  {r}* {y}M {g}E {c}R {m}R {b}Y {o}* {r}C {y}H {g}R {m}I {b}S {o}T {r}M {y}A {g}S {c}! {b}* {o}H {r}A {y}P {g}P {c}Y {m}* {b}N {o}E {r}W {y}* {g}Y {c}E {m}A {b}R {o}! *{rs}")
+    merry_text = "* MERRY CHRISTMAS & HAPPY NEW YEAR *"
+    print(f"\n  ", end='')
+    for i, char in enumerate(merry_text):
+        color = colors[i % len(colors)]
+        print(f"{color}{char}{rs}", end='')
+    print()
+    
     print(f"\n  {c}° {w}* {c}° {w}* {c}° {w}* {c}° {w}* {c}° {w}* {c}° {w}* {c}° {w}* {c}°{rs}")
     
     presents = [
@@ -134,6 +145,7 @@ def xmas():
     print(f"{g}╚══ ▶{rs} ", end="")
     input()
     
+
     greeting = "* MERRY CHRISTMAS & HAPPY NEW YEAR *"
     colors_cycle = [r, y, g, c, m, b, o]
     for _ in range(3):
@@ -151,7 +163,8 @@ def xmas():
         time.sleep(0.3)
         os.system('cls' if os.name == 'nt' else 'clear')
         time.sleep(0.1)
-    
+        
+    os.system('cls' if os.name == 'nt' else 'clear')
     print(f"\n  {r}* {y}* {g}* {c}* {m}* {b}* {o}* {r}M {y}E {g}R {c}R {m}Y {b}* {o}C {r}H {y}R {g}I {c}S {m}T {b}M {o}A {r}S {y}! {g}* {c}* {m}* {b}* {o}* {r}* {y}* {g}*{rs}")
     print(f"\n  {c}~ {w}° {c}* {w}+ {c}~ {w}° {c}* {w}+ {c}~ {w}° {c}* {w}+ {c}~ {w}° {c}* {w}+ {c}~ {w}° {c}* {w}+{rs}")
     print(f"\n  {r}H {y}A {g}P {c}P {m}Y {b}* {o}N {r}E {y}W {g}* {c}Y {m}E {b}A {o}R {r}!{rs}")
