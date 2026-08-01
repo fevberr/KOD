@@ -11,7 +11,7 @@ from .tabs import get_tab_list, get_current_tab_modules, get_tab_count
 from .search import search_modules
 from .ui import draw_banner, draw_header, draw_tabs, draw_modules, draw_footer, clear_screen, get_terminal_size, truncate
 from .options import parse_option_input
-from .event import xmas, newyear, halloween, easter
+from .event import a1 as xmas, a2 as newyear, a3 as halloween, a4 as easter, a5 as birthday, a6 as countdown
 
 def a9(n):
     if os.path.exists(f"modules/{n}"):
@@ -110,6 +110,12 @@ def m1():
             continue
         if ch == "easter":
             easter()
+            continue
+        if ch == "birthday" or ch == "bday":
+            birthday()
+            continue
+        if ch == "countdown" or ch == "cd":
+            countdown()
             continue
         
         if ch == "t":
