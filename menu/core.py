@@ -3,13 +3,14 @@ import sys
 import time
 import json
 import random
+import subprocess
 from config import a7 as get_tabs, a8 as get_tab
 from config import host, port, device, system, ping
 from utils.colors import hex_to_ansi, is_hex_color
 from utils.modUI import a1 as mod_load, a2, a3, a4, a5, a6, a7, a8
 from .tabs import get_tab_list, get_current_tab_modules, get_tab_count
 from .search import search_modules
-from .ui import draw_banner, draw_header, draw_tabs, draw_modules, draw_footer, clear_screen, get_terminal_size, truncate
+from .ui import draw_banner, clear_screen, get_terminal_size, truncate, get_current_path
 from .options import parse_option_input
 from .event import xmas
 
@@ -30,7 +31,6 @@ def a9(n):
 
 def a16():
     try:
-        import subprocess
         subprocess.run([sys.executable, "installer.py"], check=True)
     except Exception as e:
         print(f"\033[91m[!] Failed to run installer: {e}\033[0m")
@@ -55,6 +55,19 @@ def a21(c):
         return hex_to_ansi(c)
     return ''
 
+def a22(cmd):
+    """Execute system command and return output"""
+    try:
+        result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+        if result.stdout:
+            print(result.stdout)
+        if result.stderr:
+            print(f"\033[91m{result.stderr}\033[0m")
+        return result.returncode == 0
+    except Exception as e:
+        print(f"\033[91m[!] Error: {e}\033[0m")
+        return False
+
 def m1():
     p4 = 0
     while True:
@@ -63,17 +76,34 @@ def m1():
         w, h = get_terminal_size()
         clear_screen()
         
-        g = a21(c1.get('primary', '#00ffcc'))
-        r = a21(c1.get('error', '#ff0044'))
-        c = a21(c1.get('secondary', '#ff6bff'))
-        y = a21(c1.get('warning', '#ffaa00'))
+        g = a21(c1.get('primary', '#7b2fbe'))
+        r = a21(c1.get('error', '#e74c3c'))
+        c = a21(c1.get('secondary', '#9b59b6'))
+        y = a21(c1.get('warning', '#f1c40f'))
         wc = a21(c1.get('highlight', '#ffffff'))
-        gr = a21(c1.get('dim', '#888888'))
-        b = a21(c1.get('info', '#0088ff'))
-        m = a21(c1.get('tab', '#ff44ff'))
+        gr = a21(c1.get('dim', '#7f8c8d'))
+        b = a21(c1.get('info', '#3498db'))
+        m = a21(c1.get('tab', '#8e44ad'))
         
-        draw_banner(c, gr)
-        draw_header(c, wc, y, m, g, host, port, ping, device, system, w)
+        try:
+            from display.banner import a3 as b1
+            b1()
+        except Exception as e:
+            pass
+        
+        # System info with clean layout
+        path = get_current_path()
+        path_display = truncate(path, w - 20)
+        
+        # Header
+        print(f"\n{g}╔══[ {wc}KOD by fevber{rs}{g} ]══ {wc}{path_display}{rs}{g} ══╗{rs}")
+        print(f"{g}║{rs} {wc}Host: {host}{rs}")
+        print(f"{g}║{rs} {wc}Port: {port}{rs}")
+        print(f"{g}║{rs} {y}Ping: {ping}ms{rs}")
+        print(f"{g}║{rs} {m}Device: {device}{rs}")
+        print(f"{g}║{rs} {m}System: {system}{rs}")
+        print(f"{g}║{rs} {g}Status: READY{rs}")
+        print(f"{g}╚═══{rs}")
         
         n2 = get_tab_list()
         t1 = get_tab_count()
@@ -83,22 +113,89 @@ def m1():
             p4 = 0
         c2 = get_current_tab_modules(p4)
         
-        draw_tabs(g, c, gr, n2, p4, w)
-        draw_modules(g, y, c, gr, r, c2, h, w)
-        draw_footer(g, r, y, c, b, m, gr, w)
+        # Tab bar
+        tw = min(w - 4, 60)
+        td = []
+        for i, name in enumerate(n2):
+            dn = truncate(name, max(3, (tw // max(1, len(n2))) - 1))
+            if i == p4:
+                td.append(f"{g}▸{rs}{c}{dn}{rs}{g}◂{rs}")
+            else:
+                td.append(f"{gr}┆{rs}{gr}{dn}{rs}")
+        tl = ' '.join(td)
+        if len(tl) > tw:
+            td = []
+            visible = max(1, min(len(n2), tw // 8))
+            for i, name in enumerate(n2[:visible]):
+                dn = truncate(name, max(3, (tw // visible) - 1))
+                if i == p4:
+                    td.append(f"{g}▸{rs}{c}{dn}{rs}{g}◂{rs}")
+                else:
+                    td.append(f"{gr}┆{rs}{gr}{dn}{rs}")
+            if len(n2) > visible:
+                td.append(f"{gr}…{rs}")
+            tl = ' '.join(td)
         
+        print(f"\n{g}╔═══ Menu{rs}")
+        print(f"{g}║{rs} {c}Tabs:{rs} {tl}")
+        print(f"{g}╠═══{rs}")
+        
+        if not c2:
+            print(f"{g}║{rs} {r}No modules available{rs}")
+        else:
+            max_items = min(len(c2), max(1, h - 14))
+            for i, m5 in enumerate(c2[:max_items], 1):
+                dn = truncate(m5, max(1, w - 8))
+                if w < 30:
+                    print(f"{g}║{rs} {y}{i}{rs}. {c}{dn}{rs}")
+                else:
+                    print(f"{g}║{rs} {y}{i:2}{rs}. {c}{dn}{rs}")
+            if len(c2) > max_items:
+                print(f"{g}║{rs} {gr}... and {len(c2)-max_items} more{rs}")
+        
+        print(f"{g}╠═══{rs}")
+        if w < 30:
+            print(f"{g}║{rs} {r}0{rs} {y}s{rs} {c}t{rs} {b}i{rs} {m}c{rs}")
+            print(f"{g}║{rs} {gr}Exit Find Tabs Inst Color{rs}")
+        elif w < 50:
+            print(f"{g}║{rs} {r}[0]{rs} Exit  {y}[s]{rs} Search  {c}[t]{rs} Tabs  {b}[i]{rs} Install  {m}[c]{rs} Color")
+        else:
+            print(f"{g}║{rs} {r}[0]{rs} Exit  {y}[s]{rs} Search  {c}[t]{rs} Tabs  {b}[i]{rs} Install  {m}[c]{rs} Colors")
+        print(f"{g}╚═══{rs}")
+        print()
+        
+        # Command prompt
+        path_short = truncate(path, 20)
+        print(f"{g}╔══[ {wc}KOD by fevber{rs}{g} ]══ {wc}{path_display}{rs}{g} ══╗{rs}")
+        print(f"{g}╚══ ▶{rs} ", end="")
         sys.stdout.flush()
+        
         try:
-            ch = input(f"{g}> {rs}").strip().lower()
+            ch = input().strip()
         except KeyboardInterrupt:
             print(f"\n{r}[!] Exiting...{rs}")
             break
         
-        if ch == "0":
+        if not ch:
+            continue
+        
+        # Check if it's a system command (starts with anything that's not a number or special command)
+        is_system_cmd = False
+        special_cmds = ['0', 'exit', 'xmas', 't', 's', 'search', 'i', 'install', 'c', 'color', 'colors', 'help']
+        
+        # If it's not a number and not a special command, treat as system command
+        if not ch.isdigit() and ch.lower() not in special_cmds:
+            # Check if it's a system command like notepad, dir, ls, etc.
+            print(f"{g}▶ {rs}{ch}")
+            a22(ch)
+            input(f"\n{g}Press Enter to continue{rs}")
+            continue
+        
+        if ch == "0" or ch.lower() == "exit":
             print(f"{r}[!] Exiting...{rs}")
             break
         
-        if ch == "xmas":
+        if ch.lower() == "xmas":
             xmas()
             continue
         
@@ -163,7 +260,7 @@ def m1():
                 time.sleep(1)
                 continue
         
-        if ch == "s":
+        if ch.lower() == "s" or ch.lower() == "search":
             clear_screen()
             bw = min(w-2, 50)
             print(f"\n{c}╔═══ SEARCH{rs}")
@@ -275,17 +372,36 @@ def m1():
                     input(f"\n{g}> {rs}")
             continue
         
-        if ch == "i":
+        if ch.lower() == "i" or ch.lower() == "install":
             a16()
             continue
         
-        if ch == "c":
+        if ch.lower() == "c" or ch.lower() == "color" or ch.lower() == "colors":
             a19()
             continue
         
+        if ch.lower() == "help":
+            clear_screen()
+            print(f"\n{c}╔═══ HELP{rs}")
+            print(f"{c}║{rs} {g}Commands:{rs}")
+            print(f"{c}║{rs}  {y}0{rs} or {y}exit{rs}    - Exit KOD")
+            print(f"{c}║{rs}  {y}s{rs} or {y}search{rs}   - Search modules")
+            print(f"{c}║{rs}  {y}t{rs}           - List tabs")
+            print(f"{c}║{rs}  {y}t# {rs}          - Switch tab (e.g., t2)")
+            print(f"{c}║{rs}  {y}i{rs} or {y}install{rs}   - Install packages")
+            print(f"{c}║{rs}  {y}c{rs} or {y}colors{rs}    - Color settings")
+            print(f"{c}║{rs}  {y}xmas{rs}        - Christmas tree")
+            print(f"{c}║{rs}  {y}help{rs}        - Show this help")
+            print(f"{c}║{rs}  {y}<number>{rs}      - Run module")
+            print(f"{c}║{rs}  {y}<command>{rs}     - Run system command (notepad, dir, ls, etc.)")
+            print(f"{c}╚═══{rs}")
+            input(f"\n{g}Press Enter to continue{rs}")
+            continue
+        
         if not ch.isdigit():
-            print(f"\n{r}[!] Invalid{rs}")
-            time.sleep(1)
+            print(f"\n{r}[!] Unknown command: {ch}{rs}")
+            print(f"{gr}Type 'help' for available commands{rs}")
+            time.sleep(1.5)
             continue
         
         i2 = int(ch) - 1
@@ -354,9 +470,9 @@ def m1():
                 input(f"{g}> {rs}")
         else:
             if c2:
-                print(f"\n{r}[!] Invalid{rs}")
+                print(f"\n{r}[!] Invalid module number{rs}")
             else:
-                print(f"\n{r}[!] No modules{rs}")
+                print(f"\n{r}[!] No modules in this tab{rs}")
             time.sleep(1)
 
 __all__ = ['m1']
