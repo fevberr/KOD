@@ -2,18 +2,51 @@ import os
 import random
 import time
 import sys
+from utils.colors import hex_to_ansi, is_hex_color
 
-def a1():
-    os.system('cls' if os.name == 'nt' else 'clear')
+def get_current_path():
+    return os.getcwd()
+
+def truncate_path(s, w):
+    if len(s) > w:
+        return s[:w-1] + "…"
+    return s
+
+def load_colors():
+    try:
+        with open("cache/CSET.json", 'r') as f:
+            import json
+            return json.load(f)
+    except:
+        return {}
+
+def get_color(c):
+    if c and isinstance(c, str):
+        return hex_to_ansi(c)
+    return ''
+
+def xmas():
+    c1 = load_colors()
     rs = '\033[0m'
-    g = '\033[92m'
-    r = '\033[91m'
-    y = '\033[93m'
-    c = '\033[96m'
-    w = '\033[97m'
-    m = '\033[95m'
-    b = '\033[94m'
-    o = '\033[38;5;208m'
+    
+    g = get_color(c1.get('primary', '#7b2fbe'))
+    r = get_color(c1.get('error', '#e74c3c'))
+    y = get_color(c1.get('warning', '#f1c40f'))
+    c = get_color(c1.get('secondary', '#9b59b6'))
+    w = get_color(c1.get('highlight', '#ffffff'))
+    m = get_color(c1.get('tab', '#8e44ad'))
+    b = get_color(c1.get('info', '#3498db'))
+    o = get_color(c1.get('accent', '#f1c40f'))
+    
+    os.system('cls' if os.name == 'nt' else 'clear')
+    path = get_current_path()
+    path_display = truncate_path(path, 50)
+    
+    # KOD header
+    print(f"\n{g}╔══[ {w}KOD by fevber{rs}{g} ]══ {w}{path_display}{rs}{g} ══╗{rs}")
+    print(f"{g}║{rs} {c}🎄 MERRY CHRISTMAS! 🎄{rs}")
+    print(f"{g}╚═══{rs}")
+    print()
 
     tree = [
         "                                    .!,            .!,",
@@ -43,7 +76,7 @@ def a1():
     ]
 
     ornaments = ['*', '+', '·', 'o', 'O', '@', '#', '$', '%', '&', '?', '!', '~', '^', '<', '>', '=', ':', ';', '`', "'", '"', '|', '/', '\\', '(', ')', '[', ']', '{', '}']
-    colors = [r, y, g, c, m, b, o, '\033[91m', '\033[93m', '\033[92m', '\033[96m', '\033[95m', '\033[94m']
+    colors = [r, y, g, c, m, b, o]
     
     print(f"{r}╔═══════════════════════════════════════════════════════════════╗{rs}")
     print(f"{r}║{rs} {b}* {c}+ {g}o {y}O {m}@ {o}# {r}$ {b}% {c}& {g}? {y}! {m}~ {o}^ {r}< {c}> {g}= {y}: {m}; {o}` {r}' {b}\" {c}| {g}/ {m}\\ {r}( {y}) {o}[ {b}] {c}{ {g}} {rs}{r}║{rs}")
@@ -97,7 +130,9 @@ def a1():
     print(f"  {y}+ Snowflakes: {random.randint(50, 100)} +{rs}")
     print(f"  {m}~ Sparkles: {random.randint(30, 80)} ~{rs}")
     
-    input(f"\n  {g}* Press Enter for more joy! *{rs}")
+    print(f"\n{g}╔══[ {w}KOD by fevber{rs}{g} ]══ {w}{path_display}{rs}{g} ══╗{rs}")
+    print(f"{g}╚══ ▶{rs} ", end="")
+    input()
     
     greeting = "* MERRY CHRISTMAS & HAPPY NEW YEAR *"
     colors_cycle = [r, y, g, c, m, b, o]
@@ -121,5 +156,9 @@ def a1():
     print(f"\n  {c}~ {w}° {c}* {w}+ {c}~ {w}° {c}* {w}+ {c}~ {w}° {c}* {w}+ {c}~ {w}° {c}* {w}+ {c}~ {w}° {c}* {w}+{rs}")
     print(f"\n  {r}H {y}A {g}P {c}P {m}Y {b}* {o}N {r}E {y}W {g}* {c}Y {m}E {b}A {o}R {r}!{rs}")
     print(f"\n  {b}@  {c}~  {g}*  {y}+  {m}°  {o}#  {r}$  {b}%  {c}&  {g}?  {y}!  {m}|  {o}/  {r}\\  @{rs}")
+    
+    print(f"\n{g}╔══[ {w}KOD by fevber{rs}{g} ]══ {w}{path_display}{rs}{g} ══╗{rs}")
+    print(f"{g}╚══ ▶{rs} ", end="")
+    input()
 
-__all__ = ['a1']
+__all__ = ['xmas']
