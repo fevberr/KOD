@@ -11,7 +11,7 @@ from .tabs import get_tab_list, get_current_tab_modules, get_tab_count
 from .search import search_modules
 from .ui import draw_banner, draw_header, draw_tabs, draw_modules, draw_footer, clear_screen, get_terminal_size, truncate
 from .options import parse_option_input
-from .event import xmas, countdown
+from .event import xmas
 
 def a9(n):
     if os.path.exists(f"modules/{n}"):
@@ -98,12 +98,8 @@ def m1():
             print(f"{r}[!] Exiting...{rs}")
             break
         
-        # Events
         if ch == "xmas":
             xmas()
-            continue
-        if ch == "countdown" or ch == "cd":
-            countdown()
             continue
         
         if ch == "t":
