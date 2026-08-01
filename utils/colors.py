@@ -51,6 +51,25 @@ def truncate(s, w):
         return s[:w-1] + "…"
     return s
 
+def color_preview(hex_color):
+    if hex_color and is_hex_color(hex_color):
+        ansi = hex_to_ansi(hex_color)
+        return f"{ansi}██████\033[0m"
+    return "░░░░░░"
+
+def gradient_bar(width=30):
+    colors = ['#ff0000', '#ff8800', '#ffff00', '#00ff00', '#0088ff', '#8800ff', '#ff00ff']
+    bar = ""
+    for i in range(width):
+        pos = i / width
+        idx = int(pos * (len(colors) - 1))
+        if idx >= len(colors):
+            idx = len(colors) - 1
+        c = colors[idx]
+        ansi = hex_to_ansi(c)
+        bar += f"{ansi}█\033[0m"
+    return bar
+
 SETTINGS_KEYS = [
     "primary", "secondary", "success", "error", "warning", "info", 
     "highlight", "dim", "prompt", "border", "title", "status", 
@@ -90,6 +109,18 @@ LABELS = {
     "ascii_gradient9": "Gradient 9"
 }
 
+CATEGORIES = {
+    "🎨 Main": ["primary", "secondary", "success", "error", "warning", "info", "highlight", "dim"],
+    "🖼️ UI": ["prompt", "border", "title", "status", "module", "input", "output", "banner", "tab", "number", "separator"],
+    "🎯 Accent": ["gradient_start", "gradient_end", "accent"],
+    "📱 Menu": ["menu_bg", "menu_text", "menu_highlight"],
+    "✅ Status": ["status_good", "status_warn", "status_bad"],
+    "📝 Text": ["header", "footer", "divider", "label", "value", "command", "result", "timestamp", "count"],
+    "📊 Progress": ["progress", "bar", "loading"],
+    "🎭 ASCII": ["ascii_bg", "ascii_char", "ascii_shadow", "ascii_highlight"],
+    "🌈 Gradient": ["ascii_gradient1", "ascii_gradient2", "ascii_gradient3", "ascii_gradient4", "ascii_gradient5", "ascii_gradient6", "ascii_gradient7", "ascii_gradient8", "ascii_gradient9"]
+}
+
 def a1():
     try:
         with open(COLORS_FILE, 'r') as f:
@@ -110,6 +141,8 @@ def color_settings_menu():
     s1 = a1()
     w = get_terminal_width()
     rs = '\033[0m'
+    
+    # Theme colors
     g = '\033[92m'
     r = '\033[91m'
     c = '\033[96m'
@@ -118,136 +151,168 @@ def color_settings_menu():
     gr = '\033[90m'
     m = '\033[95m'
     b = '\033[94m'
+    bold = '\033[1m'
     
     while True:
         os.system('clear' if os.name == 'posix' else 'cls')
-        bw = min(w-2, 60)
+        bw = min(w-2, 70)
         
-        print(f"{c}┌{'─' * bw}┐{rs}")
-        print(f"{c}│{rs}{wc}{' COLOR SETTINGS '.center(bw)}{rs}{c}│{rs}")
-        print(f"{c}├{'─' * bw}┤{rs}")
+        # Header with gradient
+        print(f"{c}╔{'═' * bw}╗{rs}")
+        print(f"{c}║{rs}{bold}{wc}{' 🎨 COLOR STUDIO 🎨 '.center(bw)}{rs}{c}║{rs}")
+        print(f"{c}╠{'═' * bw}╣{rs}")
         
+        # Show gradient bar preview
+        grad = gradient_bar(min(bw-4, 40))
+        print(f"{c}║{rs} {gr}Gradient:{rs} {grad}{rs} {c}║{rs}")
+        print(f"{c}╠{'═' * bw}╣{rs}")
+        
+        # Show categories and colors
         if not s1:
-            print(f"{c}│{rs}{gr}{' No colors set. Add HEX below. '.center(bw)}{rs}{c}│{rs}")
+            print(f"{c}║{rs} {r}⚠ No colors set. Add HEX values below.{rs} {c}║{rs}")
         else:
-            for i, k1 in enumerate(SETTINGS_KEYS, 1):
-                val = s1.get(k1, '')
-                c2 = ''
-                if is_hex_color(val):
-                    c2 = hex_to_ansi(val)
-                n1 = truncate(val if val else '(not set)', 10)
-                l1 = truncate(LABELS.get(k1, k1), 12)
-                color_block = f"{c2}██████{rs}" if c2 else f"{gr}──────{rs}"
-                if w < 40:
-                    print(f"{c}│{rs} {y}{i:2}{rs} {l1} {color_block}")
-                elif w < 60:
-                    print(f"{c}│{rs} {y}{i:2}{rs}. {l1:<12} [{n1:<10}] {color_block}")
-                else:
-                    print(f"{c}│{rs} {y}{i:2}{rs}. {l1:<16} [{n1:<12}] {color_block}")
-        print(f"{c}├{'─' * bw}┤{rs}")
+            for cat_name, keys in CATEGORIES.items():
+                print(f"{c}║{rs} {bold}{y}{cat_name}{rs} {c}║{rs}")
+                for k in keys:
+                    val = s1.get(k, '')
+                    preview = color_preview(val)
+                    label = truncate(LABELS.get(k, k), 14)
+                    hex_display = truncate(val if val else '─', 10)
+                    
+                    if w < 50:
+                        print(f"{c}║{rs} {m}{k[:2]}{rs} {label} {preview} {c}║{rs}")
+                    else:
+                        print(f"{c}║{rs} {m}{k[:3]}{rs} {label:<14} {preview}  {gr}[{hex_display}]{rs} {c}║{rs}")
+                print(f"{c}╠{'═' * bw}╣{rs}")
         
-        if w < 30:
-            print(f"{c}│{rs} {g}[R]{rs} {r}[0]{rs} {m}[H]{rs}")
-            print(f"{c}│{rs} {gr}Rst  Back  Hex{rs}")
-        elif w < 50:
-            print(f"{c}│{rs} {g}[R]{rs} Reset  {r}[0]{rs} Back  {m}[H]{rs} HEX")
-        else:
-            print(f"{c}│{rs} {g}[R]{rs} Reset  {r}[0]{rs} Back  {m}[H]{rs} HEX Color")
-        print(f"{c}└{'─' * bw}┘{rs}")
+        # Footer menu
+        print(f"{c}║{rs} {bold}{g}[1]{rs} Edit  {bold}{y}[2]{rs} Reset  {bold}{b}[3]{rs} Hex Help  {bold}{r}[0]{rs} Back  {c}║{rs}")
+        print(f"{c}╚{'═' * bw}╝{rs}")
         print()
-        print(f"{gr} Enter number or: primary = #FF6B6B{rs}")
+        print(f"{gr} Enter number, or paste: primary = #FF6B6B{rs}")
         print()
         
         c1 = input(f"{g}> {rs}").strip()
         
         if c1 == "0":
             break
-        elif c1.lower() == "r":
+        elif c1 == "1":
+            # Edit menu - show list of all settings with numbers
+            os.system('clear' if os.name == 'posix' else 'cls')
+            print(f"{c}╔{'═' * bw}╗{rs}")
+            print(f"{c}║{rs}{bold}{wc}{' EDIT COLOR '.center(bw)}{rs}{c}║{rs}")
+            print(f"{c}╠{'═' * bw}╣{rs}")
+            
+            for i, k in enumerate(SETTINGS_KEYS, 1):
+                val = s1.get(k, '')
+                preview = color_preview(val)
+                label = truncate(LABELS.get(k, k), 16)
+                print(f"{c}║{rs} {y}{i:2}{rs}. {label} {preview} {c}║{rs}")
+            
+            print(f"{c}╚{'═' * bw}╝{rs}")
+            print()
+            choice = input(f"{g}Select number (or 0 to go back): {rs}").strip()
+            if choice.isdigit():
+                num = int(choice)
+                if 1 <= num <= len(SETTINGS_KEYS):
+                    k = SETTINGS_KEYS[num-1]
+                    label = LABELS.get(k, k)
+                    os.system('clear' if os.name == 'posix' else 'cls')
+                    print(f"{c}╔{'═' * bw}╗{rs}")
+                    print(f"{c}║{rs}{bold}{wc}{f' {label} '.center(bw)}{rs}{c}║{rs}")
+                    print(f"{c}╠{'═' * bw}╣{rs}")
+                    print(f"{c}║{rs} Current: {color_preview(s1.get(k, ''))} {gr}{s1.get(k, 'not set')}{rs} {c}║{rs}")
+                    print(f"{c}╚{'═' * bw}╝{rs}")
+                    print()
+                    print(f"{gr}Enter HEX (e.g., #FF6B6B or FF6B6B){rs}")
+                    print(f"{gr}Or enter: random for a random color{rs}")
+                    print()
+                    new_val = input(f"{g}> {rs}").strip()
+                    if new_val:
+                        if new_val.lower() == "random":
+                            import random
+                            new_val = f"#{random.randint(0,0xFFFFFF):06x}"
+                        if not new_val.startswith('#'):
+                            new_val = '#' + new_val
+                        if is_hex_color(new_val):
+                            s1[k] = new_val
+                            a2(s1)
+                            print(f"\n{g}✓{rs} {label} set to {new_val}")
+                            time.sleep(1)
+                        else:
+                            print(f"\n{r}✗{rs} Invalid HEX color!")
+                            time.sleep(1)
+        elif c1 == "2":
+            # Reset all colors
             a2({})
             s1 = {}
-            print(f"\n{g}[✓]{rs} All colors cleared!")
+            print(f"\n{g}✓{rs} All colors cleared!")
             time.sleep(1)
-            continue
-        elif c1.lower() == "h":
-            print(f"\n{c}Enter HEX color (e.g., #FF6B6B):{rs}")
-            hex_in = input(f"{g}> {rs}").strip()
-            if hex_in:
-                if not hex_in.startswith('#'):
-                    hex_in = '#' + hex_in
-                if is_hex_color(hex_in):
-                    ansi = hex_to_ansi(hex_in)
-                    print(f"\n{g}[✓]{rs} HEX {hex_in} converted")
-                    print(f"  Preview: {ansi}██████{rs}")
-                    print(f"\n{gr}Paste: primary = {hex_in}{rs}")
-                    input(f"\n{g}> {rs}")
-                else:
-                    print(f"\n{r}[!]{rs} Invalid HEX")
-                    time.sleep(1)
-            continue
-        
-        # Check for setting = value pattern
-        p1 = [
-            r'(\w+)\s*[=:]\s*(#[0-9a-fA-F]{3,6}|[^\s]+)',
-            r'(\w+)\s*->\s*(#[0-9a-fA-F]{3,6}|[^\s]+)',
-        ]
-        m1 = False
-        for p2 in p1:
-            m2 = re.search(p2, c1.lower())
-            if m2:
-                k1 = m2.group(1)
-                c2 = m2.group(2)
-                if k1 in LABELS:
-                    if is_hex_color(c2):
-                        s1[k1] = c2
-                        a2(s1)
-                        print(f"\n{g}[✓]{rs} {k1} = {c2}")
-                        time.sleep(1.5)
-                        m1 = True
-                        break
+        elif c1 == "3":
+            # Hex help
+            os.system('clear' if os.name == 'posix' else 'cls')
+            print(f"{c}╔{'═' * bw}╗{rs}")
+            print(f"{c}║{rs}{bold}{wc}{' HEX COLOR HELP '.center(bw)}{rs}{c}║{rs}")
+            print(f"{c}╠{'═' * bw}╣{rs}")
+            print(f"{c}║{rs} {gr}Enter HEX colors like: #FF6B6B{rs} {c}║{rs}")
+            print(f"{c}║{rs} {gr}Or: FF6B6B (without #){rs} {c}║{rs}")
+            print(f"{c}║{rs} {gr}Or: random for random color{rs} {c}║{rs}")
+            print(f"{c}║{rs}{rs} {c}║{rs}")
+            print(f"{c}║{rs} {bold}{y}Example colors:{rs} {c}║{rs}")
+            examples = [
+                ("#FF6B6B", "Red"),
+                ("#4ECDC4", "Teal"),
+                ("#45B7D1", "Blue"),
+                ("#96CEB4", "Green"),
+                ("#FFEAA7", "Yellow"),
+                ("#DDA0DD", "Plum"),
+                ("#FF9FF3", "Pink"),
+                ("#54A0FF", "Sky Blue")
+            ]
+            for hex_val, name in examples:
+                preview = color_preview(hex_val)
+                print(f"{c}║{rs} {preview} {hex_val} - {name}{rs} {c}║{rs}")
+            print(f"{c}╚{'═' * bw}╝{rs}")
+            print()
+            input(f"{g}Press Enter to continue{rs}")
+        else:
+            # Check for setting = value pattern
+            p1 = [
+                r'(\w+)\s*[=:]\s*(#[0-9a-fA-F]{3,6}|[^\s]+)',
+                r'(\w+)\s*->\s*(#[0-9a-fA-F]{3,6}|[^\s]+)',
+            ]
+            m1 = False
+            for p2 in p1:
+                m2 = re.search(p2, c1.lower())
+                if m2:
+                    k1 = m2.group(1)
+                    c2 = m2.group(2)
+                    if k1 in LABELS:
+                        if c2.lower() == "random":
+                            import random
+                            c2 = f"#{random.randint(0,0xFFFFFF):06x}"
+                        if is_hex_color(c2):
+                            s1[k1] = c2
+                            a2(s1)
+                            print(f"\n{g}✓{rs} {k1} = {c2}")
+                            time.sleep(1.5)
+                            m1 = True
+                            break
+                        else:
+                            print(f"\n{r}✗{rs} Invalid color: {c2}")
+                            time.sleep(2)
+                            m1 = True
+                            break
                     else:
-                        print(f"\n{r}[!]{rs} Invalid color: {c2}")
+                        print(f"\n{r}✗{rs} Invalid setting: {k1}")
+                        print(f"{gr}  Valid: {', '.join(list(LABELS.keys())[:5])}...{rs}")
                         time.sleep(2)
                         m1 = True
                         break
-                else:
-                    print(f"\n{r}[!]{rs} Invalid setting: {k1}")
-                    print(f"{gr}  Valid: {', '.join(list(LABELS.keys())[:5])}...{rs}")
-                    time.sleep(2)
-                    m1 = True
-                    break
-        if m1:
-            continue
-        
-        if c1.isdigit():
-            n1 = int(c1)
-            if 1 <= n1 <= len(SETTINGS_KEYS):
-                k1 = SETTINGS_KEYS[n1 - 1]
-                l1 = LABELS.get(k1, k1)
-                os.system('clear' if os.name == 'posix' else 'cls')
-                print(f"{c}┌{'─' * bw}┐{rs}")
-                print(f"{c}│{rs}{wc}{f' Select Color: {l1} '.center(bw)}{rs}{c}│{rs}")
-                print(f"{c}└{'─' * bw}┘{rs}")
-                print()
-                print(f"{gr}Enter HEX (e.g., #FF6B6B){rs}")
-                print()
-                c2 = input(f"{g}> {rs}").strip()
-                if c2:
-                    if not c2.startswith('#'):
-                        c2 = '#' + c2
-                    if is_hex_color(c2):
-                        s1[k1] = c2
-                        a2(s1)
-                        print(f"\n{g}[✓]{rs} {l1} = {c2}")
-                        time.sleep(1)
-                    else:
-                        print(f"\n{r}[!]{rs} Invalid color!")
-                        time.sleep(1)
-            else:
-                print(f"\n{r}[!]{rs} Invalid number!")
-                time.sleep(1)
-        else:
-            print(f"\n{r}[!]{rs} Invalid input!")
-            print(f"{gr}  Use: primary = #FF6B6B{rs}")
-            time.sleep(2)
+            if m1:
+                continue
+            
+            print(f"\n{r}✗{rs} Invalid input!")
+            time.sleep(1)
 
 __all__ = ['reload_colors', 'color_settings_menu', 'a1', 'a2', 'hex_to_ansi', 'is_hex_color']
