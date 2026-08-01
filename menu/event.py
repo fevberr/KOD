@@ -3,7 +3,7 @@ import random
 import time
 import sys
 
-def 1():
+def a1():
     os.system('cls' if os.name == 'nt' else 'clear')
     rs = '\033[0m'
     g = '\033[92m'
@@ -122,4 +122,4 @@ def 1():
     print(f"\n  {r}H {y}A {g}P {c}P {m}Y {b}* {o}N {r}E {y}W {g}* {c}Y {m}E {b}A {o}R {r}!{rs}")
     print(f"\n  {b}@  {c}~  {g}*  {y}+  {m}°  {o}#  {r}$  {b}%  {c}&  {g}?  {y}!  {m}|  {o}/  {r}\\  @{rs}")
 
-__all__ = ['1']
+__all__ = ['a1']
