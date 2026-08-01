@@ -108,6 +108,14 @@ def truncate(s, w):
         return s[:w-1] + "…"
     return s
 
+def get_current_path():
+    return os.getcwd()
+
+def truncate_path(s, w):
+    if len(s) > w:
+        return s[:w-1] + "…"
+    return s
+
 def color_preview(hex_color):
     if hex_color and is_hex_color(hex_color):
         ansi = hex_to_ansi(hex_color)
@@ -244,11 +252,15 @@ def color_settings_menu():
     b = '\033[94m'
     bold = '\033[1m'
     
+    path = get_current_path()
+    path_display = truncate_path(path, w - 20)
+    
     while True:
         os.system('clear' if os.name == 'posix' else 'cls')
         bw = min(w-2, 70)
         
-        print(f"{c}╔{'═' * bw}╗{rs}")
+        # Header with KOD style
+        print(f"{c}╔══[ {wc}KOD by fevber{rs}{c} ]══ {wc}{path_display}{rs}{c} ══╗{rs}")
         print(f"{c}║{rs}{bold}{wc}{' COLOR STUDIO '.center(bw)}{rs}{c}║{rs}")
         print(f"{c}╠{'═' * bw}╣{rs}")
         
@@ -266,11 +278,12 @@ def color_settings_menu():
                     preview = color_preview(val)
                     label = truncate(LABELS.get(k, k), 14)
                     hex_display = truncate(val if val else 'EMPTY', 10)
+                    short_label = k[:3]
                     
                     if w < 50:
-                        print(f"{c}║{rs} {m}{k[:2]}{rs} {label} {preview} {c}║{rs}")
+                        print(f"{c}║{rs} {m}{short_label}{rs} {label} {preview} {c}║{rs}")
                     else:
-                        print(f"{c}║{rs} {m}{k[:3]}{rs} {label:<14} {preview}  {gr}[{hex_display}]{rs} {c}║{rs}")
+                        print(f"{c}║{rs} {m}{short_label}{rs} {label:<14} {preview}  {gr}[{hex_display}]{rs} {c}║{rs}")
                 print(f"{c}╠{'═' * bw}╣{rs}")
         
         print(f"{c}║{rs} {bold}{g}[1]{rs} Edit  {bold}{y}[2]{rs} Reset  {bold}{b}[3]{rs} Random All  {bold}{r}[0]{rs} Back  {c}║{rs}")
@@ -280,13 +293,17 @@ def color_settings_menu():
         print(f"{gr} Or: random, complement, darken, lighten{rs}")
         print()
         
-        c1 = input(f"{g}> {rs}").strip()
+        # KOD prompt
+        print(f"{c}╔══[ {wc}KOD by fevber{rs}{c} ]══ {wc}{path_display}{rs}{c} ══╗{rs}")
+        print(f"{c}╚══ ▶{rs} ", end="")
+        
+        c1 = input().strip()
         
         if c1 == "0":
             break
         elif c1 == "1":
             os.system('clear' if os.name == 'posix' else 'cls')
-            print(f"{c}╔{'═' * bw}╗{rs}")
+            print(f"{c}╔══[ {wc}KOD by fevber{rs}{c} ]══ {wc}{path_display}{rs}{c} ══╗{rs}")
             print(f"{c}║{rs}{bold}{wc}{' EDIT COLOR '.center(bw)}{rs}{c}║{rs}")
             print(f"{c}╠{'═' * bw}╣{rs}")
             
@@ -298,14 +315,16 @@ def color_settings_menu():
             
             print(f"{c}╚{'═' * bw}╝{rs}")
             print()
-            choice = input(f"{g}Select number (or 0 to go back): {rs}").strip()
+            print(f"{c}╔══[ {wc}KOD by fevber{rs}{c} ]══ {wc}{path_display}{rs}{c} ══╗{rs}")
+            print(f"{c}╚══ ▶{rs} ", end="")
+            choice = input().strip()
             if choice.isdigit():
                 num = int(choice)
                 if 1 <= num <= len(SETTINGS_KEYS):
                     k = SETTINGS_KEYS[num-1]
                     label = LABELS.get(k, k)
                     os.system('clear' if os.name == 'posix' else 'cls')
-                    print(f"{c}╔{'═' * bw}╗{rs}")
+                    print(f"{c}╔══[ {wc}KOD by fevber{rs}{c} ]══ {wc}{path_display}{rs}{c} ══╗{rs}")
                     print(f"{c}║{rs}{bold}{wc}{f' {label} '.center(bw)}{rs}{c}║{rs}")
                     print(f"{c}╠{'═' * bw}╣{rs}")
                     print(f"{c}║{rs} Current: {color_preview(s1.get(k, ''))} {gr}{s1.get(k, 'not set')}{rs} {c}║{rs}")
@@ -318,11 +337,15 @@ def color_settings_menu():
                     print(f"  {m}[4]{rs} Darken")
                     print(f"  {c}[5]{rs} Lighten")
                     print()
-                    opt = input(f"{g}> {rs}").strip()
+                    print(f"{c}╔══[ {wc}KOD by fevber{rs}{c} ]══ {wc}{path_display}{rs}{c} ══╗{rs}")
+                    print(f"{c}╚══ ▶{rs} ", end="")
+                    opt = input().strip()
                     
                     if opt == "1":
                         print(f"{gr}Enter HEX: {rs}")
-                        new_val = input(f"{g}> {rs}").strip()
+                        print(f"{c}╔══[ {wc}KOD by fevber{rs}{c} ]══ {wc}{path_display}{rs}{c} ══╗{rs}")
+                        print(f"{c}╚══ ▶{rs} ", end="")
+                        new_val = input().strip()
                         if new_val:
                             if not new_val.startswith('#'):
                                 new_val = '#' + new_val
