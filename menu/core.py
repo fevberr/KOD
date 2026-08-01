@@ -154,8 +154,8 @@ def m1():
                     continue
             except:
                 print(f"\n{r}[!] Invalid tab number{rs}")
-                    time.sleep(1)
-                    continue
+                time.sleep(1)
+                continue
         
         if ch == "s":
             clear_screen()
