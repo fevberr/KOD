@@ -66,6 +66,41 @@ def a22(cmd):
         print(f"\033[91m[!] Error: {e}\033[0m")
         return False
 
+def a23():
+    c1 = a20()
+    rs = '\033[0m'
+    g = a21(c1.get('primary', '#7b2fbe'))
+    r = a21(c1.get('error', '#e74c3c'))
+    c = a21(c1.get('secondary', '#9b59b6'))
+    y = a21(c1.get('warning', '#f1c40f'))
+    wc = a21(c1.get('highlight', '#ffffff'))
+    gr = a21(c1.get('dim', '#7f8c8d'))
+    m = a21(c1.get('tab', '#8e44ad'))
+    b = a21(c1.get('info', '#3498db'))
+    o = a21(c1.get('accent', '#f1c40f'))
+    pi = a21(c1.get('highlight', '#ff6bff'))
+    
+    clear_screen()
+    path = get_current_path()
+    path_display = truncate(path, 50)
+    
+    print(f"\n{g}╔══[ {wc}KOD by fevber{rs}{g} ]══ {wc}{path_display}{rs}{g} ══╗{rs}")
+    print(f"{g}║{rs} {c}╔══════════════════════════════════════════════════════════════╗{rs}")
+    print(f"{g}║{rs} {c}║{rs} {wc}                    CREDITS                      {rs}{c}║{rs}")
+    print(f"{g}║{rs} {c}╠══════════════════════════════════════════════════════════════╣{rs}")
+    print(f"{g}║{rs} {c}║{rs}                                                         {c}║{rs}")
+    print(f"{g}║{rs} {c}║{rs}  {y}Developer:{rs} {wc}fevber{rs}                            {c}║{rs}")
+    print(f"{g}║{rs} {c}║{rs}  {y}Version:{rs}  {wc}1.3.4{rs}                              {c}║{rs}")
+    print(f"{g}║{rs} {c}║{rs}  {y}GitHub:{rs}  {wc}https://github.com/fevberr/KOD{rs}      {c}║{rs}")
+    print(f"{g}║{rs} {c}║{rs}  {y}Discord:{rs} {wc}https://discord.gg/xrvgQD9s9b{rs}        {c}║{rs}")
+    print(f"{g}║{rs} {c}║{rs}                                                         {c}║{rs}")
+    print(f"{g}║{rs} {c}║{rs}  {pi}Thanks to all contributors and users!{rs}              {c}║{rs}")
+    print(f"{g}║{rs} {c}║{rs}                                                         {c}║{rs}")
+    print(f"{g}║{rs} {c}╚══════════════════════════════════════════════════════════════╝{rs}")
+    print(f"{g}╚═══{rs}")
+    print()
+    input(f"{g}Press Enter to continue{rs}")
+
 def m1():
     p4 = 0
     while True:
@@ -150,12 +185,12 @@ def m1():
         
         print(f"{g}╠═══{rs}")
         if w < 30:
-            print(f"{g}║{rs} {r}0{rs} {y}s{rs} {c}t{rs} {b}i{rs} {m}c{rs}")
-            print(f"{g}║{rs} {gr}Exit Find Tabs Inst Color{rs}")
+            print(f"{g}║{rs} {r}0{rs} {y}s{rs} {c}t{rs} {b}i{rs} {m}c{rs} {pi}p{rs}")
+            print(f"{g}║{rs} {gr}Exit Find Tabs Inst Color Crd{rs}")
         elif w < 50:
-            print(f"{g}║{rs} {r}[0]{rs} Exit  {y}[s]{rs} Search  {c}[t]{rs} Tabs  {b}[i]{rs} Install  {m}[c]{rs} Color")
+            print(f"{g}║{rs} {r}[0]{rs} Exit  {y}[s]{rs} Search  {c}[t]{rs} Tabs  {b}[i]{rs} Install  {m}[c]{rs} Color  {pi}[p]{rs} Crd")
         else:
-            print(f"{g}║{rs} {r}[0]{rs} Exit  {y}[s]{rs} Search  {c}[t]{rs} Tabs  {b}[i]{rs} Install  {m}[c]{rs} Colors")
+            print(f"{g}║{rs} {r}[0]{rs} Exit  {y}[s]{rs} Search  {c}[t]{rs} Tabs  {b}[i]{rs} Install  {m}[c]{rs} Colors  {pi}[p]{rs} Credits")
         print(f"{g}╚═══{rs}")
         print()
         
@@ -172,50 +207,19 @@ def m1():
         if not ch:
             continue
         
-        special_cmds = ['0', 'exit', 't', 's', 'search', 'i', 'install', 'c', 'color', 'colors', 'help']
+        # Check for tab switching - any number followed by 't' or just 't' + number
+        # Examples: 2t, t2, 2, tab2, t 2
+        ch_lower = ch.lower()
         
-        if not ch.isdigit() and ch.lower() not in special_cmds:
-            print(f"{g}▶ {rs}{ch}")
-            a22(ch)
-            input(f"\n{g}Press Enter to continue{rs}")
-            continue
-        
-        if ch == "0" or ch.lower() == "exit":
-            print(f"{r}[!] Exiting...{rs}")
-            break
-        
-        if ch == "t":
-            clear_screen()
-            bw = min(w-2, 50)
-            print(f"\n{c}╔═══ TABS{rs}")
-            print(f"{c}║{rs}")
-            for i, name in enumerate(n2, 1):
-                if i-1 == p4:
-                    print(f"{c}║{rs} {g}▶ {i}{rs}. {c}{name}{rs} {g}← active{rs}")
-                else:
-                    print(f"{c}║{rs} {y}  {i}{rs}. {gr}{name}{rs}")
-            print(f"{c}║{rs}")
-            print(f"{c}╚═══{rs}")
-            print(f"{gr}Type t# to switch (e.g., t2){rs}")
-            print()
-            tab_choice = input(f"{g}> {rs}").strip().lower()
-            if tab_choice.startswith('t') and len(tab_choice) > 1:
+        # Handle tab switching more flexibly
+        if ch_lower.startswith('t') or ch_lower.endswith('t') or ch_lower == 't':
+            # Extract number from various formats: t2, 2t, tab2, t 2, tab 2
+            import re
+            # Try to find any number in the input
+            numbers = re.findall(r'\d+', ch_lower)
+            if numbers:
                 try:
-                    t2 = int(tab_choice[1:])
-                    if 1 <= t2 <= t1:
-                        p4 = t2 - 1
-                        continue
-                    else:
-                        print(f"\n{r}[!] Tab {t2} invalid (1-{t1}){rs}")
-                        time.sleep(1)
-                        continue
-                except:
-                    print(f"\n{r}[!] Invalid tab number{rs}")
-                    time.sleep(1)
-                    continue
-            elif tab_choice.isdigit():
-                try:
-                    t2 = int(tab_choice)
+                    t2 = int(numbers[0])
                     if 1 <= t2 <= t1:
                         p4 = t2 - 1
                         continue
@@ -228,24 +232,143 @@ def m1():
                     time.sleep(1)
                     continue
             else:
+                # Just 't' - show tab list
+                clear_screen()
+                bw = min(w-2, 50)
+                print(f"\n{c}╔═══ TABS{rs}")
+                print(f"{c}║{rs}")
+                for i, name in enumerate(n2, 1):
+                    if i-1 == p4:
+                        print(f"{c}║{rs} {g}▶ {i}{rs}. {c}{name}{rs} {g}← active{rs}")
+                    else:
+                        print(f"{c}║{rs} {y}  {i}{rs}. {gr}{name}{rs}")
+                print(f"{c}║{rs}")
+                print(f"{c}╚═══{rs}")
+                print(f"{gr}Type t# to switch (e.g., t2 or 2t or tab2){rs}")
+                print(f"{gr}Or just type the number: 2{rs}")
+                print()
+                tab_choice = input(f"{g}> {rs}").strip().lower()
+                if tab_choice:
+                    nums = re.findall(r'\d+', tab_choice)
+                    if nums:
+                        try:
+                            t2 = int(nums[0])
+                            if 1 <= t2 <= t1:
+                                p4 = t2 - 1
+                                continue
+                            else:
+                                print(f"\n{r}[!] Tab {t2} invalid (1-{t1}){rs}")
+                                time.sleep(1)
+                                continue
+                        except:
+                            print(f"\n{r}[!] Invalid tab number{rs}")
+                            time.sleep(1)
+                            continue
+                    else:
+                        continue
                 continue
         
-        if ch.startswith('t') and len(ch) > 1:
-            try:
-                t2 = int(ch[1:])
-                if 1 <= t2 <= t1:
-                    p4 = t2 - 1
-                    continue
+        # Check if just a number (for tab switching)
+        if ch.isdigit():
+            num = int(ch)
+            if 1 <= num <= t1:
+                # Check if it's a tab number (if user just typed a number)
+                # We need to differentiate between tab numbers and module numbers
+                # If the number is within tab count, we can ask or switch to tab
+                p4 = num - 1
+                continue
+            else:
+                # It's a module number (higher than tab count)
+                i2 = num - 1
+                c2 = get_current_tab_modules(p4)
+                if c2 and 0 <= i2 < len(c2):
+                    m5 = c2[i2]
+                    m6 = a9(m5)
+                    if m6:
+                        mod = mod_load(m6)
+                        mo = {}
+                        co = {}
+                        if hasattr(mod, 'OPTIONS'):
+                            mo = mod.OPTIONS
+                            for key, value in mo.items():
+                                if 'default' in value:
+                                    co[key] = value['default']
+                        while True:
+                            choice = a6(m5[:-3], mo, co)
+                            if choice == "1":
+                                a7(m6, co if co else None)
+                            elif choice == "2" and mo:
+                                print(f"\n{g}╔═══ Options{rs}")
+                                ol = list(mo.keys())
+                                for i, key in enumerate(ol, 1):
+                                    cur = co.get(key, mo[key].get('default', ''))
+                                    print(f"{g}║{rs} {y}{i}{rs}. {c}{key}{rs} = {y}{cur}{rs}")
+                                print(f"{g}╚═══{rs}")
+                                print()
+                                print(f"  {y}Format:{rs} {c}<num> <val>{rs}")
+                                print(f"  {gr}Enter to keep or paste: 4 true{rs}")
+                                print()
+                                while True:
+                                    inp = input(f"{g}> {rs}").strip()
+                                    if inp == "0":
+                                        break
+                                    valid, num2, val = parse_option_input(inp, ol, co, mo)
+                                    if valid and num2 is not None:
+                                        key = ol[num2 - 1]
+                                        if val is None:
+                                            cur = co.get(key, mo[key].get('default', ''))
+                                            print(f"\n{y}  {key} = {cur}{rs}")
+                                            new_val = input(f"{g}  New: {rs}").strip()
+                                            if new_val:
+                                                co[key] = new_val
+                                                print(f"\n{g}[✓] {key} = {new_val}{rs}")
+                                        else:
+                                            co[key] = val
+                                            print(f"\n{g}[✓] {key} = {val}{rs}")
+                                            print(f"{gr}  Continue pasting or press 0 to go back{rs}")
+                                    else:
+                                        print(f"\n{r}[!] Invalid format! Use: 4 true  or  key = value{rs}")
+                                        print(f"{gr}  Examples: 4 true, 5 false, 3 8080, verbose = true{rs}")
+                            elif choice == "3":
+                                print(f"\n{b}[✓] Returning...{rs}")
+                                time.sleep(0.5)
+                                break
+                            elif choice == "0":
+                                print(f"{r}[!] Exiting...{rs}")
+                                sys.exit(0)
+                            else:
+                                print(f"\n{r}[!] Invalid{rs}")
+                                time.sleep(0.5)
+                    else:
+                        print(f"\n{r}[!] Module {m5} not found!{rs}")
+                        print(f"{gr}  Searched: EVERYWHERE{rs}")
+                        input(f"{g}> {rs}")
                 else:
-                    print(f"\n{r}[!] Tab {t2} invalid (1-{t1}){rs}")
+                    if c2:
+                        print(f"\n{r}[!] Invalid module number{rs}")
+                    else:
+                        print(f"\n{r}[!] No modules in this tab{rs}")
                     time.sleep(1)
-                    continue
-            except:
-                print(f"\n{r}[!] Invalid tab number{rs}")
-                time.sleep(1)
                 continue
         
-        if ch.lower() == "s" or ch.lower() == "search":
+        # Regular command handling
+        special_cmds = ['0', 'exit', 's', 'search', 'i', 'install', 'c', 'color', 'colors', 'help', 'p', 'credits']
+        
+        if ch_lower not in special_cmds and not ch.isdigit():
+            print(f"{g}▶ {rs}{ch}")
+            a22(ch)
+            input(f"\n{g}Press Enter to continue{rs}")
+            continue
+        
+        if ch == "0" or ch_lower == "exit":
+            print(f"{r}[!] Exiting...{rs}")
+            break
+        
+        if ch_lower == "p" or ch_lower == "credits":
+            a23()
+            continue
+        
+        if ch_lower == "s" or ch_lower == "search":
             clear_screen()
             bw = min(w-2, 50)
             print(f"\n{c}╔═══ SEARCH{rs}")
@@ -351,27 +474,29 @@ def m1():
                     input(f"\n{g}> {rs}")
             continue
         
-        if ch.lower() == "i" or ch.lower() == "install":
+        if ch_lower == "i" or ch_lower == "install":
             a16()
             continue
         
-        if ch.lower() == "c" or ch.lower() == "color" or ch.lower() == "colors":
+        if ch_lower == "c" or ch_lower == "color" or ch_lower == "colors":
             a19()
             continue
         
-        if ch.lower() == "help":
+        if ch_lower == "help":
             clear_screen()
             print(f"\n{c}╔═══ HELP{rs}")
             print(f"{c}║{rs} {g}Commands:{rs}")
             print(f"{c}║{rs}  {y}0{rs} or {y}exit{rs}    - Exit KOD")
             print(f"{c}║{rs}  {y}s{rs} or {y}search{rs}   - Search modules")
             print(f"{c}║{rs}  {y}t{rs}           - List tabs")
-            print(f"{c}║{rs}  {y}t# {rs}          - Switch tab (e.g., t2)")
+            print(f"{c}║{rs}  {y}t# {rs}          - Switch tab (e.g., t2, 2t, tab2)")
+            print(f"{c}║{rs}  {y}# {rs}            - Switch tab (just type number)")
             print(f"{c}║{rs}  {y}i{rs} or {y}install{rs}   - Install packages")
             print(f"{c}║{rs}  {y}c{rs} or {y}colors{rs}    - Color settings")
+            print(f"{c}║{rs}  {y}p{rs} or {y}credits{rs}   - Show credits")
             print(f"{c}║{rs}  {y}help{rs}        - Show this help")
             print(f"{c}║{rs}  {y}<number>{rs}      - Run module")
-            print(f"{c}║{rs}  {y}<command>{rs}     - Run system command (notepad, dir, ls, etc.)")
+            print(f"{c}║{rs}  {y}<command>{rs}     - Run system command")
             print(f"{c}╚═══{rs}")
             input(f"\n{g}Press Enter to continue{rs}")
             continue
@@ -381,76 +506,5 @@ def m1():
             print(f"{gr}Type 'help' for available commands{rs}")
             time.sleep(1.5)
             continue
-        
-        i2 = int(ch) - 1
-        c2 = get_current_tab_modules(p4)
-        if c2 and 0 <= i2 < len(c2):
-            m5 = c2[i2]
-            m6 = a9(m5)
-            if m6:
-                mod = mod_load(m6)
-                mo = {}
-                co = {}
-                if hasattr(mod, 'OPTIONS'):
-                    mo = mod.OPTIONS
-                    for key, value in mo.items():
-                        if 'default' in value:
-                            co[key] = value['default']
-                while True:
-                    choice = a6(m5[:-3], mo, co)
-                    if choice == "1":
-                        a7(m6, co if co else None)
-                    elif choice == "2" and mo:
-                        print(f"\n{g}╔═══ Options{rs}")
-                        ol = list(mo.keys())
-                        for i, key in enumerate(ol, 1):
-                            cur = co.get(key, mo[key].get('default', ''))
-                            print(f"{g}║{rs} {y}{i}{rs}. {c}{key}{rs} = {y}{cur}{rs}")
-                        print(f"{g}╚═══{rs}")
-                        print()
-                        print(f"  {y}Format:{rs} {c}<num> <val>{rs}")
-                        print(f"  {gr}Enter to keep or paste: 4 true{rs}")
-                        print()
-                        while True:
-                            inp = input(f"{g}> {rs}").strip()
-                            if inp == "0":
-                                break
-                            valid, num2, val = parse_option_input(inp, ol, co, mo)
-                            if valid and num2 is not None:
-                                key = ol[num2 - 1]
-                                if val is None:
-                                    cur = co.get(key, mo[key].get('default', ''))
-                                    print(f"\n{y}  {key} = {cur}{rs}")
-                                    new_val = input(f"{g}  New: {rs}").strip()
-                                    if new_val:
-                                        co[key] = new_val
-                                        print(f"\n{g}[✓] {key} = {new_val}{rs}")
-                                else:
-                                    co[key] = val
-                                    print(f"\n{g}[✓] {key} = {val}{rs}")
-                                    print(f"{gr}  Continue pasting or press 0 to go back{rs}")
-                            else:
-                                print(f"\n{r}[!] Invalid format! Use: 4 true  or  key = value{rs}")
-                                print(f"{gr}  Examples: 4 true, 5 false, 3 8080, verbose = true{rs}")
-                    elif choice == "3":
-                        print(f"\n{b}[✓] Returning...{rs}")
-                        time.sleep(0.5)
-                        break
-                    elif choice == "0":
-                        print(f"{r}[!] Exiting...{rs}")
-                        sys.exit(0)
-                    else:
-                        print(f"\n{r}[!] Invalid{rs}")
-                        time.sleep(0.5)
-            else:
-                print(f"\n{r}[!] Module {m5} not found!{rs}")
-                print(f"{gr}  Searched: EVERYWHERE{rs}")
-                input(f"{g}> {rs}")
-        else:
-            if c2:
-                print(f"\n{r}[!] Invalid module number{rs}")
-            else:
-                print(f"\n{r}[!] No modules in this tab{rs}")
-            time.sleep(1)
 
 __all__ = ['m1']
