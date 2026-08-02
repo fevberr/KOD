@@ -233,6 +233,10 @@ def m1():
         
         ch_lower = ch.lower()
         
+        if ch == "0" or ch_lower == "exit":
+            print(f"{r}[!] Exiting...{rs}")
+            break
+        
         if ch_lower.startswith('t') or ch_lower.endswith('t') or ch_lower == 't':
             numbers = re.findall(r'\d+', ch_lower)
             if numbers:
@@ -363,17 +367,13 @@ def m1():
                     time.sleep(1)
                 continue
         
-        special_cmds = ['0', 'exit', 's', 'search', 'i', 'install', 'c', 'color', 'colors', 'help', 'p', 'credits']
+        special_cmds = ['s', 'search', 'i', 'install', 'c', 'color', 'colors', 'help', 'p', 'credits']
         
         if ch_lower not in special_cmds and not ch.isdigit():
             print(f"{g}▶ {rs}{ch}")
             a22(ch)
             input(f"\n{g}Press Enter to continue{rs}")
             continue
-        
-        if ch == "0" or ch_lower == "exit":
-            print(f"{r}[!] Exiting...{rs}")
-            break
         
         if ch_lower == "p" or ch_lower == "credits":
             a23()
