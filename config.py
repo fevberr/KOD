@@ -24,6 +24,8 @@ TABS = {
     
     
     "Aesthetic": ["Matrix Rain.py", "bad apple.py", "Glitch Effect.py", "test.py", "FPort Scanner.py", "FNetwork Sniffer.py"]
+
+        "Utility Tab": ["JWT Decoder.py"]
 }
 
 def a2():
