@@ -23,9 +23,10 @@ TABS = {
     "Exploit Tab": ["Hash Identifier.py", "Reverse Shell Generator.py"],
     
     
-    "Aesthetic": ["Matrix Rain.py", "bad apple.py", "Glitch Effect.py", "test.py", "FPort Scanner.py", "FNetwork Sniffer.py"]
-
-        "Utility Tab": ["JWT Decoder.py"]
+    "Aesthetic": ["Matrix Rain.py", "bad apple.py", "Glitch Effect.py", "test.py", "FPort Scanner.py", "FNetwork Sniffer.py"],
+    
+    
+    "Utility Tab": ["JWT Decoder.py"]
 }
 
 def a2():
