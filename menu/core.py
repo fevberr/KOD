@@ -86,7 +86,7 @@ def m1():
         try:
             from display.banner import a3 as b1
             b1()
-        except Exception as e:
+        except:
             pass
         
         path = get_current_path()
@@ -159,7 +159,6 @@ def m1():
         print(f"{g}╚═══{rs}")
         print()
         
-        path_short = truncate(path, 20)
         print(f"{g}╔══[ {wc}KOD by fevber{rs}{g} ]══ {wc}{path_display}{rs}{g} ══╗{rs}")
         print(f"{g}╚══ ▶{rs} ", end="")
         sys.stdout.flush()
@@ -173,7 +172,6 @@ def m1():
         if not ch:
             continue
         
-        is_system_cmd = False
         special_cmds = ['0', 'exit', 't', 's', 'search', 'i', 'install', 'c', 'color', 'colors', 'help']
         
         if not ch.isdigit() and ch.lower() not in special_cmds:
@@ -269,18 +267,12 @@ def m1():
                 print(f"{c}╠═══{rs}")
                 if results:
                     max_show = min(len(results), h - 10)
-                    for i, (display_name, score, module, tab) in enumerate(results[:max_show], 1):
-                        if tab:
-                            display = f"{tab}: {module}"
-                        else:
-                            display = module
+                    for i, (display, module, tab) in enumerate(results[:max_show], 1):
                         dn = truncate(display, w - 8)
-                        bar_len = min(int(score / 20), 10)
-                        bar = '█' * bar_len + '░' * (10 - bar_len)
                         if w < 40:
                             print(f"{c}║{rs} {y}{i}{rs}. {c}{dn}{rs}")
                         else:
-                            print(f"{c}║{rs} {y}{i:2}{rs}. {c}{dn:<30} {gr}{bar}{rs}")
+                            print(f"{c}║{rs} {y}{i:2}{rs}. {c}{dn}{rs}")
                     if len(results) > max_show:
                         print(f"{c}║{rs} {gr}... and {len(results)-max_show} more{rs}")
                     print(f"{c}╠═══{rs}")
@@ -291,7 +283,7 @@ def m1():
                     if choice.isdigit():
                         num = int(choice)
                         if 1 <= num <= len(results):
-                            module = results[num-1][2]
+                            module = results[num-1][1]
                             m6 = a9(module)
                             if m6:
                                 mod = mod_load(m6)
