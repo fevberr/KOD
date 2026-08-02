@@ -67,6 +67,15 @@ def a22(cmd):
         print(f"\033[91m[!] Error: {e}\033[0m")
         return False
 
+def a24():
+    try:
+        if os.path.exists("data/version.txt"):
+            with open("data/version.txt", 'r') as f:
+                return f.read().strip()
+    except:
+        pass
+    return "1.3.4"
+
 def a23():
     c1 = a20()
     rs = '\033[0m'
@@ -81,23 +90,28 @@ def a23():
     o = a21(c1.get('accent', '#f1c40f'))
     pi = a21(c1.get('highlight', '#ff6bff'))
     
+    version = a24()
+    
     clear_screen()
     path = get_current_path()
     path_display = truncate(path, 50)
     
+    box_width = 58
+    center_offset = (box_width - 2) // 2
+    
     print(f"\n{g}╔══[ {wc}KOD by fevber{rs}{g} ]══ {wc}{path_display}{rs}{g} ══╗{rs}")
-    print(f"{g}║{rs} {c}╔══════════════════════════════════════════════════════════════╗{rs}")
-    print(f"{g}║{rs} {c}║{rs} {wc}                    CREDITS                      {rs}{c}║{rs}")
-    print(f"{g}║{rs} {c}╠══════════════════════════════════════════════════════════════╣{rs}")
-    print(f"{g}║{rs} {c}║{rs}                                                         {c}║{rs}")
-    print(f"{g}║{rs} {c}║{rs}  {y}Developer:{rs} {wc}fevber{rs}                            {c}║{rs}")
-    print(f"{g}║{rs} {c}║{rs}  {y}Version:{rs}  {wc}1.3.4{rs}                              {c}║{rs}")
-    print(f"{g}║{rs} {c}║{rs}  {y}GitHub:{rs}  {wc}https://github.com/fevberr/KOD{rs}      {c}║{rs}")
-    print(f"{g}║{rs} {c}║{rs}  {y}Discord:{rs} {wc}https://discord.gg/xrvgQD9s9b{rs}        {c}║{rs}")
-    print(f"{g}║{rs} {c}║{rs}                                                         {c}║{rs}")
-    print(f"{g}║{rs} {c}║{rs}  {pi}Thanks to all contributors and users!{rs}              {c}║{rs}")
-    print(f"{g}║{rs} {c}║{rs}                                                         {c}║{rs}")
-    print(f"{g}║{rs} {c}╚══════════════════════════════════════════════════════════════╝{rs}")
+    print(f"{g}║{rs} {c}╔{'═' * box_width}╗{rs}")
+    print(f"{g}║{rs} {c}║{rs}{wc}{'CREDITS'.center(box_width)}{rs}{c}║{rs}")
+    print(f"{g}║{rs} {c}╠{'═' * box_width}╣{rs}")
+    print(f"{g}║{rs} {c}║{rs}{' ' * box_width}{c}║{rs}")
+    print(f"{g}║{rs} {c}║{rs}  {y}Developer:{rs} {wc}fevber{' ' * (box_width - 22)}{c}║{rs}")
+    print(f"{g}║{rs} {c}║{rs}  {y}Version:{rs}  {wc}{version}{' ' * (box_width - 20 - len(version))}{c}║{rs}")
+    print(f"{g}║{rs} {c}║{rs}  {y}GitHub:{rs}  {wc}https://github.com/fevberr/KOD{' ' * (box_width - 36)}{c}║{rs}")
+    print(f"{g}║{rs} {c}║{rs}  {y}Discord:{rs} {wc}https://discord.gg/xrvgQD9s9b{' ' * (box_width - 38)}{c}║{rs}")
+    print(f"{g}║{rs} {c}║{rs}{' ' * box_width}{c}║{rs}")
+    print(f"{g}║{rs} {c}║{rs}  {pi}Thanks to all contributors and users!{' ' * (box_width - 38)}{c}║{rs}")
+    print(f"{g}║{rs} {c}║{rs}{' ' * box_width}{c}║{rs}")
+    print(f"{g}║{rs} {c}╚{'═' * box_width}╝{rs}")
     print(f"{g}╚═══{rs}")
     print()
     input(f"{g}Press Enter to continue{rs}")
@@ -118,7 +132,7 @@ def m1():
         gr = a21(c1.get('dim', '#7f8c8d'))
         b = a21(c1.get('info', '#3498db'))
         m = a21(c1.get('tab', '#8e44ad'))
-        pi = a21(c1.get('highlight', '#ff6bff'))  # Added pi color
+        pi = a21(c1.get('highlight', '#ff6bff'))
         
         try:
             from display.banner import a3 as b1
@@ -211,7 +225,6 @@ def m1():
         
         ch_lower = ch.lower()
         
-        # Handle tab switching more flexibly
         if ch_lower.startswith('t') or ch_lower.endswith('t') or ch_lower == 't':
             numbers = re.findall(r'\d+', ch_lower)
             if numbers:
@@ -264,7 +277,6 @@ def m1():
                         continue
                 continue
         
-        # Check if just a number (for tab switching or module)
         if ch.isdigit():
             num = int(ch)
             if 1 <= num <= t1:
@@ -343,7 +355,6 @@ def m1():
                     time.sleep(1)
                 continue
         
-        # Regular command handling
         special_cmds = ['0', 'exit', 's', 'search', 'i', 'install', 'c', 'color', 'colors', 'help', 'p', 'credits']
         
         if ch_lower not in special_cmds and not ch.isdigit():
