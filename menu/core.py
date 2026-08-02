@@ -4,6 +4,7 @@ import time
 import json
 import random
 import subprocess
+import re
 from config import a7 as get_tabs, a8 as get_tab
 from config import host, port, device, system, ping
 from utils.colors import hex_to_ansi, is_hex_color
@@ -117,6 +118,7 @@ def m1():
         gr = a21(c1.get('dim', '#7f8c8d'))
         b = a21(c1.get('info', '#3498db'))
         m = a21(c1.get('tab', '#8e44ad'))
+        pi = a21(c1.get('highlight', '#ff6bff'))  # Added pi color
         
         try:
             from display.banner import a3 as b1
@@ -207,15 +209,10 @@ def m1():
         if not ch:
             continue
         
-        # Check for tab switching - any number followed by 't' or just 't' + number
-        # Examples: 2t, t2, 2, tab2, t 2
         ch_lower = ch.lower()
         
         # Handle tab switching more flexibly
         if ch_lower.startswith('t') or ch_lower.endswith('t') or ch_lower == 't':
-            # Extract number from various formats: t2, 2t, tab2, t 2, tab 2
-            import re
-            # Try to find any number in the input
             numbers = re.findall(r'\d+', ch_lower)
             if numbers:
                 try:
@@ -232,7 +229,6 @@ def m1():
                     time.sleep(1)
                     continue
             else:
-                # Just 't' - show tab list
                 clear_screen()
                 bw = min(w-2, 50)
                 print(f"\n{c}╔═══ TABS{rs}")
@@ -268,17 +264,13 @@ def m1():
                         continue
                 continue
         
-        # Check if just a number (for tab switching)
+        # Check if just a number (for tab switching or module)
         if ch.isdigit():
             num = int(ch)
             if 1 <= num <= t1:
-                # Check if it's a tab number (if user just typed a number)
-                # We need to differentiate between tab numbers and module numbers
-                # If the number is within tab count, we can ask or switch to tab
                 p4 = num - 1
                 continue
             else:
-                # It's a module number (higher than tab count)
                 i2 = num - 1
                 c2 = get_current_tab_modules(p4)
                 if c2 and 0 <= i2 < len(c2):
