@@ -103,7 +103,6 @@ def a23():
     print(f"{g}║{rs} {c}╔{'═' * bw}╗{rs}")
     print(f"{g}║{rs} {c}║{rs}{wc}{'CREDITS'.center(inner)}{rs}{c}║{rs}")
     print(f"{g}║{rs} {c}╠{'═' * bw}╣{rs}")
-    print(f"{g}║{rs} {c}║{rs}{' ' * inner}{c}║{rs}")
     
     dev_line = f"  {y}Developer:{rs} {wc}fevber{rs}"
     print(f"{g}║{rs} {c}║{rs}{dev_line}{' ' * (inner - len(dev_line))}{c}║{rs}")
@@ -117,12 +116,9 @@ def a23():
     discord_line = f"  {y}Discord:{rs} {wc}https://discord.gg/xrvgQD9s9b{rs}"
     print(f"{g}║{rs} {c}║{rs}{discord_line}{' ' * (inner - len(discord_line))}{c}║{rs}")
     
-    print(f"{g}║{rs} {c}║{rs}{' ' * inner}{c}║{rs}")
-    
     thanks_line = f"  {pi}Thanks to all contributors and users!{rs}"
     print(f"{g}║{rs} {c}║{rs}{thanks_line}{' ' * (inner - len(thanks_line))}{c}║{rs}")
     
-    print(f"{g}║{rs} {c}║{rs}{' ' * inner}{c}║{rs}")
     print(f"{g}║{rs} {c}╚{'═' * bw}╝{rs}")
     print(f"{g}╚═══{rs}")
     print()
