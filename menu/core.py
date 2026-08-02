@@ -12,7 +12,6 @@ from .tabs import get_tab_list, get_current_tab_modules, get_tab_count
 from .search import search_modules
 from .ui import draw_banner, clear_screen, get_terminal_size, truncate, get_current_path
 from .options import parse_option_input
-from .event import xmas
 
 def a9(n):
     if os.path.exists(f"modules/{n}"):
@@ -56,7 +55,6 @@ def a21(c):
     return ''
 
 def a22(cmd):
-    """Execute system command and return output"""
     try:
         result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
         if result.stdout:
@@ -91,11 +89,9 @@ def m1():
         except Exception as e:
             pass
         
-        # System info with clean layout
         path = get_current_path()
         path_display = truncate(path, w - 20)
         
-        # Header
         print(f"\n{g}╔══[ {wc}KOD by fevber{rs}{g} ]══ {wc}{path_display}{rs}{g} ══╗{rs}")
         print(f"{g}║{rs} {wc}Host: {host}{rs}")
         print(f"{g}║{rs} {wc}Port: {port}{rs}")
@@ -113,7 +109,6 @@ def m1():
             p4 = 0
         c2 = get_current_tab_modules(p4)
         
-        # Tab bar
         tw = min(w - 4, 60)
         td = []
         for i, name in enumerate(n2):
@@ -164,7 +159,6 @@ def m1():
         print(f"{g}╚═══{rs}")
         print()
         
-        # Command prompt
         path_short = truncate(path, 20)
         print(f"{g}╔══[ {wc}KOD by fevber{rs}{g} ]══ {wc}{path_display}{rs}{g} ══╗{rs}")
         print(f"{g}╚══ ▶{rs} ", end="")
@@ -179,13 +173,10 @@ def m1():
         if not ch:
             continue
         
-        # Check if it's a system command (starts with anything that's not a number or special command)
         is_system_cmd = False
-        special_cmds = ['0', 'exit', 'xmas', 't', 's', 'search', 'i', 'install', 'c', 'color', 'colors', 'help']
+        special_cmds = ['0', 'exit', 't', 's', 'search', 'i', 'install', 'c', 'color', 'colors', 'help']
         
-        # If it's not a number and not a special command, treat as system command
         if not ch.isdigit() and ch.lower() not in special_cmds:
-            # Check if it's a system command like notepad, dir, ls, etc.
             print(f"{g}▶ {rs}{ch}")
             a22(ch)
             input(f"\n{g}Press Enter to continue{rs}")
@@ -194,10 +185,6 @@ def m1():
         if ch == "0" or ch.lower() == "exit":
             print(f"{r}[!] Exiting...{rs}")
             break
-        
-        if ch.lower() == "xmas":
-            xmas()
-            continue
         
         if ch == "t":
             clear_screen()
@@ -390,7 +377,6 @@ def m1():
             print(f"{c}║{rs}  {y}t# {rs}          - Switch tab (e.g., t2)")
             print(f"{c}║{rs}  {y}i{rs} or {y}install{rs}   - Install packages")
             print(f"{c}║{rs}  {y}c{rs} or {y}colors{rs}    - Color settings")
-            print(f"{c}║{rs}  {y}xmas{rs}        - Christmas tree")
             print(f"{c}║{rs}  {y}help{rs}        - Show this help")
             print(f"{c}║{rs}  {y}<number>{rs}      - Run module")
             print(f"{c}║{rs}  {y}<command>{rs}     - Run system command (notepad, dir, ls, etc.)")
