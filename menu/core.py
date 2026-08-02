@@ -96,22 +96,34 @@ def a23():
     path = get_current_path()
     path_display = truncate(path, 50)
     
-    box_width = 58
-    center_offset = (box_width - 2) // 2
+    bw = 58
+    inner = bw - 2
     
     print(f"\n{g}╔══[ {wc}KOD by fevber{rs}{g} ]══ {wc}{path_display}{rs}{g} ══╗{rs}")
-    print(f"{g}║{rs} {c}╔{'═' * box_width}╗{rs}")
-    print(f"{g}║{rs} {c}║{rs}{wc}{'CREDITS'.center(box_width)}{rs}{c}║{rs}")
-    print(f"{g}║{rs} {c}╠{'═' * box_width}╣{rs}")
-    print(f"{g}║{rs} {c}║{rs}{' ' * box_width}{c}║{rs}")
-    print(f"{g}║{rs} {c}║{rs}  {y}Developer:{rs} {wc}fevber{' ' * (box_width - 22)}{c}║{rs}")
-    print(f"{g}║{rs} {c}║{rs}  {y}Version:{rs}  {wc}{version}{' ' * (box_width - 20 - len(version))}{c}║{rs}")
-    print(f"{g}║{rs} {c}║{rs}  {y}GitHub:{rs}  {wc}https://github.com/fevberr/KOD{' ' * (box_width - 36)}{c}║{rs}")
-    print(f"{g}║{rs} {c}║{rs}  {y}Discord:{rs} {wc}https://discord.gg/xrvgQD9s9b{' ' * (box_width - 38)}{c}║{rs}")
-    print(f"{g}║{rs} {c}║{rs}{' ' * box_width}{c}║{rs}")
-    print(f"{g}║{rs} {c}║{rs}  {pi}Thanks to all contributors and users!{' ' * (box_width - 38)}{c}║{rs}")
-    print(f"{g}║{rs} {c}║{rs}{' ' * box_width}{c}║{rs}")
-    print(f"{g}║{rs} {c}╚{'═' * box_width}╝{rs}")
+    print(f"{g}║{rs} {c}╔{'═' * bw}╗{rs}")
+    print(f"{g}║{rs} {c}║{rs}{wc}{'CREDITS'.center(inner)}{rs}{c}║{rs}")
+    print(f"{g}║{rs} {c}╠{'═' * bw}╣{rs}")
+    print(f"{g}║{rs} {c}║{rs}{' ' * inner}{c}║{rs}")
+    
+    dev_line = f"  {y}Developer:{rs} {wc}fevber{rs}"
+    print(f"{g}║{rs} {c}║{rs}{dev_line}{' ' * (inner - len(dev_line))}{c}║{rs}")
+    
+    ver_line = f"  {y}Version:{rs}  {wc}{version}{rs}"
+    print(f"{g}║{rs} {c}║{rs}{ver_line}{' ' * (inner - len(ver_line))}{c}║{rs}")
+    
+    github_line = f"  {y}GitHub:{rs}  {wc}https://github.com/fevberr/KOD{rs}"
+    print(f"{g}║{rs} {c}║{rs}{github_line}{' ' * (inner - len(github_line))}{c}║{rs}")
+    
+    discord_line = f"  {y}Discord:{rs} {wc}https://discord.gg/xrvgQD9s9b{rs}"
+    print(f"{g}║{rs} {c}║{rs}{discord_line}{' ' * (inner - len(discord_line))}{c}║{rs}")
+    
+    print(f"{g}║{rs} {c}║{rs}{' ' * inner}{c}║{rs}")
+    
+    thanks_line = f"  {pi}Thanks to all contributors and users!{rs}"
+    print(f"{g}║{rs} {c}║{rs}{thanks_line}{' ' * (inner - len(thanks_line))}{c}║{rs}")
+    
+    print(f"{g}║{rs} {c}║{rs}{' ' * inner}{c}║{rs}")
+    print(f"{g}║{rs} {c}╚{'═' * bw}╝{rs}")
     print(f"{g}╚═══{rs}")
     print()
     input(f"{g}Press Enter to continue{rs}")
