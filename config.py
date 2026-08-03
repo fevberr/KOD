@@ -14,10 +14,8 @@ def a1():
     return sorted(set(m))
 
 TABS = {
-    "Aesthetic": [
+    "Home": [
         "bad apple.py",
-        "FNetwork Sniffer.py",
-        "FPort Scanner.py",
         "Glitch Effect.py",
         "Matrix Rain.py",
         "test.py"
