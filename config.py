@@ -20,13 +20,11 @@ TABS = {
     "Web Enum Tab": ["Directory Brute Force.py", "Parameter Fuzzer.py"],
     
     
-    "Exploit Tab": ["Hash Identifier.py", "Reverse Shell Generator.py"],
-    
+    "Exploit Tab": ["Hash Identifier.py", "JWT decoder.py", "Reverse Shell Generator.py"],
+  
     
     "Aesthetic": ["Matrix Rain.py", "bad apple.py", "Glitch Effect.py", "test.py", "FPort Scanner.py", "FNetwork Sniffer.py"],
     
-    
-    "Utility": ["JWT Decoder.py"]
 }
 
 def a2():
