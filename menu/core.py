@@ -290,13 +290,9 @@ def m1():
                 continue
         
         if ch.isdigit():
-            num = int(ch)
-            if 1 <= num <= t1:
-                p4 = num - 1
-                continue
-            else:
-                i2 = num - 1
-                c2 = get_current_tab_modules(p4)
+    num = int(ch)
+    i2 = num - 1
+    c2 = get_current_tab_modules(p4)
                 if c2 and 0 <= i2 < len(c2):
                     m5 = c2[i2]
                     m6 = a9(m5)
