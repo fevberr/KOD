@@ -20,10 +20,11 @@ TABS = {
         "Matrix Rain.py",
         "test.py"
     ],
-    
+
     "Exploit Tab": [
         "Hash Identifier.py",
         "JWT decoder.py",
+        "JWT Brute Force.py",
         "Reverse Shell Generator.py"
     ],
     
