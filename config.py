@@ -26,9 +26,10 @@ TABS = {
         "JWT decoder.py",
         "JWT Brute Force.py",
         "Payload Encoder.py",
+        "MSFVenom Launcher.py",
         "Reverse Shell Generator.py"
     ],
-
+    
     "Recon Tab": [
         "DNS lookup.py",
         "OSINT search.py",
