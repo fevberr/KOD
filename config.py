@@ -42,6 +42,7 @@ TABS = {
     ],
     
     "Web Enum Tab": [
+        "XSS Scanner.py",
         "Directory Brute Force.py",
         "Parameter Fuzzer.py"
     ]
