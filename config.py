@@ -27,6 +27,7 @@ TABS = {
         "JWT Brute Force.py",
         "Payload Encoder.py",
         "MSFVenom Launcher.py",
+        "Command Obfuscator.py",
         "Reverse Shell Generator.py"
     ],
     
