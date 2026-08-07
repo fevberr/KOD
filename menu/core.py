@@ -5,6 +5,8 @@ import json
 import random
 import subprocess
 import re
+import signal
+import shutil
 from config import a7 as get_tabs, a8 as get_tab
 from config import host, port, device, system, ping
 from utils.colors import hex_to_ansi, is_hex_color
@@ -13,6 +15,22 @@ from .tabs import get_tab_list, get_current_tab_modules, get_tab_count
 from .search import search_modules
 from .ui import draw_banner, clear_screen, get_terminal_size, truncate, get_current_path
 from .options import parse_option_input
+
+TERM_WIDTH = 80
+TERM_HEIGHT = 24
+
+def update_term_size():
+    global TERM_WIDTH, TERM_HEIGHT
+    try:
+        size = shutil.get_terminal_size()
+        TERM_WIDTH = size.columns
+        TERM_HEIGHT = size.lines
+    except:
+        TERM_WIDTH = 80
+        TERM_HEIGHT = 24
+
+def handle_resize(signum, frame):
+    update_term_size()
 
 def a9(n):
     if os.path.exists(f"modules/{n}"):
@@ -77,6 +95,7 @@ def a24():
     return "1.3.4"
 
 def a23():
+    update_term_size()
     c1 = a20()
     rs = '\033[0m'
     g = a21(c1.get('primary', '#7b2fbe'))
@@ -96,7 +115,8 @@ def a23():
     path = get_current_path()
     path_display = truncate(path, 50)
     
-    bw = 58
+    w = TERM_WIDTH
+    bw = min(58, w - 4)
     inner = bw - 2
     
     print(f"\n{g}╔══[ {wc}KOD by fevber{rs}{g} ]══ {wc}{path_display}{rs}{g} ══╗{rs}")
@@ -104,19 +124,19 @@ def a23():
     print(f"{g}║{rs} {c}║{rs}{wc}{'CREDITS'.center(inner)}{rs}{c}║{rs}")
     print(f"{g}║{rs} {c}╠{'═' * bw}╣{rs}")
     
-    dev_line = f"  {y}Developer:{rs} {wc}fevber{rs}"
+    dev_line = f"  {y}Developer:{rs} {wc}fevber"
     print(f"{g}║{rs} {c}║{rs}{dev_line}{' ' * (inner - len(dev_line))}{c}║{rs}")
     
-    ver_line = f"  {y}Version:{rs}  {wc}{version}{rs}"
+    ver_line = f"  {y}Version:{rs}  {wc}{version}"
     print(f"{g}║{rs} {c}║{rs}{ver_line}{' ' * (inner - len(ver_line))}{c}║{rs}")
     
-    github_line = f"  {y}GitHub:{rs}  {wc}https://github.com/fevberr/KOD{rs}"
+    github_line = f"  {y}GitHub:{rs}  {wc}https://github.com/fevberr/KOD"
     print(f"{g}║{rs} {c}║{rs}{github_line}{' ' * (inner - len(github_line))}{c}║{rs}")
     
-    discord_line = f"  {y}Discord:{rs} {wc}https://discord.gg/xrvgQD9s9b{rs}"
+    discord_line = f"  {y}Discord:{rs} {wc}https://discord.gg/xrvgQD9s9b"
     print(f"{g}║{rs} {c}║{rs}{discord_line}{' ' * (inner - len(discord_line))}{c}║{rs}")
     
-    thanks_line = f"  {pi}Thanks to all contributors and users!{rs}"
+    thanks_line = f"  {pi}Thanks to all contributors and users!"
     print(f"{g}║{rs} {c}║{rs}{thanks_line}{' ' * (inner - len(thanks_line))}{c}║{rs}")
     
     print(f"{g}║{rs} {c}╚{'═' * bw}╝{rs}")
@@ -125,11 +145,21 @@ def a23():
     input(f"{g}Press Enter to continue{rs}")
 
 def m1():
+    global TERM_WIDTH, TERM_HEIGHT
+    update_term_size()
+    
+    try:
+        signal.signal(signal.SIGWINCH, handle_resize)
+    except:
+        pass
+    
     p4 = 0
     while True:
+        update_term_size()
         c1 = a20()
         rs = '\033[0m'
-        w, h = get_terminal_size()
+        w = TERM_WIDTH
+        h = TERM_HEIGHT
         clear_screen()
         
         g = a21(c1.get('primary', '#7b2fbe'))
@@ -197,7 +227,7 @@ def m1():
         if not c2:
             print(f"{g}║{rs} {r}No modules available{rs}")
         else:
-            max_items = min(len(c2), max(1, h - 14))
+            max_items = min(len(c2), max(1, h - 16))
             for i, m5 in enumerate(c2[:max_items], 1):
                 dn = truncate(m5, max(1, w - 8))
                 if w < 30:
