@@ -44,7 +44,9 @@ TABS = {
 
     "OSINT Tab": [
         "Email Lookup.py",
+        "IP lookup.py",
         "OSINT Pro.py"
+        
     ],
 
     "Web Enum Tab": [
