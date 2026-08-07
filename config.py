@@ -28,6 +28,7 @@ TABS = {
         "Payload Encoder.py",
         "MSFVenom Launcher.py",
         "Command Obfuscator.py",
+        "RouterSploit.py",
         "Reverse Shell Generator.py"
     ],
     
