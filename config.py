@@ -22,14 +22,14 @@ TABS = {
     ],
 
     "Exploit Tab": [
-        "Hash Identifier.py",
-        "JWT decoder.py",
-        "JWT Brute Force.py",
-        "Payload Encoder.py",
-        "MSFVenom Launcher.py",
         "Command Obfuscator.py",
-        "RouterSploit.py",
-        "Reverse Shell Generator.py"
+        "Hash Identifier.py",
+        "JWT Brute Force.py",
+        "JWT decoder.py",
+        "MSFVenom Launcher.py",
+        "Payload Encoder.py",
+        "Reverse Shell Generator.py",
+        "RouterSploit.py"
     ],
     
     "Recon Tab": [
@@ -43,9 +43,9 @@ TABS = {
     ],
     
     "Web Enum Tab": [
-        "XSS Scanner.py",
         "Directory Brute Force.py",
-        "Parameter Fuzzer.py"
+        "Parameter Fuzzer.py",
+        "XSS Scanner.py"
     ]
 }
 
