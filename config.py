@@ -43,9 +43,10 @@ TABS = {
     ],
 
     "OSINT Tab": [
+        "Email Lookup.py",
         "OSINT Pro.py"
     ],
-    
+
     "Web Enum Tab": [
         "Directory Brute Force.py",
         "Parameter Fuzzer.py",
